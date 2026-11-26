@@ -75,20 +75,34 @@ export type NotificationRow = {
 };
 
 export const CATEGORY_FALLBACK: Category[] = [
-  { id: 'mixed', slug: 'mixed', name: 'Mixed', tagline: 'Different perspectives, one table', description: 'A table full of different perspectives, personalities and experiences.', image_url: '/images/cat-mixed.jpg', accent: '#C4172F', sort_order: 1, is_active: true },
+  { id: 'mixed', slug: 'mixed', name: 'Mixed', tagline: 'Different perspectives, one table', description: 'A table full of different perspectives, personalities and experiences.', image_url: '/images/hero-table.jpg', accent: '#C4172F', sort_order: 1, is_active: true },
   { id: 'creators', slug: 'creators', name: 'Creators', tagline: 'For people who make things', description: 'For curious minds, designers, writers, artists and people who enjoy creating.', image_url: '/images/cat-creators.jpg', accent: '#E2571E', sort_order: 2, is_active: true },
   { id: 'founders', slug: 'founders', name: 'Founders', tagline: 'Ambitious people, unhurried dinner', description: 'Entrepreneurs, professionals and ambitious people who enjoy exchanging ideas.', image_url: '/images/cat-founders.jpg', accent: '#3D0A18', sort_order: 3, is_active: true },
   { id: 'book-club', slug: 'book-club', name: 'Book Club', tagline: 'A table with a reading list', description: 'For people who love books, ideas and thoughtful discussions.', image_url: '/images/cat-book-club.jpg', accent: '#69734F', sort_order: 4, is_active: true },
   { id: 'foodies', slug: 'foodies', name: 'Foodies', tagline: 'Order for the table', description: 'For people who believe exploring food is an experience.', image_url: '/images/cat-foodies.jpg', accent: '#B8451B', sort_order: 5, is_active: true },
   { id: 'new-here', slug: 'new-here', name: 'New Here', tagline: 'For recent arrivals', description: 'For people who have moved cities or want to expand their circle.', image_url: '/images/cat-new-here.jpg', accent: '#C98A91', sort_order: 6, is_active: true },
   { id: 'after-hours', slug: 'after-hours', name: 'After Hours', tagline: 'An evening worth remembering', description: 'Relaxed conversations, interesting people and an evening worth remembering.', image_url: '/images/cat-after-hours.jpg', accent: '#1C1512', sort_order: 7, is_active: true },
-  { id: 'her-table', slug: 'her-table', name: 'Her Table', tagline: 'A women-focused table', description: 'A women-focused social dining experience.', image_url: '/images/cat-her-table.jpg', accent: '#5A0F22', sort_order: 8, is_active: true },
+  { id: 'her-table', slug: 'her-table', name: 'Her Table', tagline: 'A women-focused table', description: 'A women-focused social dining experience.', image_url: '/images/idea-conversation.jpg', accent: '#5A0F22', sort_order: 8, is_active: true },
 ];
+
+/**
+ * Category artwork with a deliberate fallback chain, so a missing asset never
+ * produces a broken card. The DB `image_url` always wins when set.
+ */
+const IMAGE_BY_SLUG: Record<string, string> = {
+  mixed: '/images/hero-table.jpg',
+  creators: '/images/cat-creators.jpg',
+  founders: '/images/cat-founders.jpg',
+  'book-club': '/images/cat-book-club.jpg',
+  foodies: '/images/cat-foodies.jpg',
+  'new-here': '/images/cat-new-here.jpg',
+  'after-hours': '/images/cat-after-hours.jpg',
+  'her-table': '/images/idea-conversation.jpg',
+};
 
 export function categoryImage(slug: string, imageUrl?: string | null) {
   if (imageUrl) return imageUrl;
-  const match = CATEGORY_FALLBACK.find((c) => c.slug === slug);
-  return match?.image_url ?? '/images/cat-mixed.jpg';
+  return IMAGE_BY_SLUG[slug] ?? '/images/hero-table.jpg';
 }
 
 export type ExperienceVenue = {
