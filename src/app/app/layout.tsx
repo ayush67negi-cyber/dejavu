@@ -14,23 +14,23 @@ export default async function MemberLayout({ children }: { children: React.React
     getMembership(),
   ]);
 
-  // Anyone who has not finished onboarding is sent back to it.
+  // Wer das Onboarding nicht abgeschlossen hat, landet wieder dort.
   if (profile && !profile.onboarding_completed) redirect('/onboarding');
 
   if (profile && profile.status === 'suspended') {
     return (
       <div className="flex min-h-[100svh] items-center justify-center bg-ivory px-5">
         <div className="max-w-[520px] border border-ink/15 p-8">
-          <p className="label text-cherry">Account suspended</p>
+          <p className="label text-cherry">Konto gesperrt</p>
           <h1 className="mt-4 font-serif text-[32px] leading-tight text-ink">
-            Your account is currently suspended.
+            Dein Konto ist derzeit gesperrt.
           </h1>
           <p className="mt-4 text-[14px] leading-relaxed text-ink/60">
-            This usually follows a safety review. Write to us and we will explain why and what
-            happens next.
+            Meist folgt das auf eine Sicherheitsprüfung. Schreib uns – wir erklären dir, warum, und
+            wie es weitergeht.
           </p>
           <a href="/contact" className="btn mt-6 bg-ink px-6 py-3.5 text-ivory hover:bg-cherry">
-            Contact DEJAVU
+            Schreib DEJAVU
           </a>
         </div>
       </div>
