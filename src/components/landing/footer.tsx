@@ -4,37 +4,37 @@ import { Wordmark } from '@/components/ui/logo';
 
 const COLUMNS = [
   {
-    title: 'Explore',
+    title: 'Entdecken',
     links: [
-      { href: '/about', label: 'About' },
-      { href: '/how-it-works', label: 'How it works' },
-      { href: '/membership', label: 'Membership' },
-      { href: '/tables', label: 'Tables' },
+      { href: '/about', label: 'Über uns' },
+      { href: '/how-it-works', label: 'So funktioniert’s' },
+      { href: '/membership', label: 'Mitgliedschaft' },
+      { href: '/tables', label: 'Unsere Tische' },
     ],
   },
   {
-    title: 'Members',
+    title: 'Mitglieder',
     links: [
-      { href: '/login', label: 'Login' },
-      { href: '/signup', label: 'Join DEJAVU' },
-      { href: '/app/experiences', label: 'My experiences' },
-      { href: '/app/membership', label: 'My membership' },
+      { href: '/login', label: 'Anmelden' },
+      { href: '/signup', label: 'Werde Teil von DEJAVU' },
+      { href: '/app/experiences', label: 'Meine Erlebnisse' },
+      { href: '/app/membership', label: 'Meine Mitgliedschaft' },
     ],
   },
   {
-    title: 'Company',
+    title: 'DEJAVU',
     links: [
-      { href: '/contact', label: 'Contact' },
+      { href: '/contact', label: 'Kontakt' },
       { href: '/faq', label: 'FAQ' },
-      { href: '/safety', label: 'Safety' },
+      { href: '/safety', label: 'Sicherheit' },
     ],
   },
   {
-    title: 'Legal',
+    title: 'Rechtliches',
     links: [
-      { href: '/privacy', label: 'Privacy' },
-      { href: '/terms', label: 'Terms' },
-      { href: '/guidelines', label: 'Community guidelines' },
+      { href: '/privacy', label: 'Datenschutz' },
+      { href: '/terms', label: 'AGB' },
+      { href: '/guidelines', label: 'Community-Richtlinien' },
     ],
   },
 ];
@@ -46,10 +46,12 @@ export function SiteFooter() {
         <div className="grid gap-14 lg:grid-cols-[1.3fr_2fr]">
           <div>
             <Wordmark tone="ivory" />
-            <p className="mt-6 max-w-[30ch] font-serif text-[26px] leading-[1.15] text-ivory/90">
-              Strangers at lunch.
+            <p className="mt-6 max-w-[32ch] font-serif text-[24px] leading-[1.2] text-ivory/90">
+              Beim Mittagessen
               <br />
-              Friends by dessert.
+              noch Fremde. Beim Dessert
+              <br />
+              schon Freunde.
             </p>
             <a
               href="https://instagram.com"
@@ -89,10 +91,10 @@ export function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-ivory/12 py-7 text-[10px] uppercase tracking-[0.14em] text-ivory/35 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} DEJAVU. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} DEJAVU. Alle Rechte vorbehalten.</p>
           <p className="max-w-[52ch] normal-case tracking-normal">
-            DEJAVU facilitates introductions. Food and beverages are paid for by members at the
-            restaurant. 18+ only.
+            DEJAVU vermittelt Begegnungen. Speisen und Getränke zahlen Mitglieder selbst im
+            Restaurant. Nur ab 18 Jahren.
           </p>
         </div>
       </div>

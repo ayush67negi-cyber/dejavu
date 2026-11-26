@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ChevronDown, Loader2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import type { Category } from '@/lib/types';
-import { CITY_OPTIONS } from '@/lib/constants';
+import { CITY_OPTIONS, cityLabel } from '@/lib/constants';
 
 export function ExperienceCreator({ categories }: { categories: Category[] }) {
   const router = useRouter();
@@ -34,11 +34,11 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
 
   async function create() {
     if (!form.name.trim()) {
-      setError('Give the experience a name.');
+      setError('Gib dem Erlebnis einen Namen.');
       return;
     }
     if (!form.category_id) {
-      setError('Choose a table category.');
+      setError('Wähle eine Tischkategorie.');
       return;
     }
     setLoading(true);
@@ -85,7 +85,7 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
       router.push(`/admin/experiences/${data.id}`);
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not create the experience.');
+      setError(e instanceof Error ? e.message : 'Erlebnis konnte nicht angelegt werden.');
     } finally {
       setLoading(false);
     }
@@ -97,7 +97,7 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
         onClick={() => setOpen(true)}
         className="flex w-full items-center justify-between border border-ink/15 p-4 text-left transition-colors hover:border-ink/40"
       >
-        <span className="text-[13px] text-ink">Create a new experience</span>
+        <span className="text-[13px] text-ink">Neues Erlebnis anlegen</span>
         <ChevronDown className="h-4 w-4 text-ink/40" strokeWidth={1.5} />
       </button>
     );
@@ -106,17 +106,17 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
   return (
     <div className="border border-ink/15 p-5">
       <div className="flex items-center justify-between">
-        <p className="label text-ink/45">New experience</p>
+        <p className="label text-ink/45">Neues Erlebnis</p>
         <button onClick={() => setOpen(false)} className="text-[10px] uppercase tracking-[0.12em] text-ink/40 hover:text-ink">
-          Close
+          Schließen
         </button>
       </div>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <Field label="Name">
-          <input className="field" value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="The Sunday Table, Lodhi Colony" />
+          <input className="field" value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="Der Sonntagstisch, Lodhi Colony" />
         </Field>
-        <Field label="Category">
+        <Field label="Kategorie">
           <select className="field" value={form.category_id} onChange={(e) => set('category_id', e.target.value)}>
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
@@ -125,16 +125,16 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
             ))}
           </select>
         </Field>
-        <Field label="City">
+        <Field label="Stadt">
           <select className="field" value={form.city} onChange={(e) => set('city', e.target.value)}>
             {CITY_OPTIONS.map((c) => (
               <option key={c} value={c}>
-                {c}
+                {cityLabel(c)}
               </option>
             ))}
           </select>
         </Field>
-        <Field label="Seats">
+        <Field label="Plätze">
           <select
             className="field"
             value={form.group_size}
@@ -142,25 +142,25 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
           >
             {[4, 5, 6].map((n) => (
               <option key={n} value={n}>
-                {n} people
+                {n} Personen
               </option>
             ))}
           </select>
         </Field>
-        <Field label="Date">
+        <Field label="Datum">
           <input type="date" className="field" value={form.date} onChange={(e) => set('date', e.target.value)} />
         </Field>
-        <Field label="Start time (IST)">
+        <Field label="Beginn (IST)">
           <input type="time" className="field" value={form.time} onChange={(e) => set('time', e.target.value)} />
         </Field>
         <Field label="Restaurant">
           <input className="field" value={form.venue_name} onChange={(e) => set('venue_name', e.target.value)} />
         </Field>
-        <Field label="Address">
+        <Field label="Adresse">
           <input className="field" value={form.venue_address} onChange={(e) => set('venue_address', e.target.value)} />
         </Field>
         <div className="sm:col-span-2">
-          <Field label="Description (shown to members)">
+          <Field label="Beschreibung (für Mitglieder sichtbar)">
             <textarea
               className="field min-h-[70px] resize-none"
               value={form.description}
@@ -169,26 +169,26 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
           </Field>
         </div>
         <div className="sm:col-span-2">
-          <Field label="Instructions (shared on confirmation)">
+          <Field label="Hinweise (werden bei Bestätigung geteilt)">
             <textarea
               className="field min-h-[60px] resize-none"
               value={form.instructions}
               onChange={(e) => set('instructions', e.target.value)}
-              placeholder="Ask for the DEJAVU table at the back. Arrive by 7:25."
+              placeholder="Frag nach dem DEJAVU-Tisch hinten im Raum. Sei bis 19:25 da."
             />
           </Field>
         </div>
-        <Field label="Dietary notes">
+        <Field label="Ernährungshinweise">
           <input className="field" value={form.dietary_notes} onChange={(e) => set('dietary_notes', e.target.value)} />
         </Field>
-        <Field label="Initial status">
+        <Field label="Startstatus">
           <select
             className="field"
             value={form.status}
             onChange={(e) => set('status', e.target.value as 'draft' | 'matching')}
           >
-            <option value="draft">Draft — not visible</option>
-            <option value="matching">Matching — visible to members</option>
+            <option value="draft">Entwurf — nicht sichtbar</option>
+            <option value="matching">In Abstimmung — für Mitglieder sichtbar</option>
           </select>
         </Field>
       </div>
@@ -200,7 +200,7 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
           onChange={(e) => set('reveal_venue', e.target.checked)}
           className="h-3.5 w-3.5 accent-[#120D0B]"
         />
-        Reveal the restaurant as soon as the experience is confirmed
+        Restaurant sofort nach Bestätigung des Erlebnisses nennen
       </label>
 
       {error && <p className="mt-3 text-[12px] text-cherry">{error}</p>}
@@ -210,7 +210,7 @@ export function ExperienceCreator({ categories }: { categories: Category[] }) {
         disabled={loading}
         className="btn mt-5 bg-ink px-6 py-3.5 text-ivory hover:bg-cherry disabled:opacity-60"
       >
-        {loading && <Loader2 className="h-4 w-4 animate-spin" />} Create experience
+        {loading && <Loader2 className="h-4 w-4 animate-spin" />} Erlebnis anlegen
       </button>
     </div>
   );

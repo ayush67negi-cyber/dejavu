@@ -14,26 +14,26 @@ export default function NotFound() {
           href="/"
           className="label text-[11px] text-ink/60 transition-colors duration-300 hover:text-cherry"
         >
-          Back to DEJAVU
+          Zurück zu DEJAVU
         </Link>
       </header>
 
       <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 items-center gap-12 px-6 pb-24 md:grid-cols-[1.15fr_0.85fr] md:px-10">
         <div>
-          <p className="label text-[11px] text-cherry">404 — Wrong room</p>
+          <p className="label text-[11px] text-cherry">404 — Falscher Raum</p>
           <h1 className="mt-6 font-serif text-[clamp(2.9rem,7.5vw,6rem)] leading-[0.88] tracking-[-0.03em] text-ink">
-            This table
+            Diesen Tisch
             <br />
-            <em className="text-burgundy">doesn’t exist.</em>
+            <em className="text-burgundy">gibt es nicht.</em>
           </h1>
           <p className="mt-7 max-w-md text-[15px] leading-relaxed text-ink/65">
-            The page you were looking for has been seated elsewhere. The good tables are still
-            here, and they are four to six seats each.
+            Die Seite, die du gesucht hast, sitzt inzwischen woanders. Die guten Tische sind noch
+            hier – jeder mit vier bis sechs Plätzen.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <CTA href="/tables">Discover the tables</CTA>
+            <CTA href="/tables">Tische entdecken</CTA>
             <CTA href="/how-it-works" variant="ghost" arrow={false}>
-              How it works
+              So funktioniert’s
             </CTA>
           </div>
         </div>
@@ -41,9 +41,9 @@ export default function NotFound() {
         <div className="relative hidden aspect-[4/5] w-full overflow-hidden rounded-[2px] bg-beige md:block">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(232,180,184,0.55),transparent_58%),radial-gradient(circle_at_75%_78%,rgba(61,10,24,0.85),transparent_62%)]" />
           <span className="absolute bottom-8 left-8 right-8 font-serif text-2xl italic leading-tight text-ivory/90">
-            Strangers at lunch.
+            Beim Mittagessen noch Fremde.
             <br />
-            Friends by dessert.
+            Beim Dessert schon Freunde.
           </span>
         </div>
       </div>
@@ -53,13 +53,13 @@ export default function NotFound() {
           <span className="label text-[10px] text-ink/40">© {new Date().getFullYear()} DEJAVU</span>
           <div className="flex gap-6">
             <Link href="/safety" className="label text-[10px] text-ink/40 hover:text-cherry">
-              Safety
+              Sicherheit
             </Link>
             <Link href="/privacy" className="label text-[10px] text-ink/40 hover:text-cherry">
-              Privacy
+              Datenschutz
             </Link>
             <Link href="/terms" className="label text-[10px] text-ink/40 hover:text-cherry">
-              Terms
+              AGB
             </Link>
           </div>
         </div>

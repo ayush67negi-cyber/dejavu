@@ -7,7 +7,7 @@ import { formatDate, formatTime, relativeDay } from '@/lib/format';
 import { FeedbackForm } from '@/components/app/feedback-form';
 import { ReportDialog } from '@/components/app/report-dialog';
 
-export const metadata: Metadata = { title: 'My experiences' };
+export const metadata: Metadata = { title: 'Meine Erlebnisse' };
 
 export default async function ExperiencesPage() {
   const supabase = await createClient();
@@ -30,31 +30,31 @@ export default async function ExperiencesPage() {
   return (
     <div className="space-y-12">
       <div className="border-b border-ink/12 pb-8">
-        <p className="label text-ink/35">Experiences</p>
+        <p className="label text-ink/40">Erlebnisse</p>
         <h1 className="mt-3 font-serif text-[clamp(2rem,4vw,3rem)] leading-[0.98] text-ink">
-          Every table you’ve been seated at.
+          Jeder Tisch, an dem du gesessen hast.
         </h1>
         <p className="mt-3 max-w-[54ch] text-[14px] leading-relaxed text-ink/55">
-          Venue details appear once a table is confirmed. Participant profiles are shared only with
-          the people at that table.
+          Ortsangaben erscheinen, sobald ein Tisch bestätigt ist. Profile anderer Teilnehmender
+          sehen nur die Menschen am selben Tisch.
         </p>
       </div>
 
-      <Section title="Upcoming" count={upcoming.length}>
+      <Section title="Anstehend" count={upcoming.length}>
         {upcoming.length === 0 ? (
           <Empty
-            title="No table on the calendar yet."
-            copy="We compose tables by hand each week. Browse upcoming experiences you could request."
-            cta={{ href: '/app/discover', label: 'Discover tables' }}
+            title="Noch kein Tisch im Kalender."
+            copy="Wir stellen Tische jede Woche von Hand zusammen. Sieh dir anstehende Erlebnisse an, für die du dich bewerben kannst."
+            cta={{ href: '/app/discover', label: 'Tische entdecken' }}
           />
         ) : (
           upcoming.map((e) => <ExperienceCard key={e.id} experience={e} />)
         )}
       </Section>
 
-      <Section title="Completed" count={past.length}>
+      <Section title="Abgeschlossen" count={past.length}>
         {past.length === 0 ? (
-          <Empty title="Nothing behind you yet." copy="Your history will build up here after your first table." />
+          <Empty title="Noch nichts hinter dir." copy="Deine Historie entsteht hier nach deinem ersten Tisch." />
         ) : (
           past.map((e) => (
             <ExperienceCard
@@ -66,7 +66,7 @@ export default async function ExperiencesPage() {
                   <FeedbackForm experienceId={e.id} />
                 ) : given.has(e.id) ? (
                   <p className="text-[11px] uppercase tracking-[0.14em] text-olive">
-                    Feedback submitted
+                    Feedback abgegeben
                   </p>
                 ) : null
               }
@@ -76,7 +76,7 @@ export default async function ExperiencesPage() {
       </Section>
 
       {cancelled.length > 0 && (
-        <Section title="Cancelled" count={cancelled.length}>
+        <Section title="Abgesagt" count={cancelled.length}>
           {cancelled.map((e) => (
             <ExperienceCard key={e.id} experience={e} muted />
           ))}
@@ -131,12 +131,16 @@ function ExperienceCard({
           <div className="flex flex-wrap items-center gap-3">
             <span className={`text-[9px] uppercase tracking-label ${statusTone}`}>
               {e.status === 'confirmed'
-                ? 'Confirmed'
+                ? 'Bestätigt'
                 : e.status === 'matching'
-                  ? 'Being composed'
+                  ? 'Wird zusammengestellt'
                   : e.status === 'draft'
-                    ? 'Draft'
-                    : e.status}
+                    ? 'Entwurf'
+                    : e.status === 'completed'
+                      ? 'Abgeschlossen'
+                      : e.status === 'cancelled'
+                        ? 'Abgesagt'
+                        : e.status}
             </span>
             {e.category_slug && (
               <span className="text-[9px] uppercase tracking-label text-ink/30">
@@ -155,15 +159,15 @@ function ExperienceCard({
 
           <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2">
             <Meta icon={<CalendarDays className="h-3.5 w-3.5" strokeWidth={1.5} />}>
-              {e.starts_at ? `${formatDate(e.starts_at)} · ${relativeDay(e.starts_at)}` : 'Date to be announced'}
+              {e.starts_at ? `${formatDate(e.starts_at)} · ${relativeDay(e.starts_at)}` : 'Termin wird noch bekannt gegeben'}
             </Meta>
             <Meta icon={<Clock className="h-3.5 w-3.5" strokeWidth={1.5} />}>
-              {e.starts_at ? formatTime(e.starts_at) : 'Time to be announced'}
+              {e.starts_at ? formatTime(e.starts_at) : 'Uhrzeit wird noch bekannt gegeben'}
             </Meta>
             <Meta icon={<MapPin className="h-3.5 w-3.5" strokeWidth={1.5} />}>
               {e.venue_name
                 ? `${e.venue_name}${e.venue_address ? `, ${e.venue_address}` : ''}`
-                : `${e.city} · venue revealed on confirmation`}
+                : `${e.city} · Ort wird nach der Bestätigung genannt`}
             </Meta>
           </div>
 
@@ -177,15 +181,15 @@ function ExperienceCard({
         </div>
 
         <div className="border-t border-ink/10 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-0">
-          <p className="label text-ink/35">The table</p>
+          <p className="label text-ink/40">Der Tisch</p>
           <p className="mt-2 font-serif text-[30px] leading-none text-ink">
             {e.group_size}
-            <span className="ml-1 text-[13px] uppercase tracking-[0.14em] text-ink/40">seats</span>
+            <span className="ml-1 text-[13px] uppercase tracking-[0.14em] text-ink/45">Plätze</span>
           </p>
           <p className="mt-3 text-[12px] leading-relaxed text-ink/45">
             {e.status === 'confirmed'
-              ? 'Participant introductions are shared with the table before you meet.'
-              : 'Participant profiles unlock once the table is confirmed.'}
+              ? 'Die Vorstellungen der Teilnehmenden teilen wir vorher mit dem Tisch.'
+              : 'Die Profile der Teilnehmenden werden sichtbar, sobald der Tisch bestätigt ist.'}
           </p>
           {e.status === 'confirmed' && (
             <div className="mt-4">

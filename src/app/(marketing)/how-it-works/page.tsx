@@ -5,35 +5,35 @@ import { PageHead } from '@/components/marketing/page-head';
 import { Reveal, RevealWords } from '@/components/ui/motion';
 
 export const metadata: Metadata = {
-  title: 'How it works',
+  title: "So funktioniert's",
   description:
-    'Four steps from signing up to sitting at a DEJAVU table: sign up, get matched, meet your table, let it happen.',
+    'Vier Schritte von der Anmeldung bis zum Platz am DEJAVU-Tisch: anmelden, matchen lassen, Tischrunde treffen, den Abend entstehen lassen.',
 };
 
 const STEPS = [
   {
     n: '01',
-    title: 'Sign up',
-    copy: 'Tell us a little about yourself.',
-    body: 'A short, honest questionnaire — your city, what you enjoy talking about, how you are at a table, and what you would rather avoid. Ten minutes, once. Everything you write is private by default and is never shown publicly.',
+    title: 'Melde dich an',
+    copy: 'Erzähl uns ein bisschen von dir.',
+    body: 'Ein kurzer, ehrlicher Fragebogen – deine Stadt, worüber du gerne sprichst, wie du an einem Tisch bist und was du lieber vermeidest. Zehn Minuten, einmal. Alles, was du schreibst, ist standardmäßig privat und wird nie öffentlich gezeigt.',
   },
   {
     n: '02',
-    title: 'Get matched',
-    copy: 'We find people you might actually enjoy meeting.',
-    body: 'Tables are composed by hand, guided by shared interests, compatible personalities, dietary needs and the categories you chose. We look for range as well as overlap: the best tables are not made of near-identical people.',
+    title: 'Wir finden dein Match',
+    copy: 'Wir bringen dich mit Menschen zusammen, die du gerne kennenlernen wirst.',
+    body: 'Tische werden von Hand zusammengestellt – geleitet von gemeinsamen Interessen, passenden Persönlichkeiten, Ernährungsbedürfnissen und den Kategorien, die du gewählt hast. Wir suchen Bandbreite ebenso wie Überschneidung: Die besten Tische bestehen nicht aus fast identischen Menschen.',
   },
   {
     n: '03',
-    title: 'Meet your table',
-    copy: 'Six people. A restaurant. No awkward planning.',
-    body: 'You receive a confirmed restaurant, a time, and a short note on what to expect. You order what you like and pay for your own meal. No group chats to manage, no venue to negotiate.',
+    title: 'Triff deine Tischrunde',
+    copy: 'Sechs Menschen. Ein Restaurant. Keine komplizierte Planung.',
+    body: 'Du bekommst ein bestätigtes Restaurant, eine Uhrzeit und eine kurze Notiz, was dich erwartet. Du bestellst, was du magst, und zahlst dein eigenes Essen. Keine Gruppenchats, keine Verhandlung über den Ort.',
   },
   {
     n: '04',
-    title: 'Let it happen',
-    copy: 'By dessert, the introductions might feel unnecessary.',
-    body: 'A facilitator opens the conversation and then steps back. No icebreakers, no name-tag theatre. Afterwards, you can tell us how it went — and we use that to compose a better table next time.',
+    title: 'Lass den Abend entstehen',
+    copy: 'Beim Dessert fühlen sich die ersten Vorstellungen vielleicht schon überflüssig an.',
+    body: 'Eine Begleitung eröffnet das Gespräch und zieht sich dann zurück. Keine Kennenlernspiele, keine Namensschilder. Danach kannst du uns erzählen, wie es war – daraus stellen wir beim nächsten Mal einen besseren Tisch zusammen.',
   },
 ];
 
@@ -41,9 +41,9 @@ export default function HowItWorksPage() {
   return (
     <>
       <PageHead
-        eyebrow="How it works"
-        title="Four steps. Then the table does the rest."
-        lead="DEJAVU is not a feed and it is not a swipe. It is a small, deliberate operation: we compose tables of four to six people and you turn up."
+        eyebrow="So funktioniert’s"
+        title="Vier Schritte. Und dann übernimmt der Tisch."
+        lead="DEJAVU ist kein Feed und kein Wischen. Es ist ein kleiner, bewusster Ablauf: Wir stellen Tische mit vier bis sechs Menschen zusammen, und du kommst einfach."
         tone="ink"
       />
 
@@ -76,22 +76,22 @@ export default function HowItWorksPage() {
       <section className="bg-sand py-16 md:py-24">
         <div className="mx-auto grid max-w-[1300px] items-center gap-12 px-5 md:grid-cols-2 md:px-10">
           <div className="relative aspect-[4/5] overflow-hidden">
-            <Image src="/images/cat-founders.jpg" alt="A table in conversation" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+            <Image src="/images/cat-founders.jpg" alt="Eine Tischrunde im Gespräch bei DEJAVU." fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
           </div>
           <div>
             <Reveal>
-              <span className="label text-ink/40">What you can expect</span>
+              <span className="label text-ink/45">Was dich erwartet</span>
             </Reveal>
             <h2 className="mt-5 font-serif text-[clamp(2rem,4vw,3rem)] leading-[0.95] text-ink">
-              <RevealWords text="A table, not a transaction." />
+              <RevealWords text="Ein Tisch, keine Transaktion." />
             </h2>
             <ul className="mt-8 space-y-4">
               {[
-                'Groups of four to six, always in person, always in your city.',
-                'One restaurant per experience, chosen for the room as much as the menu.',
-                'A facilitator to open the evening, then a light touch.',
-                'Your dietary requirements shared with the venue in advance.',
-                'No dating pressure. No scoring. No swiping.',
+                'Gruppen von vier bis sechs Menschen, immer persönlich, immer in deiner Stadt.',
+                'Ein Restaurant pro Erlebnis – ausgewählt für den Raum ebenso wie für die Karte.',
+                'Eine Begleitung, die den Abend eröffnet und sich dann zurücknimmt.',
+                'Deine Ernährungswünsche gehen vorab an das Restaurant.',
+                'Kein Dating-Druck. Keine Bewertungen. Kein Wischen.',
               ].map((t) => (
                 <li key={t} className="flex gap-3 text-[14px] leading-relaxed text-ink/65">
                   <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cherry" />
@@ -100,14 +100,14 @@ export default function HowItWorksPage() {
               ))}
             </ul>
             <p className="mt-8 border-l-2 border-cherry pl-5 text-[13px] leading-relaxed text-ink/55">
-              DEJAVU facilitates the gathering. Members pay for their own food and drinks at the
-              restaurant unless an experience explicitly states otherwise.
+              DEJAVU organisiert das Zusammensein. Essen und Getränke zahlen Mitglieder selbst im
+              Restaurant, sofern ein Erlebnis nicht ausdrücklich etwas anderes angibt.
             </p>
             <Link
               href="/signup"
               className="mt-8 inline-flex bg-ink px-7 py-4 text-[10px] uppercase tracking-[0.2em] text-ivory transition-colors duration-500 hover:bg-cherry"
             >
-              Find your table
+              Finde deinen Tisch
             </Link>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import type { Category } from '@/lib/types';
-import { CITY_OPTIONS } from '@/lib/constants';
+import { CITY_OPTIONS, EXPERIENCE_STATUS_LABEL, cityLabel } from '@/lib/constants';
 
 type Experience = {
   id: string;
@@ -113,10 +113,10 @@ export function ExperienceEditor({
         });
       }
 
-      setMessage('Saved.');
+      setMessage('Gespeichert.');
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not save.');
+      setError(e instanceof Error ? e.message : 'Speichern fehlgeschlagen.');
     } finally {
       setSaving(false);
     }
@@ -125,14 +125,14 @@ export function ExperienceEditor({
   return (
     <div className="space-y-5">
       <div className="border border-ink/12 p-5">
-        <p className="label text-ink/40">Details</p>
+        <p className="label text-ink/45">Details</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <Field label="Name" span>
             <input className="field" value={form.name} onChange={(e) => set('name', e.target.value)} />
           </Field>
-          <Field label="Category">
+          <Field label="Kategorie">
             <select className="field" value={form.category_id} onChange={(e) => set('category_id', e.target.value)}>
-              <option value="">No category</option>
+              <option value="">Keine Kategorie</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
@@ -140,22 +140,22 @@ export function ExperienceEditor({
               ))}
             </select>
           </Field>
-          <Field label="City">
+          <Field label="Stadt">
             <select className="field" value={form.city} onChange={(e) => set('city', e.target.value)}>
               {CITY_OPTIONS.map((c) => (
                 <option key={c} value={c}>
-                  {c}
+                  {cityLabel(c)}
                 </option>
               ))}
             </select>
           </Field>
-          <Field label="Date">
+          <Field label="Datum">
             <input type="date" className="field" value={form.date} onChange={(e) => set('date', e.target.value)} />
           </Field>
-          <Field label="Start time (IST)">
+          <Field label="Beginn (IST)">
             <input type="time" className="field" value={form.time} onChange={(e) => set('time', e.target.value)} />
           </Field>
-          <Field label="Seats">
+          <Field label="Plätze">
             <select
               className="field"
               value={form.group_size}
@@ -172,7 +172,7 @@ export function ExperienceEditor({
             <select className="field" value={form.status} onChange={(e) => set('status', e.target.value)}>
               {STATUSES.map((s) => (
                 <option key={s} value={s}>
-                  {s}
+                  {EXPERIENCE_STATUS_LABEL[s] ?? s}
                 </option>
               ))}
             </select>
@@ -180,27 +180,27 @@ export function ExperienceEditor({
           <Field label="Restaurant" span>
             <input className="field" value={form.venue_name} onChange={(e) => set('venue_name', e.target.value)} />
           </Field>
-          <Field label="Address" span>
+          <Field label="Adresse" span>
             <input className="field" value={form.venue_address} onChange={(e) => set('venue_address', e.target.value)} />
           </Field>
-          <Field label="Description" span>
+          <Field label="Beschreibung" span>
             <textarea
               className="field min-h-[66px] resize-none"
               value={form.description}
               onChange={(e) => set('description', e.target.value)}
             />
           </Field>
-          <Field label="Member instructions" span>
+          <Field label="Hinweise für Mitglieder" span>
             <textarea
               className="field min-h-[60px] resize-none"
               value={form.instructions}
               onChange={(e) => set('instructions', e.target.value)}
             />
           </Field>
-          <Field label="Dietary notes" span>
+          <Field label="Ernährungshinweise" span>
             <input className="field" value={form.dietary_notes} onChange={(e) => set('dietary_notes', e.target.value)} />
           </Field>
-          <Field label="Internal notes (never shown to members)" span>
+          <Field label="Interne Notizen (werden Mitgliedern nie gezeigt)" span>
             <textarea
               className="field min-h-[60px] resize-none"
               value={form.admin_notes}
@@ -216,7 +216,7 @@ export function ExperienceEditor({
             onChange={(e) => set('reveal_venue', e.target.checked)}
             className="h-3.5 w-3.5 accent-[#120D0B]"
           />
-          Reveal venue details to assigned members once confirmed
+          Ortsdetails nach Bestätigung an zugeteilte Mitglieder freigeben
         </label>
 
         {message && <p className="mt-3 text-[11px] text-olive">{message}</p>}
@@ -228,7 +228,7 @@ export function ExperienceEditor({
             disabled={saving}
             className="btn bg-ink px-6 py-3 text-[10px] text-ivory hover:bg-cherry disabled:opacity-60"
           >
-            {saving && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Save changes
+            {saving && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Änderungen speichern
           </button>
           {form.status !== 'confirmed' && (
             <button
@@ -236,7 +236,7 @@ export function ExperienceEditor({
               disabled={saving}
               className="btn border border-olive/50 px-5 py-3 text-[10px] text-olive hover:bg-olive hover:text-ivory disabled:opacity-50"
             >
-              Confirm & notify
+              Bestätigen & benachrichtigen
             </button>
           )}
           {form.status === 'confirmed' && (
@@ -245,7 +245,7 @@ export function ExperienceEditor({
               disabled={saving}
               className="btn border border-ink/25 px-5 py-3 text-[10px] text-ink/70 hover:border-ink disabled:opacity-50"
             >
-              Mark completed
+              Als abgeschlossen markieren
             </button>
           )}
           {form.status !== 'cancelled' && (
@@ -254,7 +254,7 @@ export function ExperienceEditor({
               disabled={saving}
               className="btn border border-cherry/40 px-5 py-3 text-[10px] text-cherry hover:bg-cherry hover:text-ivory disabled:opacity-50"
             >
-              Cancel experience
+              Erlebnis absagen
             </button>
           )}
         </div>

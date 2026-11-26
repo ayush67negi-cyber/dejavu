@@ -21,12 +21,12 @@ import { LogoutButton } from '@/components/ui/logout-button';
 import type { Profile } from '@/lib/types';
 
 const NAV = [
-  { href: '/app', label: 'Overview', icon: Home },
-  { href: '/app/experiences', label: 'My experiences', icon: CalendarDays },
-  { href: '/app/discover', label: 'Discover', icon: Compass },
-  { href: '/app/notifications', label: 'Notifications', icon: Bell },
-  { href: '/app/profile', label: 'Profile', icon: User },
-  { href: '/app/membership', label: 'Membership', icon: CreditCard },
+  { href: '/app', label: 'Übersicht', icon: Home },
+  { href: '/app/experiences', label: 'Meine Erlebnisse', icon: CalendarDays },
+  { href: '/app/discover', label: 'Entdecken', icon: Compass },
+  { href: '/app/notifications', label: 'Mitteilungen', icon: Bell },
+  { href: '/app/profile', label: 'Profil', icon: User },
+  { href: '/app/membership', label: 'Mitgliedschaft', icon: CreditCard },
 ];
 
 export function AppShell({
@@ -71,7 +71,7 @@ export function AppShell({
           className="mt-2 flex items-center gap-3 border-t border-ink/10 px-3 py-2.5 pt-4 text-[13px] text-cherry transition-colors hover:text-claret"
         >
           <ShieldCheck className="h-4 w-4" strokeWidth={1.5} />
-          Admin studio
+          Admin-Bereich
         </Link>
       )}
     </nav>
@@ -84,7 +84,7 @@ export function AppShell({
           <div className="flex items-center gap-4">
             <button
               onClick={() => setOpen(true)}
-              aria-label="Open menu"
+              aria-label="Menü öffnen"
               className="lg:hidden"
             >
               <Menu className="h-5 w-5" strokeWidth={1.5} />
@@ -104,14 +104,14 @@ export function AppShell({
                 }`}
               />
               <span className="text-[9px] uppercase tracking-label">
-                {membershipStatus === 'active' ? 'Member' : 'Not active'}
+                {membershipStatus === 'active' ? 'Mitglied' : 'Nicht aktiv'}
               </span>
             </span>
             <Link
               href="/"
               className="hidden text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-ink md:block"
             >
-              Public site
+              Öffentliche Website
             </Link>
             <LogoutButton className="text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-cherry" />
             <Link href="/app/profile" className="relative h-8 w-8 overflow-hidden rounded-full bg-sand">
@@ -130,11 +130,11 @@ export function AppShell({
       <div className="mx-auto flex max-w-[1500px] gap-10 px-5 py-8 md:px-8 md:py-10">
         <aside className="hidden w-[210px] shrink-0 lg:block">
           <div className="sticky top-[86px]">
-            <p className="px-3 text-[9px] uppercase tracking-label text-ink/30">Your space</p>
+            <p className="px-3 text-[9px] uppercase tracking-label text-ink/30">Dein Bereich</p>
             <div className="mt-3">{nav}</div>
             <div className="mt-8 border-t border-ink/10 px-3 pt-5">
               <p className="text-[11px] leading-relaxed text-ink/40">
-                Signed in as
+                Angemeldet als
                 <br />
                 <span className="text-ink/70">{email}</span>
               </p>
@@ -164,7 +164,7 @@ export function AppShell({
             >
               <div className="mb-8 flex items-center justify-between">
                 <Wordmark href="/app" />
-                <button onClick={() => setOpen(false)} aria-label="Close">
+                <button onClick={() => setOpen(false)} aria-label="Schließen">
                   <X className="h-5 w-5" strokeWidth={1.5} />
                 </button>
               </div>

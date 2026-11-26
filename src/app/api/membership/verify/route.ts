@@ -9,14 +9,14 @@ import { createClient, createAdminClient } from '@/lib/supabase/server';
 export async function POST(request: Request) {
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
   if (!keySecret) {
-    return NextResponse.json({ error: 'Razorpay is not configured.' }, { status: 503 });
+    return NextResponse.json({ error: 'Razorpay ist nicht konfiguriert.' }, { status: 503 });
   }
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Not authenticated.' }, { status: 401 });
+  if (!user) return NextResponse.json({ error: 'Nicht angemeldet.' }, { status: 401 });
 
   const body = (await request.json().catch(() => ({}))) as {
     razorpay_order_id?: string;
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
   if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-    return NextResponse.json({ error: 'Incomplete payment response.' }, { status: 400 });
+    return NextResponse.json({ error: 'Unvollständige Zahlungsantwort.' }, { status: 400 });
   }
 
   const expected = createHmac('sha256', keySecret)
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   const a = Buffer.from(expected);
   const b = Buffer.from(razorpay_signature);
   if (a.length !== b.length || !timingSafeEqual(a, b)) {
-    return NextResponse.json({ error: 'Signature verification failed.' }, { status: 400 });
+    return NextResponse.json({ error: 'Signaturprüfung fehlgeschlagen.' }, { status: 400 });
   }
 
   const admin = createAdminClient();
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     .maybeSingle();
 
   if (!payment || payment.user_id !== user.id) {
-    return NextResponse.json({ error: 'No matching payment record.' }, { status: 404 });
+    return NextResponse.json({ error: 'Kein passender Zahlungsdatensatz.' }, { status: 404 });
   }
 
   if (payment.status === 'paid') {
@@ -81,7 +81,7 @@ export async function POST(request: Request) {
 
   if (mErr) {
     console.error('[membership activate]', mErr.message);
-    return NextResponse.json({ error: 'Payment verified but membership could not be created.' }, { status: 500 });
+    return NextResponse.json({ error: 'Zahlung bestätigt, Mitgliedschaft konnte aber nicht angelegt werden.' }, { status: 500 });
   }
 
   await admin
@@ -97,8 +97,8 @@ export async function POST(request: Request) {
   await admin.from('notifications').insert({
     user_id: user.id,
     type: 'membership',
-    title: 'Membership activated',
-    body: `Your DEJAVU membership is active until ${endsAt.toDateString()}. Four tables a month, composed by hand.`,
+    title: 'Mitgliedschaft aktiviert',
+    body: `Deine DEJAVU-Mitgliedschaft ist aktiv bis ${endsAt.toLocaleDateString('de-DE')}. Vier Tische pro Monat, von Hand zusammengestellt.`,
     link: '/app/membership',
   });
 

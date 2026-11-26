@@ -10,23 +10,37 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'DEJAVU — Strangers at lunch. Friends by dessert.',
+    default: 'DEJAVU — Beim Mittagessen noch Fremde. Beim Dessert schon Freunde.',
     template: '%s · DEJAVU',
   },
   description:
-    'DEJAVU curates small tables of four to six people around real restaurants. Not a dating app — a social dining membership for people who would rather meet than swipe.',
-  keywords: ['social dining', 'dinner club', 'meet new people', 'restaurant experiences', 'friendship'],
+    'DEJAVU stellt kleine Tische mit vier bis sechs Menschen in echten Restaurants zusammen. Keine Dating-App – eine Mitgliedschaft für gemeinsames Essen, für Menschen, die sich lieber treffen als wischen.',
+  keywords: [
+    'gemeinsam essen',
+    'Dinnerclub',
+    'neue Menschen kennenlernen',
+    'Restaurant-Erlebnisse',
+    'Freundschaft',
+    'Social Dining',
+  ],
   // No explicit og title/description here: each page's own title and description
   // are used for share previews, so every route reads correctly when linked.
   openGraph: {
     siteName: 'DEJAVU',
-    locale: 'en_IN',
+    locale: 'de_DE',
     type: 'website',
-    images: [{ url: '/images/hero-table.jpg', width: 1200, height: 630, alt: 'A DEJAVU table' }],
+    images: [
+      {
+        url: '/images/hero-anticipation.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Eine DEJAVU-Tischrunde lacht und teilt Essen in warmem Restaurantlicht.',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/images/hero-table.jpg'],
+    images: ['/images/hero-anticipation.jpg'],
   },
   applicationName: 'DEJAVU',
   authors: [{ name: 'DEJAVU' }],
@@ -43,7 +57,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="de">
       <body>{children}</body>
     </html>
   );

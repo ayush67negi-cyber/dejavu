@@ -7,31 +7,31 @@ import { Reveal, RevealWords } from '@/components/ui/motion';
 const STEPS = [
   {
     n: '01',
-    title: 'Sign up',
-    copy: 'Tell us a little about yourself.',
+    title: 'Melde dich an',
+    copy: 'Erzähl uns ein bisschen von dir.',
     detail:
-      'A short questionnaire — interests, city, the kind of evenings you enjoy. Ten minutes, once. Everything you write stays inside DEJAVU.',
+      'Ein kurzer Fragebogen – Interessen, Stadt, die Art von Abenden, die du magst. Zehn Minuten, einmal. Alles, was du schreibst, bleibt bei DEJAVU.',
   },
   {
     n: '02',
-    title: 'Get matched',
-    copy: 'We find people you might actually enjoy meeting.',
+    title: 'Wir finden dein Match',
+    copy: 'Wir bringen dich mit Menschen zusammen, die du gerne kennenlernen wirst.',
     detail:
-      'Our team composes each table by hand, guided by shared interests, compatible personalities and the categories you chose. No random pairing.',
+      'Unser Team stellt jeden Tisch von Hand zusammen – geleitet von gemeinsamen Interessen, passenden Persönlichkeiten und den Kategorien, die du gewählt hast. Kein Zufallsprinzip.',
   },
   {
     n: '03',
-    title: 'Meet your table',
-    copy: 'Six people. A restaurant. No awkward planning.',
+    title: 'Triff deine Tischrunde',
+    copy: 'Sechs Menschen. Ein Restaurant. Keine komplizierte Planung.',
     detail:
-      'You receive a confirmed table, a restaurant and a time. You choose your own dishes, pay for your own meal, and arrive.',
+      'Du bekommst einen bestätigten Tisch, ein Restaurant und eine Uhrzeit. Du wählst deine Gerichte, bezahlst dein Essen und kommst einfach an.',
   },
   {
     n: '04',
-    title: 'Let it happen',
-    copy: 'By dessert, the introductions might feel unnecessary.',
+    title: 'Lass den Abend entstehen',
+    copy: 'Beim Dessert fühlen sich die ersten Vorstellungen vielleicht schon überflüssig an.',
     detail:
-      'No icebreakers, no name-tag theatre. A facilitated start, then the conversation takes over — and usually keeps going after the bill.',
+      'Keine Kennenlernspiele, keine Namensschilder. Ein begleiteter Start, dann übernimmt das Gespräch – und läuft oft noch weiter, wenn die Rechnung längst da ist.',
   },
 ];
 
@@ -48,16 +48,16 @@ export function HowItWorks() {
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <Reveal>
-              <span className="label text-ivory/45">02 — How it works</span>
+              <span className="label text-ivory/50">02 — So funktioniert’s</span>
             </Reveal>
-            <h2 className="mt-7 max-w-[20ch] font-serif text-display-sm text-ivory md:text-[clamp(2.6rem,4.6vw,4rem)] md:leading-[0.96]">
-              <RevealWords text="Four steps. Then the table does the rest." />
+            <h2 className="mt-7 max-w-[22ch] font-serif text-display-sm text-ivory md:text-[clamp(2.6rem,4.6vw,4rem)] md:leading-[0.96]">
+              <RevealWords text="Vier Schritte. Und dann übernimmt der Tisch." />
             </h2>
           </div>
           <Reveal delay={0.2}>
             <p className="max-w-[34ch] text-[15px] leading-relaxed text-ivory/55">
-              DEJAVU handles the composition — the people, the place, the timing. All you do is show
-              up and be yourself, which is the entire point.
+              DEJAVU übernimmt die Zusammenstellung – die Menschen, der Ort, der Zeitpunkt. Du
+              musst nur auftauchen und du selbst sein. Genau darum geht es.
             </p>
           </Reveal>
         </div>
@@ -121,7 +121,7 @@ export function HowItWorks() {
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="border border-ivory/15 p-7 md:p-10"
               >
-                <p className="label text-blush">Step {STEPS[active].n}</p>
+                <p className="label text-blush">Schritt {STEPS[active].n}</p>
                 <p className="mt-6 font-serif text-[clamp(1.4rem,2.4vw,1.9rem)] leading-[1.25] text-ivory">
                   {STEPS[active].detail}
                 </p>

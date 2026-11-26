@@ -3,20 +3,20 @@
 import { Reveal } from '@/components/ui/motion';
 
 const LINES = [
-  'Meeting new people',
-  'Making genuine friends',
-  'Exploring restaurants',
-  'Conversations beyond small talk',
-  'People outside your usual circle',
-  'Different perspectives',
-  'A social life, offline',
+  'Neue Menschen treffen',
+  'Echte Freundschaften schließen',
+  'Restaurants entdecken',
+  'Gespräche jenseits von Small Talk',
+  'Menschen außerhalb deines Kreises',
+  'Andere Perspektiven',
+  'Ein Sozialleben, offline',
 ];
 
 export function Manifesto() {
   return (
     <section className="relative overflow-hidden bg-cream py-16 md:py-20">
       <Reveal>
-        <p className="label mb-8 px-5 text-ink/35 md:px-10">DEJAVU is about</p>
+        <p className="label mb-8 px-5 text-ink/35 md:px-10">Darum geht es bei DEJAVU</p>
       </Reveal>
       <div className="marquee-track">
         {[0, 1].map((dup) => (

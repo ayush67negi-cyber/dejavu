@@ -30,14 +30,14 @@ export function MemberActions({
         await supabase.from('notifications').insert({
           user_id: userId,
           type: 'account',
-          title: 'Account suspended',
-          body: 'Your DEJAVU account has been suspended pending a safety review. Please contact us for details.',
+          title: 'Konto gesperrt',
+          body: 'Dein DEJAVU-Konto wurde bis zum Abschluss einer Sicherheitsprüfung gesperrt. Melde dich bei uns für Details.',
         });
       }
-      setNotice(status === 'suspended' ? 'Member suspended.' : 'Member reinstated.');
+      setNotice(status === 'suspended' ? 'Mitglied gesperrt.' : 'Mitglied wieder freigegeben.');
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Action failed.');
+      setError(e instanceof Error ? e.message : 'Aktion fehlgeschlagen.');
     } finally {
       setLoading(null);
     }
@@ -54,11 +54,11 @@ export function MemberActions({
         body: JSON.stringify({ userId, planId }),
       });
       const json = (await res.json()) as { error?: string };
-      if (!res.ok) throw new Error(json.error ?? 'Could not activate.');
-      setNotice('Membership activated and member notified.');
+      if (!res.ok) throw new Error(json.error ?? 'Aktivierung nicht möglich.');
+      setNotice('Mitgliedschaft aktiviert und Mitglied benachrichtigt.');
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Action failed.');
+      setError(e instanceof Error ? e.message : 'Aktion fehlgeschlagen.');
     } finally {
       setLoading(null);
     }
@@ -67,29 +67,30 @@ export function MemberActions({
   return (
     <div className="space-y-4">
       <div>
-        <p className="label text-ink/40">Account status</p>
+        <p className="label text-ink/40">Kontostatus</p>
         <div className="mt-2 flex flex-wrap gap-2">
           <button
             onClick={() => setStatus('active')}
             disabled={loading !== null || currentStatus === 'active'}
             className="btn border border-ink/20 px-4 py-2.5 text-[10px] text-ink hover:border-ink disabled:opacity-40"
           >
-            {loading === 'active' && <Loader2 className="h-3 w-3 animate-spin" />} Reinstate
+            {loading === 'active' && <Loader2 className="h-3 w-3 animate-spin" />} Freigeben
           </button>
           <button
             onClick={() => setStatus('suspended')}
             disabled={loading !== null || currentStatus === 'suspended'}
             className="btn border border-cherry/40 px-4 py-2.5 text-[10px] text-cherry hover:bg-cherry hover:text-ivory disabled:opacity-40"
           >
-            {loading === 'suspended' && <Loader2 className="h-3 w-3 animate-spin" />} Suspend
+            {loading === 'suspended' && <Loader2 className="h-3 w-3 animate-spin" />} Sperren
           </button>
         </div>
       </div>
 
       <div>
-        <p className="label text-ink/40">Activate membership manually</p>
+        <p className="label text-ink/40">Mitgliedschaft manuell aktivieren</p>
         <p className="mt-1 text-[11px] leading-relaxed text-ink/40">
-          Only for payments settled outside the gateway. Records the activation as an admin action.
+          Nur für Zahlungen, die außerhalb des Gateways beglichen wurden. Die Aktivierung wird als
+          Admin-Aktion protokolliert.
         </p>
         <div className="mt-2 flex flex-wrap gap-2">
           {['monthly', 'quarterly', 'biannual'].map((p) => (

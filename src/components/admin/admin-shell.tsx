@@ -19,12 +19,12 @@ import { Wordmark } from '@/components/ui/logo';
 import { LogoutButton } from '@/components/ui/logout-button';
 
 const NAV = [
-  { href: '/admin', label: 'Overview', icon: LayoutDashboard },
-  { href: '/admin/members', label: 'Members', icon: Users },
-  { href: '/admin/experiences', label: 'Experiences', icon: CalendarRange },
+  { href: '/admin', label: 'Übersicht', icon: LayoutDashboard },
+  { href: '/admin/members', label: 'Mitglieder', icon: Users },
+  { href: '/admin/experiences', label: 'Erlebnisse', icon: CalendarRange },
   { href: '/admin/matching', label: 'Matching', icon: Sparkles },
-  { href: '/admin/categories', label: 'Categories', icon: Layers },
-  { href: '/admin/reports', label: 'Reports', icon: Flag },
+  { href: '/admin/categories', label: 'Kategorien', icon: Layers },
+  { href: '/admin/reports', label: 'Meldungen', icon: Flag },
 ];
 
 export function AdminShell({ children, email }: { children: React.ReactNode; email: string }) {
@@ -58,12 +58,12 @@ export function AdminShell({ children, email }: { children: React.ReactNode; ema
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-ivory/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[62px] max-w-[1600px] items-center justify-between px-5 md:px-8">
           <div className="flex items-center gap-4">
-            <button onClick={() => setOpen(true)} className="md:hidden" aria-label="Open admin menu">
+            <button onClick={() => setOpen(true)} className="md:hidden" aria-label="Admin-Menü öffnen">
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
             <Wordmark href="/admin" />
             <span className="hidden border border-cherry/40 px-2 py-1 text-[8px] uppercase tracking-label text-cherry md:block">
-              Admin studio
+              Admin-Studio
             </span>
           </div>
           <div className="flex items-center gap-5">
@@ -71,7 +71,7 @@ export function AdminShell({ children, email }: { children: React.ReactNode; ema
               href="/app"
               className="hidden items-center gap-1.5 text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-ink sm:flex"
             >
-              Member view <ArrowUpRight className="h-3 w-3" strokeWidth={1.5} />
+              Mitgliederansicht <ArrowUpRight className="h-3 w-3" strokeWidth={1.5} />
             </Link>
             <LogoutButton className="text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-cherry" />
           </div>
@@ -109,7 +109,7 @@ export function AdminShell({ children, email }: { children: React.ReactNode; ema
             >
               <div className="mb-8 flex items-center justify-between">
                 <Wordmark tone="ivory" href="/admin" />
-                <button onClick={() => setOpen(false)} aria-label="Close">
+                <button onClick={() => setOpen(false)} aria-label="Schließen">
                   <X className="h-5 w-5 text-ivory/60" strokeWidth={1.5} />
                 </button>
               </div>

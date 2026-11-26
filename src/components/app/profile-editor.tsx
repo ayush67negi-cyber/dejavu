@@ -8,6 +8,12 @@ import { createClient } from '@/lib/supabase/client';
 import type { Category, Profile } from '@/lib/types';
 import {
   AVAILABILITY_OPTIONS,
+  availabilityLabel,
+  cityLabel,
+  dietaryLabel,
+  foodLabel,
+  interestLabel,
+  socialLabel,
   CITY_OPTIONS,
   DIETARY_OPTIONS,
   FOOD_OPTIONS,
@@ -69,7 +75,7 @@ export function ProfileEditor({
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error('Please sign in again.');
+      if (!user) throw new Error('Bitte melde dich erneut an.');
       const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg';
       const path = `${user.id}/avatar-${Date.now()}.${ext}`;
       const { error: upErr } = await supabase.storage.from('avatars').upload(path, file, { upsert: true });
@@ -77,7 +83,7 @@ export function ProfileEditor({
       const { data } = supabase.storage.from('avatars').getPublicUrl(path);
       set('avatar_url', data.publicUrl);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Upload failed.');
+      setError(e instanceof Error ? e.message : 'Upload fehlgeschlagen.');
     } finally {
       setUploading(false);
     }
@@ -92,7 +98,7 @@ export function ProfileEditor({
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error('Please sign in again.');
+      if (!user) throw new Error('Bitte melde dich erneut an.');
 
       const { error: pErr } = await supabase
         .from('profiles')
@@ -122,10 +128,10 @@ export function ProfileEditor({
         if (iErr) throw new Error(iErr.message);
       }
 
-      setMessage('Profile saved.');
+      setMessage('Profil gespeichert.');
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not save your profile.');
+      setError(e instanceof Error ? e.message : 'Dein Profil konnte nicht gespeichert werden.');
     } finally {
       setSaving(false);
     }
@@ -138,7 +144,7 @@ export function ProfileEditor({
         <div>
           <div className="relative aspect-square w-full overflow-hidden bg-sand">
             {form.avatar_url ? (
-              <Image src={form.avatar_url} alt="Your photo" fill className="object-cover" sizes="200px" />
+              <Image src={form.avatar_url} alt="Dein Foto" fill className="object-cover" sizes="200px" />
             ) : (
               <div className="flex h-full items-center justify-center">
                 <Camera className="h-6 w-6 text-ink/25" strokeWidth={1.25} />
@@ -152,7 +158,7 @@ export function ProfileEditor({
             className="mt-3 flex w-full items-center justify-center gap-2 border border-ink/20 py-2.5 text-[10px] uppercase tracking-[0.14em] text-ink/70 hover:border-ink disabled:opacity-50"
           >
             {uploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Camera className="h-3 w-3" />}
-            {form.avatar_url ? 'Replace' : 'Add photo'}
+            {form.avatar_url ? 'Ersetzen' : 'Foto hinzufügen'}
           </button>
           <input
             ref={fileRef}
@@ -167,23 +173,23 @@ export function ProfileEditor({
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          <Field label="Full name">
+          <Field label="Vollständiger Name">
             <input className="field" value={form.full_name} onChange={(e) => set('full_name', e.target.value)} />
           </Field>
-          <Field label="City">
+          <Field label="Stadt">
             <select className="field" value={form.city} onChange={(e) => set('city', e.target.value)}>
-              <option value="">Select city</option>
+              <option value="">Stadt wählen</option>
               {CITY_OPTIONS.map((c) => (
                 <option key={c} value={c}>
-                  {c}
+                  {cityLabel(c)}
                 </option>
               ))}
             </select>
           </Field>
-          <Field label="Occupation">
+          <Field label="Beruf">
             <input className="field" value={form.occupation} onChange={(e) => set('occupation', e.target.value)} />
           </Field>
-          <Field label="Date of birth">
+          <Field label="Geburtsdatum">
             <input
               type="date"
               className="field"
@@ -200,17 +206,17 @@ export function ProfileEditor({
               placeholder="@handle"
             />
           </Field>
-          <Field label="Availability">
+          <Field label="Zeiten">
             <div className="mt-2 flex flex-wrap gap-2">
               {AVAILABILITY_OPTIONS.map((a) => (
                 <Chip key={a} active={form.availability.includes(a)} onClick={() => toggle('availability', a)}>
-                  {a}
+                  {availabilityLabel(a)}
                 </Chip>
               ))}
             </div>
           </Field>
           <div className="sm:col-span-2">
-            <Field label="Introduction">
+            <Field label="Vorstellung">
               <textarea
                 className="field min-h-[100px] resize-none"
                 value={form.bio}
@@ -222,7 +228,7 @@ export function ProfileEditor({
         </div>
       </div>
 
-      <Section label="Interests">
+      <Section label="Interessen">
         <div className="flex flex-wrap gap-2">
           {INTEREST_OPTIONS.map((i) => (
             <Chip
@@ -232,14 +238,14 @@ export function ProfileEditor({
                 setInterests((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]))
               }
             >
-              {i}
+              {interestLabel(i)}
             </Chip>
           ))}
         </div>
         <div className="mt-3 flex gap-2">
           <input
             className="field max-w-[260px]"
-            placeholder="Add your own"
+            placeholder="Eigenes hinzufügen"
             value={newInterest}
             onChange={(e) => setNewInterest(e.target.value)}
             onKeyDown={(e) => {
@@ -260,43 +266,43 @@ export function ProfileEditor({
             }}
             className="border border-ink/20 px-4 text-[10px] uppercase tracking-[0.14em] text-ink/60 hover:border-ink"
           >
-            Add
+            Hinzufügen
           </button>
         </div>
       </Section>
 
       <div className="grid gap-10 md:grid-cols-2">
-        <Section label="Food preferences">
+        <Section label="Essensvorlieben">
           <div className="flex flex-wrap gap-2">
             {FOOD_OPTIONS.map((f) => (
               <Chip key={f} active={form.food_preferences.includes(f)} onClick={() => toggle('food_preferences', f)}>
-                {f}
+                {foodLabel(f)}
               </Chip>
             ))}
           </div>
         </Section>
-        <Section label="Dietary restrictions">
+        <Section label="Unverträglichkeiten">
           <div className="flex flex-wrap gap-2">
             {DIETARY_OPTIONS.map((d) => (
               <Chip key={d} active={form.dietary_restrictions.includes(d)} onClick={() => toggle('dietary_restrictions', d)}>
-                {d}
+                {dietaryLabel(d)}
               </Chip>
             ))}
           </div>
         </Section>
       </div>
 
-      <Section label="Social preferences">
+      <Section label="Soziale Vorlieben">
         <div className="flex flex-wrap gap-2">
           {SOCIAL_PREFERENCES.map((s) => (
             <Chip key={s} active={form.social_preferences.includes(s)} onClick={() => toggle('social_preferences', s)}>
-              {s}
+              {socialLabel(s)}
             </Chip>
           ))}
         </div>
       </Section>
 
-      <Section label="Preferred tables">
+      <Section label="Bevorzugte Tische">
         <div className="grid gap-2 sm:grid-cols-2">
           {categories.map((c) => (
             <button
@@ -316,13 +322,13 @@ export function ProfileEditor({
         </div>
       </Section>
 
-      <Section label="Who can see your profile">
+      <Section label="Wer dein Profil sehen kann">
         <div className="grid gap-2 sm:grid-cols-3">
           {(
             [
-              ['table', 'Table only'],
-              ['members', 'All members'],
-              ['private', 'Private'],
+              ['table', 'Nur am Tisch'],
+              ['members', 'Alle Mitglieder'],
+              ['private', 'Privat'],
             ] as const
           ).map(([value, label]) => (
             <button
@@ -338,8 +344,8 @@ export function ProfileEditor({
           ))}
         </div>
         <p className="mt-3 text-[11.5px] leading-relaxed text-ink/40">
-          Your email address and private questionnaire answers are never shared with other members,
-          in any setting.
+          Deine E-Mail-Adresse und deine Antworten aus dem Fragebogen werden nie an andere
+          Mitglieder weitergegeben – in keiner Einstellung.
         </p>
       </Section>
 
@@ -348,7 +354,7 @@ export function ProfileEditor({
           {message && <p className="text-[11px] uppercase tracking-[0.14em] text-olive">{message}</p>}
           {error && <p className="text-[12px] text-cherry">{error}</p>}
           {!message && !error && (
-            <p className="text-[11px] text-ink/40">Changes are reviewed by nobody — they apply immediately.</p>
+            <p className="text-[11px] text-ink/45">Änderungen werden nicht geprüft – sie gelten sofort.</p>
           )}
         </div>
         <button
@@ -357,7 +363,7 @@ export function ProfileEditor({
           disabled={saving}
           className="btn bg-ink px-7 py-3.5 text-ivory hover:bg-cherry disabled:opacity-60"
         >
-          {saving && <Loader2 className="h-4 w-4 animate-spin" />} Save profile
+          {saving && <Loader2 className="h-4 w-4 animate-spin" />} Profil speichern
         </button>
       </div>
     </div>

@@ -3,32 +3,32 @@ import Link from 'next/link';
 import { PageHead } from '@/components/marketing/page-head';
 
 export const metadata: Metadata = {
-  title: 'Contact',
-  description: 'Reach the DEJAVU team about membership, safety, press or partnerships.',
+  title: 'Kontakt',
+  description: 'Erreiche das DEJAVU-Team zu Mitgliedschaft, Sicherheit, Presse oder Partnerschaften.',
 };
 
 const CHANNELS = [
   {
-    label: 'Membership',
-    copy: 'Questions about plans, billing, pausing or cancelling.',
+    label: 'Mitgliedschaft',
+    copy: 'Fragen zu Tarifen, Abrechnung, Pausieren oder Kündigen.',
     href: 'mailto:members@dejavu.dining?subject=Membership%20enquiry',
     action: 'members@dejavu.dining',
   },
   {
-    label: 'Safety',
-    copy: 'Anything that happened at a table. Reviewed first, every day.',
+    label: 'Sicherheit',
+    copy: 'Alles, was an einem Tisch passiert ist. Wird täglich zuerst geprüft.',
     href: 'mailto:safety@dejavu.dining?subject=Safety%20report',
     action: 'safety@dejavu.dining',
   },
   {
     label: 'Restaurants',
-    copy: 'If you run a room you would like us to consider.',
+    copy: 'Wenn du einen Ort führst, den wir uns ansehen sollten.',
     href: 'mailto:venues@dejavu.dining?subject=Venue%20partnership',
     action: 'venues@dejavu.dining',
   },
   {
-    label: 'Press',
-    copy: 'Interviews, imagery and brand enquiries.',
+    label: 'Presse',
+    copy: 'Interviews, Bildmaterial und Markenanfragen.',
     href: 'mailto:press@dejavu.dining?subject=Press%20enquiry',
     action: 'press@dejavu.dining',
   },
@@ -38,9 +38,9 @@ export default function ContactPage() {
   return (
     <>
       <PageHead
-        eyebrow="Contact"
-        title="Write to a person, not a form."
-        lead="DEJAVU is a small team. Every message below reaches a human, and safety messages are read first."
+        eyebrow="Kontakt"
+        title="Schreib einem Menschen, keinem Formular."
+        lead="DEJAVU ist ein kleines Team. Jede Nachricht unten erreicht einen Menschen – Sicherheitsnachrichten lesen wir zuerst."
         tone="burgundy"
       />
 
@@ -64,33 +64,33 @@ export default function ContactPage() {
 
           <div className="mt-14 grid gap-8 border-t border-ink/12 pt-10 md:grid-cols-[1fr_1.3fr]">
             <div>
-              <p className="label text-ink/35">Before the table</p>
+              <p className="label text-ink/40">Vor dem Tisch</p>
               <h2 className="mt-4 font-serif text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.05] text-ink">
-                Most answers are already written down.
+                Die meisten Antworten stehen schon geschrieben.
               </h2>
             </div>
             <div className="space-y-4 text-[13.5px] leading-relaxed text-ink/60">
               <p>
-                Membership, pricing and cancellation are covered on the{' '}
+                Mitgliedschaft, Preise und Kündigung findest du auf der{' '}
                 <Link href="/membership" className="underline decoration-ink/25 underline-offset-2 hover:text-ink">
-                  membership page
+                  Mitgliedschaftsseite
                 </Link>
-                . How tables are composed is on{' '}
+                . Wie Tische zusammengestellt werden, steht unter{' '}
                 <Link href="/how-it-works" className="underline decoration-ink/25 underline-offset-2 hover:text-ink">
-                  how it works
+                  So funktioniert’s
                 </Link>
-                . Safety, reporting and privacy are on{' '}
+                . Sicherheit, Meldungen und Datenschutz findest du unter{' '}
                 <Link href="/safety" className="underline decoration-ink/25 underline-offset-2 hover:text-ink">
-                  safety
+                  Sicherheit
                 </Link>
                 .
               </p>
               <p>
-                If your message is about a specific experience, include the date and city — it helps
-                us find the table immediately.
+                Wenn es um ein bestimmtes Erlebnis geht, nenne Datum und Stadt – damit finden wir den
+                Tisch sofort.
               </p>
               <p className="text-[11px] uppercase tracking-label text-ink/30">
-                We reply within two working days. Safety messages are actioned the same day.
+                Wir antworten innerhalb von zwei Werktagen. Sicherheitsnachrichten bearbeiten wir am selben Tag.
               </p>
             </div>
           </div>

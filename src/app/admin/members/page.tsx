@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { formatDate } from '@/lib/format';
+import { MEMBER_STATUS_LABEL, VISIBILITY_LABEL } from '@/lib/constants';
 
 export default async function AdminMembers({
   searchParams,
@@ -24,16 +25,16 @@ export default async function AdminMembers({
   return (
     <div className="space-y-7">
       <div className="border-b border-ink/12 pb-6">
-        <p className="label text-ink/35">Members</p>
+        <p className="label text-ink/40">Mitglieder</p>
         <h1 className="mt-2 font-serif text-[clamp(1.8rem,3.4vw,2.6rem)] leading-none text-ink">
-          Everyone in the room.
+          Alle im Raum.
         </h1>
       </div>
 
       <form className="flex flex-wrap items-end gap-3" action="/admin/members">
         <div className="flex-1 min-w-[220px]">
           <label htmlFor="q" className="label block text-ink/40">
-            Search by name
+            Nach Namen suchen
           </label>
           <input id="q" name="q" defaultValue={q ?? ''} className="field mt-1.5" placeholder="Name" />
         </div>
@@ -42,14 +43,14 @@ export default async function AdminMembers({
             Status
           </label>
           <select id="status" name="status" defaultValue={status ?? 'all'} className="field mt-1.5">
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="suspended">Suspended</option>
-            <option value="deleted">Deleted</option>
+            <option value="all">Alle</option>
+            <option value="active">Aktiv</option>
+            <option value="suspended">Gesperrt</option>
+            <option value="deleted">Gelöscht</option>
           </select>
         </div>
         <button type="submit" className="btn bg-ink px-6 py-3.5 text-ivory hover:bg-cherry">
-          Filter
+          Filtern
         </button>
       </form>
 
@@ -57,7 +58,7 @@ export default async function AdminMembers({
         <table className="w-full min-w-[720px] text-left">
           <thead className="border-b border-ink/12 bg-cream/60">
             <tr>
-              {['Member', 'City', 'Occupation', 'Onboarding', 'Visibility', 'Joined', ''].map((h) => (
+              {['Mitglied', 'Stadt', 'Beruf', 'Onboarding', 'Sichtbarkeit', 'Beigetreten', ''].map((h) => (
                 <th key={h} className="px-4 py-3 text-[9px] uppercase tracking-label text-ink/40">
                   {h}
                 </th>
@@ -68,7 +69,7 @@ export default async function AdminMembers({
             {(members ?? []).length === 0 ? (
               <tr>
                 <td colSpan={7} className="px-4 py-10 text-center text-[13px] text-ink/40">
-                  No members match that search.
+                  Keine Mitglieder passen zu dieser Suche.
                 </td>
               </tr>
             ) : (
@@ -76,11 +77,11 @@ export default async function AdminMembers({
                 <tr key={m.id} className="hover:bg-cream/50">
                   <td className="px-4 py-3">
                     <Link href={`/admin/members/${m.id}`} className="text-[13px] text-ink hover:text-cherry">
-                      {m.full_name || 'Unnamed'}
+                      {m.full_name || 'Ohne Namen'}
                     </Link>
                     {m.status !== 'active' && (
                       <span className="ml-2 text-[9px] uppercase tracking-label text-cherry">
-                        {m.status}
+                        {MEMBER_STATUS_LABEL[m.status] ?? m.status}
                       </span>
                     )}
                   </td>
@@ -92,17 +93,17 @@ export default async function AdminMembers({
                         m.onboarding_completed ? 'text-olive' : 'text-ember'
                       }`}
                     >
-                      {m.onboarding_completed ? 'Complete' : 'Incomplete'}
+                      {m.onboarding_completed ? 'Fertig' : 'Unvollständig'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-[12px] text-ink/50">{m.visibility}</td>
+                  <td className="px-4 py-3 text-[12px] text-ink/50">{VISIBILITY_LABEL[m.visibility] ?? m.visibility}</td>
                   <td className="px-4 py-3 text-[12px] text-ink/50">{formatDate(m.created_at)}</td>
                   <td className="px-4 py-3 text-right">
                     <Link
                       href={`/admin/members/${m.id}`}
                       className="text-[10px] uppercase tracking-[0.12em] text-ink/40 hover:text-cherry"
                     >
-                      Review
+                      Prüfen
                     </Link>
                   </td>
                 </tr>
@@ -112,8 +113,9 @@ export default async function AdminMembers({
         </table>
       </div>
       <p className="text-[11px] text-ink/35">
-        Showing up to 100 members. Use search to narrow. Private questionnaire answers are visible
-        only on the member review page, for matching purposes.
+        Bis zu 100 Mitglieder werden angezeigt. Nutze die Suche, um einzugrenzen. Private
+        Fragebogenantworten sind nur auf der Mitgliederseite sichtbar, und zwar zum Zweck des
+        Matchings.
       </p>
     </div>
   );

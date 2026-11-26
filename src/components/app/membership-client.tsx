@@ -43,7 +43,7 @@ export function MembershipClient({
   async function checkout() {
     const plan = plans.find((p) => p.id === selected);
     if (!plan) {
-      setMessage('Choose a membership period first.');
+      setMessage('Wähle zuerst einen Mitgliedschaftszeitraum.');
       return;
     }
     setLoading(true);
@@ -88,7 +88,7 @@ export function MembershipClient({
           setIssue('not_configured');
         } else {
           setIssue('error');
-          setMessage(json.error ?? 'Checkout could not be started.');
+          setMessage(json.error ?? 'Der Checkout konnte nicht gestartet werden.');
         }
         return;
       }
@@ -117,12 +117,12 @@ export function MembershipClient({
             body: JSON.stringify(response),
           });
           if (verify.ok) {
-            router.push('/app/membership?notice=Payment%20confirmed.%20Welcome%20to%20the%20table.');
+            router.push('/app/membership?notice=Zahlung%20best%C3%A4tigt.%20Willkommen%20am%20Tisch.');
             router.refresh();
           } else {
             setIssue('error');
             setMessage(
-              'Payment was received but verification failed. Nothing has been activated — please contact us and we will resolve it.',
+              'Die Zahlung ist eingegangen, aber die Prüfung ist fehlgeschlagen. Es wurde nichts aktiviert – bitte kontaktiere uns, wir klären es.',
             );
           }
         },
@@ -130,7 +130,7 @@ export function MembershipClient({
       rzp.open();
     } catch {
       setIssue('error');
-      setMessage('Something went wrong starting checkout. No payment was taken.');
+      setMessage('Beim Start des Checkouts ist etwas schiefgelaufen. Es wurde nichts abgebucht.');
     } finally {
       setLoading(false);
     }
@@ -148,12 +148,12 @@ export function MembershipClient({
       // Cancellation flags intent; the status change is applied by the server so a
       // member cannot reactivate or extend their own paid period.
       if (error) {
-        setMessage('We could not record the cancellation. Please contact us.');
+        setMessage('Die Kündigung konnte nicht gespeichert werden. Bitte kontaktiere uns.');
         return;
       }
       const res = await fetch('/api/membership/cancel', { method: 'POST' });
       if (!res.ok) {
-        setMessage('Cancellation recorded locally — our team will confirm by email.');
+        setMessage('Kündigung erfasst – unser Team bestätigt sie per E-Mail.');
       }
       setCancelOpen(false);
       router.refresh();
@@ -184,23 +184,23 @@ export function MembershipClient({
                     active ? 'bg-blush text-ink' : 'bg-cherry text-ivory'
                   }`}
                 >
-                  Recommended
+                  Empfohlen
                 </span>
               )}
               <p className={`label ${active ? 'text-ivory/45' : 'text-ink/40'}`}>{p.name}</p>
               <p className="mt-4 font-serif text-[34px] leading-none">
                 <span className="align-top text-[0.45em]">₹</span>
-                {p.price_inr.toLocaleString('en-IN')}
+                {p.price_inr.toLocaleString('de-DE')}
               </p>
               <p className={`mt-1 text-[11px] ${active ? 'text-ivory/45' : 'text-ink/35'}`}>
-                ≈ ₹{Math.round(p.price_inr / p.duration_months).toLocaleString('en-IN')} / month
+                ≈ ₹{Math.round(p.price_inr / p.duration_months).toLocaleString('de-DE')} / Monat
               </p>
               <p className={`mt-4 text-[12.5px] leading-relaxed ${active ? 'text-ivory/65' : 'text-ink/50'}`}>
                 {p.description}
               </p>
               <div className="mt-5 flex items-center justify-between border-t border-current/15 pt-4">
                 <span className={`text-[9px] uppercase tracking-label ${active ? 'text-ivory/45' : 'text-ink/35'}`}>
-                  {isCurrent ? 'Your current plan' : 'Select'}
+                  {isCurrent ? 'Dein aktueller Tarif' : 'Auswählen'}
                 </span>
                 <span
                   className={`flex h-4 w-4 items-center justify-center rounded-full border ${
@@ -221,14 +221,14 @@ export function MembershipClient({
           <div>
             <p className="text-[13px] text-ink">
               {hasPending
-                ? 'You have a membership awaiting verified payment.'
+                ? 'Deine Mitgliedschaft wartet auf die bestätigte Zahlung.'
                 : currentPlanId
-                  ? 'Your membership is active.'
-                  : 'No membership period selected yet.'}
+                  ? 'Deine Mitgliedschaft ist aktiv.'
+                  : 'Noch kein Mitgliedschaftszeitraum gewählt.'}
             </p>
             <p className="mt-1 max-w-[56ch] text-[11.5px] leading-relaxed text-ink/45">
-              Checkout is processed by Razorpay. Membership activates only after a verified payment
-              — we never mark an account paid manually.
+              Der Checkout läuft über Razorpay. Die Mitgliedschaft wird erst nach einer geprüften
+              Zahlung aktiv – wir markieren kein Konto von Hand als bezahlt.
             </p>
           </div>
         </div>
@@ -238,7 +238,7 @@ export function MembershipClient({
               onClick={() => setCancelOpen(true)}
               className="btn border border-ink/25 px-5 py-3 text-[10px] text-ink/70 hover:border-ink hover:text-ink"
             >
-              Cancel renewal
+              Verlängerung kündigen
             </button>
           )}
           <button
@@ -247,22 +247,23 @@ export function MembershipClient({
             className="btn bg-ink px-6 py-3.5 text-ivory hover:bg-cherry disabled:opacity-50"
           >
             {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-            {currentPlanId ? 'Change plan' : 'Continue to checkout'}
+            {currentPlanId ? 'Tarif wechseln' : 'Weiter zur Zahlung'}
           </button>
         </div>
       </div>
 
       {issue === 'not_configured' && (
         <div className="border-l-2 border-ember bg-ember/[0.06] p-5">
-          <p className="text-[11px] uppercase tracking-[0.14em] text-ember">Payments not yet enabled</p>
+          <p className="text-[11px] uppercase tracking-[0.14em] text-ember">Zahlungen noch nicht aktiv</p>
           <p className="mt-2 max-w-[70ch] text-[13px] leading-relaxed text-ink/65">
-            The Razorpay gateway has not been configured for this deployment, so no payment can be
-            taken and no membership has been activated. To enable memberships, set{' '}
+            Das Razorpay-Gateway ist für diese Umgebung nicht konfiguriert. Es kann keine Zahlung
+            angenommen und keine Mitgliedschaft aktiviert werden. Um Mitgliedschaften zu aktivieren,
+            hinterlege{' '}
             <code className="bg-ink/5 px-1 py-0.5 text-[12px]">RAZORPAY_KEY_ID</code>,{' '}
             <code className="bg-ink/5 px-1 py-0.5 text-[12px]">RAZORPAY_KEY_SECRET</code> and{' '}
             <code className="bg-ink/5 px-1 py-0.5 text-[12px]">RAZORPAY_WEBHOOK_SECRET</code> in the
-            Vercel project, then redeploy. In the meantime, membership periods are activated only by
-            our team after an off-platform arrangement.
+            im Vercel-Projekt und deploye neu. Bis dahin werden Mitgliedschaftszeiträume nur von
+            unserem Team nach einer Absprache außerhalb der Plattform aktiviert.
           </p>
         </div>
       )}
@@ -274,34 +275,34 @@ export function MembershipClient({
       )}
       {issue === 'not_authenticated' && (
         <p className="border-l-2 border-cherry bg-cherry/5 p-4 text-[13px] text-cherry">
-          Your session expired. Please sign in again.
+          Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.
         </p>
       )}
 
       {cancelOpen && (
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/50 p-5">
           <div className="w-full max-w-[460px] bg-ivory p-7">
-            <p className="label text-cherry">Cancel renewal</p>
+            <p className="label text-cherry">Verlängerung kündigen</p>
             <h2 className="mt-3 font-serif text-[26px] leading-tight text-ink">
-              Stop the next charge?
+              Die nächste Abbuchung stoppen?
             </h2>
             <p className="mt-3 text-[13px] leading-relaxed text-ink/60">
-              Your access continues until the end of the current paid period. Tables already
-              confirmed are honoured. You can rejoin any time.
+              Dein Zugang läuft bis zum Ende des aktuellen bezahlten Zeitraums weiter. Bereits
+              bestätigte Tische bleiben bestehen. Du kannst jederzeit wieder einsteigen.
             </p>
             <div className="mt-6 flex items-center justify-end gap-3">
               <button
                 onClick={() => setCancelOpen(false)}
                 className="text-[10px] uppercase tracking-[0.14em] text-ink/45 hover:text-ink"
               >
-                Keep membership
+                Mitgliedschaft behalten
               </button>
               <button
                 onClick={cancel}
                 disabled={cancelling}
                 className="btn bg-cherry px-5 py-3 text-ivory hover:bg-claret disabled:opacity-60"
               >
-                {cancelling && <Loader2 className="h-4 w-4 animate-spin" />} Confirm cancellation
+                {cancelling && <Loader2 className="h-4 w-4 animate-spin" />} Kündigung bestätigen
               </button>
             </div>
           </div>
@@ -309,7 +310,8 @@ export function MembershipClient({
       )}
 
       <p className="text-[11px] text-ink/35">
-        Serving members in {city}. Prices in Indian Rupees, inclusive of applicable taxes.
+        Wir sind für Mitglieder in {city} aktiv. Preise in indischen Rupien, inklusive anfallender
+        Steuern.
       </p>
     </div>
   );

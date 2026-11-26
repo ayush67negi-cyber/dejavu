@@ -4,24 +4,24 @@ import { PageHead } from '@/components/marketing/page-head';
 
 export const metadata: Metadata = {
   title: 'FAQ',
-  description: 'Frequently asked questions about DEJAVU: tables, matching, membership, safety and cities.',
+  description: 'Häufige Fragen zu DEJAVU: Tische, Matching, Mitgliedschaft, Sicherheit und Städte.',
 };
 
 const GROUPS = [
   {
-    title: 'The basics',
+    title: 'Das Wichtigste',
     items: [
       {
-        q: 'Is DEJAVU a dating app?',
-        a: 'No. DEJAVU is a social dining membership built around friendship and conversation. Tables are not composed on attraction, nobody is scored, and there is nothing to swipe.',
+        q: 'Ist DEJAVU eine Dating-App?',
+        a: 'Nein. DEJAVU ist eine Mitgliedschaft für gemeinsames Essen, aufgebaut auf Freundschaft und Gespräch. Tische entstehen nicht nach Anziehung, niemand wird bewertet, und es gibt nichts zu wischen.',
       },
       {
-        q: 'What actually happens at a table?',
-        a: 'You arrive at a restaurant at a set time and are greeted by a table of four to six people and a DEJAVU facilitator. They open the evening, then step back. You order what you like, pay for your own meal, and talk. Most people stay past dessert.',
+        q: 'Was passiert an einem Tisch tatsächlich?',
+        a: 'Du kommst zur vereinbarten Zeit in ein Restaurant und triffst auf vier bis sechs Menschen und eine DEJAVU-Begleitung. Sie eröffnet den Abend und zieht sich dann zurück. Du bestellst, was du magst, zahlst dein Essen und sprichst. Die meisten bleiben über den Dessert hinaus.',
       },
       {
-        q: 'How big are the tables?',
-        a: 'Between four and six people. Small enough that everyone can speak, large enough that there is range in the conversation.',
+        q: 'Wie groß sind die Tische?',
+        a: 'Zwischen vier und sechs Menschen. Klein genug, dass alle zu Wort kommen, groß genug, dass Bandbreite im Gespräch entsteht.',
       },
     ],
   },
@@ -29,54 +29,54 @@ const GROUPS = [
     title: 'Matching',
     items: [
       {
-        q: 'How are tables composed?',
-        a: 'By hand, using our compatibility scoring as a guide. We weigh city, shared interests, the categories you chose, availability, dietary fit and questionnaire traits. A human always makes the final call, because a good table is not a spreadsheet.',
+        q: 'Wie werden Tische zusammengestellt?',
+        a: 'Von Hand, mit unserem Kompatibilitäts-Score als Leitlinie. Wir gewichten Stadt, gemeinsame Interessen, deine gewählten Kategorien, Verfügbarkeit, Ernährung und Persönlichkeitsmerkmale. Die letzte Entscheidung trifft immer ein Mensch – ein guter Tisch ist keine Tabelle.',
       },
       {
-        q: 'Will I be with the same people every time?',
-        a: 'No. Each table is composed separately. You may meet someone again, but the point is breadth — different rooms, different perspectives.',
+        q: 'Sitze ich jedes Mal mit denselben Menschen?',
+        a: 'Nein. Jeder Tisch wird neu zusammengestellt. Du kannst jemanden wiedersehen, aber es geht um Breite – andere Räume, andere Perspektiven.',
       },
       {
-        q: 'Can I choose who I sit with?',
-        a: 'You choose categories and preferences, not individuals. If you would rather not sit with someone, block them from your profile and we will keep you apart.',
+        q: 'Kann ich wählen, mit wem ich sitze?',
+        a: 'Du wählst Kategorien und Vorlieben, keine Personen. Wenn du nicht mit jemandem an einem Tisch sitzen möchtest, blockiere die Person in deinem Profil – wir halten euch dann getrennt.',
       },
       {
-        q: 'What if I do not like my match?',
-        a: 'Tell us. Every completed experience has a feedback prompt. Repeated poor fits mean we adjust how we compose your tables.',
-      },
-    ],
-  },
-  {
-    title: 'Membership and money',
-    items: [
-      {
-        q: 'What does membership cost?',
-        a: 'One month ₹1,999, three months ₹4,999, six months ₹8,999. Check current availability on the membership page.',
-      },
-      {
-        q: 'Is the meal included?',
-        a: 'No. Restaurant food and beverages are paid for separately by you, at the venue. DEJAVU membership covers the curation, the table and the hosting.',
-      },
-      {
-        q: 'How do I cancel?',
-        a: 'From the membership page in your dashboard. Renewal stops immediately; access continues to the end of the paid period.',
+        q: 'Was, wenn mir die Runde nicht gefällt?',
+        a: 'Sag es uns. Nach jedem abgeschlossenen Erlebnis fragen wir nach deinem Feedback. Passt es wiederholt nicht, ändern wir, wie deine Tische zusammengestellt werden.',
       },
     ],
   },
   {
-    title: 'Safety and privacy',
+    title: 'Mitgliedschaft und Kosten',
     items: [
       {
-        q: 'Who can see my profile?',
-        a: 'Only people seated at your table, and only the fields you have allowed. Your email, questionnaire answers and reports are never shared with other members.',
+        q: 'Was kostet die Mitgliedschaft?',
+        a: 'Ein Monat ₹1.999, drei Monate ₹4.999, sechs Monate ₹8.999. Die aktuelle Verfügbarkeit findest du auf der Seite zur Mitgliedschaft.',
       },
       {
-        q: 'How do I report someone?',
-        a: 'Use the report option on any confirmed experience in your dashboard. Reports are private and reviewed by our team.',
+        q: 'Ist das Essen enthalten?',
+        a: 'Nein. Speisen und Getränke zahlst du selbst im Restaurant. Die DEJAVU-Mitgliedschaft deckt die Kuratierung, den Tisch und die Begleitung.',
       },
       {
-        q: 'Is DEJAVU 18+?',
-        a: 'Yes, strictly. Age is verified during onboarding and enforced by the platform.',
+        q: 'Wie kündige ich?',
+        a: 'Über die Mitgliedschaftsseite in deinem Dashboard. Die Verlängerung stoppt sofort, dein Zugang läuft bis zum Ende des bezahlten Zeitraums weiter.',
+      },
+    ],
+  },
+  {
+    title: 'Sicherheit und Privatsphäre',
+    items: [
+      {
+        q: 'Wer sieht mein Profil?',
+        a: 'Nur Menschen, die am selben Tisch sitzen – und nur die Felder, die du freigegeben hast. Deine E-Mail-Adresse, deine Fragebogenantworten und Meldungen werden nie an andere Mitglieder weitergegeben.',
+      },
+      {
+        q: 'Wie melde ich jemanden?',
+        a: 'Über die Meldefunktion bei jedem bestätigten Erlebnis in deinem Dashboard. Meldungen sind privat und werden von unserem Team geprüft.',
+      },
+      {
+        q: 'Ist DEJAVU ab 18?',
+        a: 'Ja, strikt. Das Alter wird beim Onboarding geprüft und von der Plattform durchgesetzt.',
       },
     ],
   },
@@ -86,9 +86,9 @@ export default function FAQPage() {
   return (
     <>
       <PageHead
-        eyebrow="FAQ"
-        title="Questions people actually ask."
-        lead="If yours is not here, write to us — a person will answer."
+        eyebrow="Häufige Fragen"
+        title="Fragen, die wirklich gestellt werden."
+        lead="Wenn deine Frage fehlt: Schreib uns – ein Mensch antwortet dir."
       />
 
       <section className="bg-ivory">
@@ -130,16 +130,16 @@ export default function FAQPage() {
 
               <div className="border border-ink/15 p-7">
                 <p className="font-serif text-[22px] leading-tight text-ink">
-                  Still wondering about something?
+                  Noch etwas unklar?
                 </p>
                 <p className="mt-2 max-w-[46ch] text-[13px] leading-relaxed text-ink/55">
-                  Write to us. We would rather answer a question than have you join unsure.
+                  Schreib uns. Wir beantworten lieber eine Frage, als dass du unsicher beitrittst.
                 </p>
                 <Link
                   href="/contact"
                   className="mt-5 inline-block bg-ink px-6 py-3.5 text-[10px] uppercase tracking-[0.18em] text-ivory transition-colors hover:bg-cherry"
                 >
-                  Contact DEJAVU
+                  Schreib DEJAVU
                 </Link>
               </div>
             </div>

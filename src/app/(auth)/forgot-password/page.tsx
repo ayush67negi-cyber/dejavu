@@ -3,24 +3,27 @@ import Link from 'next/link';
 import { AuthShell } from '@/components/auth/auth-shell';
 import { ForgotForm } from '@/components/auth/forgot-form';
 
-export const metadata: Metadata = { title: 'Reset your password' };
+export const metadata: Metadata = {
+  title: 'Passwort zurücksetzen',
+  description: 'Fordere einen Link zum Zurücksetzen deines DEJAVU-Passworts an.',
+};
 
 export default function ForgotPage() {
   return (
     <AuthShell
-      eyebrow="Account recovery"
+      eyebrow="Konto wiederherstellen"
       title={
         <>
-          A new
+          Ein neuer
           <br />
-          <em className="not-italic text-cherry">key.</em>
+          <em className="not-italic text-cherry">Schlüssel.</em>
         </>
       }
       aside={
-        <p className="text-[13px] leading-relaxed text-ink/50">
-          Remembered it?{' '}
+        <p className="text-[13px] leading-relaxed text-ink/60">
+          Doch wieder eingefallen?{' '}
           <Link href="/login" className="border-b border-ink/40 pb-0.5 text-ink hover:border-cherry hover:text-cherry">
-            Sign in
+            Anmelden
           </Link>
           .
         </p>

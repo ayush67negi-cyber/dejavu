@@ -1,14 +1,14 @@
 import { z } from 'zod';
 
 export const signupSchema = z.object({
-  fullName: z.string().trim().min(2, 'Tell us your name.').max(80),
-  email: z.string().trim().email('That email address looks incomplete.'),
-  password: z.string().min(8, 'Use at least 8 characters.'),
+  fullName: z.string().trim().min(2, 'Sag uns deinen Namen.').max(80),
+  email: z.string().trim().email('Diese E-Mail-Adresse sieht unvollständig aus.'),
+  password: z.string().min(8, 'Nutze mindestens 8 Zeichen.'),
 });
 
 export const loginSchema = z.object({
-  email: z.string().trim().email('Enter a valid email address.'),
-  password: z.string().min(1, 'Enter your password.'),
+  email: z.string().trim().email('Gib eine gültige E-Mail-Adresse ein.'),
+  password: z.string().min(1, 'Gib dein Passwort ein.'),
 });
 
 export const profileSchema = z.object({
@@ -19,7 +19,7 @@ export const profileSchema = z.object({
   instagram_handle: z.string().trim().max(40).optional().or(z.literal('')),
   date_of_birth: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Use the format YYYY-MM-DD.')
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Nutze das Format JJJJ-MM-TT.')
     .optional()
     .or(z.literal('')),
   food_preferences: z.array(z.string()).max(20).default([]),
@@ -45,7 +45,7 @@ export const reportSchema = z.object({
   reported_user_id: z.string().uuid().optional(),
   experience_id: z.string().uuid().optional(),
   category: z.enum(['safety', 'harassment', 'no_show', 'misrepresentation', 'other']),
-  details: z.string().trim().min(20, 'Please give us enough detail to act on this.').max(2000),
+  details: z.string().trim().min(20, 'Bitte beschreibe es so genau, dass wir handeln können.').max(2000),
 });
 
 export const feedbackSchema = z.object({

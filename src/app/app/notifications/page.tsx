@@ -5,7 +5,7 @@ import { formatDateTime } from '@/lib/format';
 import { MarkAllRead } from '@/components/app/mark-all-read';
 import { Bell } from 'lucide-react';
 
-export const metadata: Metadata = { title: 'Notifications' };
+export const metadata: Metadata = { title: 'Mitteilungen' };
 
 export default async function NotificationsPage() {
   const supabase = await createClient();
@@ -22,12 +22,12 @@ export default async function NotificationsPage() {
     <div className="space-y-8">
       <div className="flex flex-col justify-between gap-4 border-b border-ink/12 pb-8 md:flex-row md:items-end">
         <div>
-          <p className="label text-ink/35">Notifications</p>
+          <p className="label text-ink/40">Mitteilungen</p>
           <h1 className="mt-3 font-serif text-[clamp(2rem,4vw,3rem)] leading-[0.98] text-ink">
-            What’s arrived.
+            Was angekommen ist.
           </h1>
           <p className="mt-3 text-[14px] text-ink/55">
-            {unread > 0 ? `${unread} unread` : 'Nothing unread.'}
+            {unread > 0 ? `${unread} ungelesen` : 'Nichts Ungelesenes.'}
           </p>
         </div>
         {unread > 0 && <MarkAllRead />}
@@ -36,9 +36,9 @@ export default async function NotificationsPage() {
       {list.length === 0 ? (
         <div className="border border-dashed border-ink/20 p-12 text-center">
           <Bell className="mx-auto h-6 w-6 text-ink/25" strokeWidth={1.25} />
-          <p className="mt-4 font-serif text-[22px] text-ink">Quiet for now.</p>
+          <p className="mt-4 font-serif text-[22px] text-ink">Gerade ist es still.</p>
           <p className="mx-auto mt-2 max-w-[42ch] text-[13px] leading-relaxed text-ink/50">
-            Match confirmations, venue details and experience reminders will appear here.
+            Match-Bestätigungen, Ortsangaben und Erinnerungen zu Erlebnissen erscheinen hier.
           </p>
         </div>
       ) : (

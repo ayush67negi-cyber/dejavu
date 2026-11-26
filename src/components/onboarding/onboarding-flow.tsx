@@ -16,6 +16,13 @@ import {
   INTEREST_OPTIONS,
   QUESTIONNAIRE,
   SOCIAL_PREFERENCES,
+  availabilityLabel,
+  avoidLabel,
+  cityLabel,
+  dietaryLabel,
+  foodLabel,
+  interestLabel,
+  socialLabel,
 } from '@/lib/constants';
 import { isAdult } from '@/lib/validation';
 
@@ -42,14 +49,14 @@ type Draft = {
 };
 
 const STEPS = [
-  { key: 'identity', title: 'Who you are', label: 'Identity' },
-  { key: 'photo', title: 'A face for the table', label: 'Photo' },
-  { key: 'city', title: 'Where you live', label: 'City' },
-  { key: 'interests', title: 'What you’re into', label: 'Interests' },
-  { key: 'table', title: 'Which tables tempt you', label: 'Tables' },
-  { key: 'food', title: 'At the table', label: 'Food' },
-  { key: 'personality', title: 'How you talk', label: 'Personality' },
-  { key: 'review', title: 'One last look', label: 'Review' },
+  { key: 'identity', title: 'Wer du bist', label: 'Identität' },
+  { key: 'photo', title: 'Ein Gesicht für den Tisch', label: 'Foto' },
+  { key: 'city', title: 'Wo du lebst', label: 'Stadt' },
+  { key: 'interests', title: 'Was dich begeistert', label: 'Interessen' },
+  { key: 'table', title: 'Welche Tische dich reizen', label: 'Tische' },
+  { key: 'food', title: 'Am Tisch', label: 'Essen' },
+  { key: 'personality', title: 'Wie du sprichst', label: 'Persönlichkeit' },
+  { key: 'review', title: 'Ein letzter Blick', label: 'Prüfen' },
 ] as const;
 
 function draftFromProfile(p: Profile | null): Draft {
@@ -139,17 +146,17 @@ export function OnboardingFlow({
 
   function validate(current: number): string {
     if (current === 0) {
-      if (draft.full_name.trim().length < 2) return 'We need a name to introduce you by.';
-      if (!draft.date_of_birth) return 'Please add your date of birth — DEJAVU is 18+ only.';
-      if (!isAdult(draft.date_of_birth)) return 'DEJAVU is for adults only (18+).';
-      if (!draft.adult_confirmed) return 'Please confirm you are 18 or older.';
+      if (draft.full_name.trim().length < 2) return 'Wir brauchen einen Namen, mit dem wir dich vorstellen.';
+      if (!draft.date_of_birth) return 'Bitte gib dein Geburtsdatum an – DEJAVU ist nur ab 18.';
+      if (!isAdult(draft.date_of_birth)) return 'DEJAVU ist nur für Erwachsene (ab 18).';
+      if (!draft.adult_confirmed) return 'Bitte bestätige, dass du mindestens 18 bist.';
     }
-    if (current === 2 && draft.city.trim().length < 2) return 'Which city will you be dining in?';
-    if (current === 3 && draft.interests.length < 3) return 'Choose at least three interests.';
-    if (current === 4 && draft.preferred_categories.length < 1) return 'Choose at least one table.';
+    if (current === 2 && draft.city.trim().length < 2) return 'In welcher Stadt möchtest du essen gehen?';
+    if (current === 3 && draft.interests.length < 3) return 'Wähle mindestens drei Interessen.';
+    if (current === 4 && draft.preferred_categories.length < 1) return 'Wähle mindestens einen Tisch.';
     if (current === 6) {
       const answered = QUESTIONNAIRE.every((q) => typeof draft.answers[q.id] === 'number');
-      if (!answered) return 'Answer all four questions — there are no wrong answers.';
+      if (!answered) return 'Beantworte alle vier Fragen – es gibt keine falschen Antworten.';
     }
     return '';
   }
@@ -159,7 +166,7 @@ export function OnboardingFlow({
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    if (!user) throw new Error('Your session has expired. Please sign in again.');
+    if (!user) throw new Error('Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.');
 
     const payload: Record<string, unknown> = {
       id: user.id,
@@ -223,14 +230,14 @@ export function OnboardingFlow({
       await persist(isLast ? STEPS.length : step + 1, isLast);
       if (isLast) {
         setComplete(true);
-        router.push('/app?notice=Your%20profile%20is%20complete.');
+        router.push('/app?notice=Dein%20Profil%20ist%20vollst%C3%A4ndig.');
         router.refresh();
       } else {
         setStep((s) => s + 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Something went wrong saving your progress.');
+      setError(e instanceof Error ? e.message : 'Beim Speichern deines Fortschritts ist etwas schiefgelaufen.');
     } finally {
       setSaving(false);
     }
@@ -244,7 +251,7 @@ export function OnboardingFlow({
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error('Please sign in again.');
+      if (!user) throw new Error('Bitte melde dich erneut an.');
       const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg';
       const path = `${user.id}/avatar-${Date.now()}.${ext}`;
       const { error: upErr } = await supabase.storage
@@ -254,7 +261,7 @@ export function OnboardingFlow({
       const { data } = supabase.storage.from('avatars').getPublicUrl(path);
       set('avatar_url', data.publicUrl);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Upload failed. Try a smaller image.');
+      setError(e instanceof Error ? e.message : 'Upload fehlgeschlagen. Versuche es mit einem kleineren Bild.');
     } finally {
       setUploading(false);
     }
@@ -263,20 +270,20 @@ export function OnboardingFlow({
   if (complete && !saving) {
     return (
       <div className="mx-auto max-w-[720px] px-5 py-24 text-center md:px-8">
-        <p className="label text-ink/40">Onboarding complete</p>
+        <p className="label text-ink/45">Profil vollständig</p>
         <h1 className="mt-6 font-serif text-[clamp(2.4rem,6vw,4rem)] leading-[0.95] text-ink">
-          Your seat is being considered.
+          Dein Platz wird gerade bedacht.
         </h1>
         <p className="mx-auto mt-6 max-w-[46ch] text-[15px] leading-relaxed text-ink/60">
-          We’ll compose your first table by hand and let you know as soon as it’s confirmed. In the
-          meantime, your dashboard is open.
+          Wir stellen deinen ersten Tisch von Hand zusammen und melden uns, sobald er bestätigt ist.
+          Bis dahin steht dir dein Mitgliederbereich offen.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <a href="/app" className="btn bg-ink px-7 py-4 text-ivory hover:bg-cherry">
-            Go to dashboard
+            Zum Mitgliederbereich
           </a>
           <a href="/app/profile" className="btn border border-ink/25 px-7 py-4 text-ink hover:border-ink">
-            Edit profile
+            Profil bearbeiten
           </a>
         </div>
       </div>
@@ -324,19 +331,19 @@ export function OnboardingFlow({
               <div className="mt-8 space-y-7">
                 {step === 0 && (
                   <>
-                    <Field label="Full name">
+                    <Field label="Vollständiger Name">
                       <input
                         className="field"
                         value={draft.full_name}
                         onChange={(e) => set('full_name', e.target.value)}
-                        placeholder="As you’d like to be introduced"
+                        placeholder="So möchtest du vorgestellt werden"
                       />
                     </Field>
-                    <Field label="Email">
+                    <Field label="E-Mail">
                       <input className="field opacity-60" value={email} disabled />
                     </Field>
                     <div className="grid gap-6 sm:grid-cols-2">
-                      <Field label="Date of birth">
+                      <Field label="Geburtsdatum">
                         <input
                           type="date"
                           className="field"
@@ -345,12 +352,12 @@ export function OnboardingFlow({
                           onChange={(e) => set('date_of_birth', e.target.value)}
                         />
                       </Field>
-                      <Field label="Occupation">
+                      <Field label="Beruf">
                         <input
                           className="field"
                           value={draft.occupation}
                           onChange={(e) => set('occupation', e.target.value)}
-                          placeholder="What you do, plainly"
+                          placeholder="Was du machst, ganz einfach"
                         />
                       </Field>
                     </div>
@@ -362,7 +369,8 @@ export function OnboardingFlow({
                         className="mt-1 h-4 w-4 accent-[#120D0B]"
                       />
                       <span className="text-[13px] leading-relaxed text-ink/60">
-                        I confirm I am 18 or older and agree to the community guidelines.
+                        Ich bestätige, dass ich mindestens 18 Jahre alt bin, und akzeptiere die
+                        Community-Richtlinien.
                       </span>
                     </label>
                   </>
@@ -372,7 +380,7 @@ export function OnboardingFlow({
                   <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
                     <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full bg-sand">
                       {draft.avatar_url ? (
-                        <Image src={draft.avatar_url} alt="Your photo" fill className="object-cover" sizes="112px" />
+                        <Image src={draft.avatar_url} alt="Dein Foto" fill className="object-cover" sizes="112px" />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
                           <Camera className="h-6 w-6 text-ink/30" strokeWidth={1.25} />
@@ -387,7 +395,7 @@ export function OnboardingFlow({
                         className="btn border border-ink/25 px-6 py-3.5 text-ink hover:border-ink disabled:opacity-50"
                       >
                         {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-                        {draft.avatar_url ? 'Replace photo' : 'Upload a photo'}
+                        {draft.avatar_url ? 'Foto ersetzen' : 'Foto hochladen'}
                       </button>
                       <input
                         ref={fileRef}
@@ -400,8 +408,9 @@ export function OnboardingFlow({
                         }}
                       />
                       <p className="mt-3 max-w-[38ch] text-[12px] leading-relaxed text-ink/45">
-                        A real photograph of you, not a group shot. Members only see it once a table
-                        is confirmed. You can skip and add it later.
+                        Ein echtes Foto von dir, kein Gruppenbild. Andere Mitglieder sehen es erst,
+                        wenn ein Tisch bestätigt ist. Du kannst diesen Schritt überspringen und das
+                        Foto später ergänzen.
                       </p>
                     </div>
                   </div>
@@ -409,27 +418,27 @@ export function OnboardingFlow({
 
                 {step === 2 && (
                   <>
-                    <Field label="City">
+                    <Field label="Stadt">
                       <select
                         className="field"
                         value={draft.city}
                         onChange={(e) => set('city', e.target.value)}
                       >
-                        <option value="">Select your city</option>
+                        <option value="">Wähle deine Stadt</option>
                         {CITY_OPTIONS.map((c) => (
                           <option key={c} value={c}>
-                            {c}
+                            {cityLabel(c)}
                           </option>
                         ))}
                       </select>
                     </Field>
-                    <Field label="A short introduction">
+                    <Field label="Eine kurze Vorstellung">
                       <textarea
                         className="field min-h-[110px] resize-none"
                         value={draft.bio}
                         maxLength={600}
                         onChange={(e) => set('bio', e.target.value)}
-                        placeholder="Three sentences. What you do, what you care about, what makes you good company."
+                        placeholder="Drei Sätze. Was du machst, was dir wichtig ist und warum man mit dir einen guten Abend verbringt."
                       />
                     </Field>
                     <div className="grid gap-6 sm:grid-cols-2">
@@ -441,7 +450,7 @@ export function OnboardingFlow({
                           placeholder="@handle"
                         />
                       </Field>
-                      <Field label="When can you usually come?">
+                      <Field label="Wann passt es dir meistens?">
                         <div className="mt-3 flex flex-wrap gap-2">
                           {AVAILABILITY_OPTIONS.map((a) => (
                             <Chip
@@ -449,7 +458,7 @@ export function OnboardingFlow({
                               active={draft.availability.includes(a)}
                               onClick={() => toggle('availability', a)}
                             >
-                              {a}
+                              {availabilityLabel(a)}
                             </Chip>
                           ))}
                         </div>
@@ -461,39 +470,39 @@ export function OnboardingFlow({
                 {step === 3 && (
                   <>
                     <p className="max-w-[52ch] text-[14px] leading-relaxed text-ink/55">
-                      Pick what you’d happily talk about for an hour. Choose at least three — we use
-                      these to find the overlaps.
+                      Wähle, worüber du eine Stunde lang gerne reden würdest. Mindestens drei – daraus
+                      finden wir die Überschneidungen.
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {INTEREST_OPTIONS.map((i) => (
                         <Chip key={i} active={draft.interests.includes(i)} onClick={() => toggle('interests', i)}>
-                          {i}
+                          {interestLabel(i)}
                         </Chip>
                       ))}
                     </div>
                     <div className="grid gap-6 pt-2 sm:grid-cols-2">
-                      <Field label="Hobbies">
+                      <Field label="Hobbys">
                         <input
                           className="field"
                           value={draft.hobbies}
                           onChange={(e) => set('hobbies', e.target.value)}
-                          placeholder="Baking, bouldering, crumbly pottery"
+                          placeholder="Backen, Bouldern, schiefe Töpferware"
                         />
                       </Field>
-                      <Field label="Favourite topics">
+                      <Field label="Lieblingsthemen">
                         <input
                           className="field"
                           value={draft.favourite_topics}
                           onChange={(e) => set('favourite_topics', e.target.value)}
-                          placeholder="Cities, second acts, dessert"
+                          placeholder="Städte, zweite Chancen, Dessert"
                         />
                       </Field>
                     </div>
-                    <Field label="Topics you’d rather avoid">
+                    <Field label="Themen, die du lieber vermeidest">
                       <div className="mt-3 flex flex-wrap gap-2">
                         {AVOID_TOPICS.map((t) => (
                           <Chip key={t} active={draft.avoid_topics.includes(t)} onClick={() => toggle('avoid_topics', t)}>
-                            {t}
+                            {avoidLabel(t)}
                           </Chip>
                         ))}
                       </div>
@@ -504,7 +513,7 @@ export function OnboardingFlow({
                 {step === 4 && (
                   <>
                     <p className="max-w-[52ch] text-[14px] leading-relaxed text-ink/55">
-                      Which rooms sound like an evening you’d look forward to?
+                      Welche Runden klingen nach einem Abend, auf den du dich freust?
                     </p>
                     <div className="grid gap-3 sm:grid-cols-2">
                       {categories.map((c) => {
@@ -540,16 +549,16 @@ export function OnboardingFlow({
 
                 {step === 5 && (
                   <>
-                    <Field label="Food preferences">
+                    <Field label="Essensvorlieben">
                       <div className="mt-3 flex flex-wrap gap-2">
                         {FOOD_OPTIONS.map((f) => (
                           <Chip key={f} active={draft.food_preferences.includes(f)} onClick={() => toggle('food_preferences', f)}>
-                            {f}
+                            {foodLabel(f)}
                           </Chip>
                         ))}
                       </div>
                     </Field>
-                    <Field label="Dietary restrictions or allergies">
+                    <Field label="Unverträglichkeiten oder Allergien">
                       <div className="mt-3 flex flex-wrap gap-2">
                         {DIETARY_OPTIONS.map((d) => (
                           <Chip
@@ -557,14 +566,14 @@ export function OnboardingFlow({
                             active={draft.dietary_restrictions.includes(d)}
                             onClick={() => toggle('dietary_restrictions', d)}
                           >
-                            {d}
+                            {dietaryLabel(d)}
                           </Chip>
                         ))}
                       </div>
                     </Field>
                     <p className="text-[12px] leading-relaxed text-ink/45">
-                      We share relevant dietary information with the restaurant and your table. It is
-                      treated as private data.
+                      Relevante Hinweise zu deiner Ernährung geben wir an das Restaurant und deinen
+                      Tisch weiter. Sie gelten als private Daten.
                     </p>
                   </>
                 )}
@@ -572,14 +581,14 @@ export function OnboardingFlow({
                 {step === 6 && (
                   <>
                     <p className="max-w-[52ch] text-[14px] leading-relaxed text-ink/55">
-                      Four questions about how you are at a table. Honest answers make better tables
-                      than flattering ones.
+                      Vier Fragen dazu, wie du an einem Tisch bist. Ehrliche Antworten ergeben
+                      bessere Tische als schmeichelhafte.
                     </p>
                     <div className="space-y-8">
                       {QUESTIONNAIRE.map((q, qi) => (
                         <div key={q.id}>
                           <p className="text-[10px] uppercase tracking-label text-ink/35">
-                            Question {qi + 1}
+                            Frage {qi + 1}
                           </p>
                           <p className="mt-2 font-serif text-[21px] leading-tight text-ink">
                             {q.question}
@@ -608,11 +617,11 @@ export function OnboardingFlow({
                         </div>
                       ))}
                     </div>
-                    <Field label="At a table, I am…">
+                    <Field label="An einem Tisch bin ich …">
                       <div className="mt-3 flex flex-wrap gap-2">
                         {SOCIAL_PREFERENCES.map((s) => (
                           <Chip key={s} active={draft.social_preferences.includes(s)} onClick={() => toggle('social_preferences', s)}>
-                            {s}
+                            {socialLabel(s)}
                           </Chip>
                         ))}
                       </div>
@@ -624,28 +633,28 @@ export function OnboardingFlow({
                   <div className="space-y-6">
                     <div className="grid gap-px bg-ink/12 sm:grid-cols-2">
                       <Summary label="Name" value={draft.full_name || '—'} />
-                      <Summary label="City" value={draft.city || '—'} />
-                      <Summary label="Occupation" value={draft.occupation || '—'} />
-                      <Summary label="Availability" value={draft.availability.join(', ') || '—'} />
-                      <Summary label="Interests" value={draft.interests.join(', ') || '—'} />
+                      <Summary label="Stadt" value={draft.city || '—'} />
+                      <Summary label="Beruf" value={draft.occupation || '—'} />
+                      <Summary label="Zeiten" value={draft.availability.map(availabilityLabel).join(', ') || '—'} />
+                      <Summary label="Interessen" value={draft.interests.map(interestLabel).join(', ') || '—'} />
                       <Summary
-                        label="Tables"
+                        label="Tische"
                         value={
                           draft.preferred_categories
                             .map((s) => categories.find((c) => c.slug === s)?.name ?? s)
                             .join(', ') || '—'
                         }
                       />
-                      <Summary label="Dietary" value={draft.dietary_restrictions.join(', ') || 'None declared'} />
-                      <Summary label="Food" value={draft.food_preferences.join(', ') || '—'} />
+                      <Summary label="Ernährung" value={draft.dietary_restrictions.map(dietaryLabel).join(', ') || 'Keine angegeben'} />
+                      <Summary label="Essen" value={draft.food_preferences.map(foodLabel).join(', ') || '—'} />
                     </div>
-                    <Field label="Profile visibility">
+                    <Field label="Sichtbarkeit deines Profils">
                       <div className="mt-3 space-y-2">
                         {(
                           [
-                            ['table', 'Table only', 'Shared with people assigned to the same table.'],
-                            ['members', 'Members', 'Visible to signed-in members.'],
-                            ['private', 'Private', 'Only DEJAVU hosts see your details.'],
+                            ['table', 'Nur am Tisch', 'Sichtbar für Menschen am selben Tisch.'],
+                            ['members', 'Mitglieder', 'Sichtbar für angemeldete Mitglieder.'],
+                            ['private', 'Privat', 'Nur das DEJAVU-Team sieht deine Angaben.'],
                           ] as const
                         ).map(([value, label, copy]) => (
                           <button
@@ -690,7 +699,7 @@ export function OnboardingFlow({
                   disabled={step === 0}
                   className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-ink/45 transition-colors hover:text-ink disabled:opacity-30"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} /> Back
+                  <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} /> Zurück
                 </button>
                 <button
                   type="button"
@@ -699,12 +708,13 @@ export function OnboardingFlow({
                   className="btn bg-ink px-7 py-4 text-ivory transition-colors duration-500 hover:bg-cherry disabled:opacity-60"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} />}
-                  {step === STEPS.length - 1 ? 'Finish and enter' : 'Continue'}
+                  {step === STEPS.length - 1 ? 'Abschließen und eintreten' : 'Weiter'}
                   {step !== STEPS.length - 1 && <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />}
                 </button>
               </div>
               <p className="mt-4 text-[11px] text-ink/35">
-                Your progress saves each time you continue. You can leave and come back.
+                Dein Fortschritt wird bei jedem Schritt gespeichert. Du kannst jederzeit pausieren und
+                später weitermachen.
               </p>
             </motion.div>
           </AnimatePresence>
@@ -713,10 +723,10 @@ export function OnboardingFlow({
         {/* aside — editorial rail */}
         <aside className="hidden lg:block">
           <div className="sticky top-10 border-t border-ink/15 pt-6">
-            <p className="label text-ink/35">Why we ask</p>
+            <p className="label text-ink/40">Warum wir fragen</p>
             <p className="mt-4 font-serif text-[19px] leading-[1.3] text-ink/80">
-              “The best table is not the most similar one. It’s the one where everyone has something
-              the others don’t.”
+              „Der beste Tisch ist nicht der, an dem alle gleich sind. Es ist der, an dem jede Person
+              etwas mitbringt, das die anderen nicht haben.“
             </p>
             <div className="mt-8 space-y-4">
               {STEPS.map((s, i) => (
@@ -746,7 +756,7 @@ export function OnboardingFlow({
           </div>
         </aside>
       </div>
-      {restored && <span className="sr-only">Saved progress restored</span>}
+      {restored && <span className="sr-only">Gespeicherter Fortschritt wiederhergestellt</span>}
     </div>
   );
 }

@@ -8,17 +8,17 @@ import { createAdminClient } from '@/lib/supabase/server';
  */
 export async function POST(request: Request) {
   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
-  if (!secret) return NextResponse.json({ error: 'Webhook not configured.' }, { status: 503 });
+  if (!secret) return NextResponse.json({ error: 'Webhook nicht konfiguriert.' }, { status: 503 });
 
   const raw = await request.text();
   const signature = request.headers.get('x-razorpay-signature');
-  if (!signature) return NextResponse.json({ error: 'Missing signature.' }, { status: 401 });
+  if (!signature) return NextResponse.json({ error: 'Signatur fehlt.' }, { status: 401 });
 
   const expected = createHmac('sha256', secret).update(raw).digest('hex');
   const a = Buffer.from(expected);
   const b = Buffer.from(signature);
   if (a.length !== b.length || !timingSafeEqual(a, b)) {
-    return NextResponse.json({ error: 'Invalid signature.' }, { status: 401 });
+    return NextResponse.json({ error: 'Ungültige Signatur.' }, { status: 401 });
   }
 
   const event = JSON.parse(raw) as {

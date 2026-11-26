@@ -5,6 +5,7 @@ import { getCategories } from '@/lib/queries';
 import { ExperienceEditor } from '@/components/admin/experience-editor';
 import { ParticipantManager } from '@/components/admin/participant-manager';
 import { formatDateTime } from '@/lib/format';
+import { EXPERIENCE_STATUS_LABEL } from '@/lib/constants';
 
 export default async function ManageExperience({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -58,14 +59,14 @@ export default async function ManageExperience({ params }: { params: Promise<{ i
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-ink/12 pb-6">
         <div>
           <Link href="/admin/experiences" className="text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-cherry">
-            ← All experiences
+            ← Alle Erlebnisse
           </Link>
           <h1 className="mt-3 font-serif text-[clamp(1.7rem,3.2vw,2.4rem)] leading-none text-ink">
             {experience.name}
           </h1>
           <p className="mt-2 text-[12.5px] text-ink/45">
-            {experience.city} · {experience.starts_at ? formatDateTime(experience.starts_at) : 'Date TBA'} ·{' '}
-            {(participants ?? []).length}/{experience.group_size} seated
+            {experience.city} · {experience.starts_at ? formatDateTime(experience.starts_at) : 'Termin folgt'} ·{' '}
+            {(participants ?? []).length}/{experience.group_size} besetzt
           </p>
         </div>
         <span
@@ -77,7 +78,7 @@ export default async function ManageExperience({ params }: { params: Promise<{ i
                 : 'border-ember/40 text-ember'
           }`}
         >
-          {experience.status}
+          {EXPERIENCE_STATUS_LABEL[experience.status] ?? experience.status}
         </span>
       </div>
 

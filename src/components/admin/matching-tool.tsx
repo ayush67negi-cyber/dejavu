@@ -41,7 +41,7 @@ export function MatchingTool({
 
   async function createTable() {
     if (selected.length < 4) {
-      setError('A DEJAVU table needs at least four people.');
+      setError('Ein DEJAVU-Tisch braucht mindestens vier Menschen.');
       return;
     }
     setCreating(true);
@@ -49,7 +49,7 @@ export function MatchingTool({
     setResult('');
     try {
       const catId = categoryId || categories[0]?.id;
-      if (!catId) throw new Error('Create a table category first.');
+      if (!catId) throw new Error('Lege zuerst eine Tischkategorie an.');
 
       const supabase = createClient();
       const startsAt = date ? new Date(`${date}T${time}:00+05:30`).toISOString() : null;
@@ -58,7 +58,7 @@ export function MatchingTool({
       const { data: exp, error: expErr } = await supabase
         .from('experiences')
         .insert({
-          name: name.trim() || `${city} Table · ${new Date(date || Date.now()).toLocaleDateString('en-IN', { day: 'numeric', month: 'long' })}`,
+          name: name.trim() || `${city} Table · ${new Date(date || Date.now()).toLocaleDateString('de-DE', { day: 'numeric', month: 'long' })}`,
           city,
           category_id: catId,
           starts_at: startsAt,
@@ -86,17 +86,17 @@ export function MatchingTool({
         selected.map((user_id) => ({
           user_id,
           type: 'match',
-          title: 'You have been matched to a table',
-          body: `A ${city} table has been composed with you in it. Venue details follow once confirmed.`,
+          title: 'Du wurdest einem Tisch zugeteilt',
+          body: `Ein Tisch in ${city} wurde mit dir zusammengestellt. Die Ortsdetails folgen nach der Bestätigung.`,
           link: '/app/experiences',
         })),
       );
 
-      setResult('Table created and participants notified.');
+      setResult('Tisch angelegt und Teilnehmende benachrichtigt.');
       setSelected([]);
       router.push(`/admin/experiences/${exp.id}`);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not create the table.');
+      setError(e instanceof Error ? e.message : 'Tisch konnte nicht angelegt werden.');
     } finally {
       setCreating(false);
     }
@@ -106,15 +106,16 @@ export function MatchingTool({
     <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
       <div>
         <div className="flex items-baseline justify-between border-b border-ink/12 pb-3">
-          <h2 className="label text-ink/50">Highest-scoring pairs in {city}</h2>
+          <h2 className="label text-ink/50">Höchste Scores in {city}</h2>
         </div>
         {pairs.length === 0 ? (
           <div className="border border-dashed border-ink/20 p-8 text-center">
             <Users className="mx-auto h-5 w-5 text-ink/25" strokeWidth={1.25} />
-            <p className="mt-3 font-serif text-[20px] text-ink">Not enough compatible members yet.</p>
+            <p className="mt-3 font-serif text-[20px] text-ink">Noch nicht genug kompatible Mitglieder.</p>
             <p className="mx-auto mt-2 max-w-[40ch] text-[12.5px] leading-relaxed text-ink/45">
-              Scores appear once at least two onboarded members share this city and a minimum
-              compatibility threshold. You can still compose a table manually on the right.
+              Scores erscheinen, sobald mindestens zwei Mitglieder mit abgeschlossenem Onboarding
+              dieselbe Stadt teilen und einen Mindestwert erreichen. Du kannst rechts trotzdem
+              manuell einen Tisch zusammenstellen.
             </p>
           </div>
         ) : (
@@ -126,7 +127,7 @@ export function MatchingTool({
                 <li key={`${p.user_a}-${p.user_b}`} className="flex flex-wrap items-center justify-between gap-3 py-3">
                   <div className="min-w-0">
                     <p className="truncate text-[13px] text-ink">
-                      {p.name_a} <span className="text-ink/30">with</span> {p.name_b}
+                      {p.name_a} <span className="text-ink/30">mit</span> {p.name_b}
                     </p>
                     <p className="text-[10.5px] text-ink/40">
                       {memberMap.get(p.user_a)?.occupation ?? '—'} · {memberMap.get(p.user_b)?.occupation ?? '—'}
@@ -148,14 +149,14 @@ export function MatchingTool({
 
       <div className="border border-ink/12 p-5">
         <div className="flex items-baseline justify-between">
-          <p className="label text-ink/40">Compose a table</p>
+          <p className="label text-ink/45">Tisch zusammenstellen</p>
           <span className="text-[10px] uppercase tracking-label text-ink/35">{selected.length} / 6</span>
         </div>
 
         <div className="mt-4 space-y-3">
-          <Field label="Members selected">
+          <Field label="Ausgewählte Mitglieder">
             {selected.length === 0 ? (
-              <p className="text-[12px] text-ink/40">Pick members from the pairs list, or add below.</p>
+              <p className="text-[12px] text-ink/40">Wähle Mitglieder aus der Paarliste oder füge sie unten hinzu.</p>
             ) : (
               <div className="flex flex-wrap gap-1.5">
                 {selected.map((id) => (
@@ -164,7 +165,7 @@ export function MatchingTool({
                     onClick={() => toggle(id)}
                     className="border border-ink/20 px-2.5 py-1 text-[11px] text-ink/70 hover:border-cherry hover:text-cherry"
                   >
-                    {memberMap.get(id)?.full_name ?? 'Member'} ×
+                    {memberMap.get(id)?.full_name ?? 'Mitglied'} ×
                   </button>
                 ))}
               </div>
@@ -173,7 +174,7 @@ export function MatchingTool({
 
           <details className="border-t border-ink/10 pt-3">
             <summary className="cursor-pointer text-[10px] uppercase tracking-[0.12em] text-ink/45">
-              Add from all {city} members
+              Aus allen Mitgliedern in {city} hinzufügen
             </summary>
             <div className="mt-2 max-h-[180px] overflow-y-auto no-scrollbar">
               {members.map((m) => (
@@ -184,27 +185,27 @@ export function MatchingTool({
                     selected.includes(m.id) ? 'text-cherry' : 'text-ink/65 hover:text-ink'
                   }`}
                 >
-                  {m.full_name ?? 'Unnamed'}
+                  {m.full_name ?? 'Ohne Namen'}
                   <span className="text-[9px] uppercase tracking-[0.1em] text-ink/30">
-                    {selected.includes(m.id) ? 'selected' : 'add'}
+                    {selected.includes(m.id) ? 'gewählt' : 'hinzufügen'}
                   </span>
                 </button>
               ))}
             </div>
           </details>
 
-          <Field label="Table name">
-            <input className="field" value={name} onChange={(e) => setName(e.target.value)} placeholder="The Sunday Table" />
+          <Field label="Name des Tisches">
+            <input className="field" value={name} onChange={(e) => setName(e.target.value)} placeholder="Der Sonntagstisch" />
           </Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Date">
+            <Field label="Datum">
               <input type="date" className="field" value={date} onChange={(e) => setDate(e.target.value)} />
             </Field>
-            <Field label="Time (IST)">
+            <Field label="Uhrzeit (IST)">
               <input type="time" className="field" value={time} onChange={(e) => setTime(e.target.value)} />
             </Field>
           </div>
-          <Field label="Table category">
+          <Field label="Tischkategorie">
             <select className="field" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -226,11 +227,11 @@ export function MatchingTool({
             className="btn w-full bg-ink py-3.5 text-ivory hover:bg-cherry disabled:opacity-50"
           >
             {creating && <Loader2 className="h-4 w-4 animate-spin" />}
-            Create table & notify
+            Tisch anlegen & benachrichtigen
           </button>
           <p className="text-[10.5px] leading-relaxed text-ink/35">
-            Matches are not confirmed for members until you confirm the experience. Venue details
-            stay hidden until then.
+            Matches gelten für Mitglieder erst als bestätigt, wenn du das Erlebnis bestätigst. Bis
+            dahin bleiben die Ortsdetails verborgen.
           </p>
         </div>
       </div>
@@ -242,7 +243,7 @@ function Toggle({ active, onClick, label }: { active: boolean; onClick: () => vo
   return (
     <button
       onClick={onClick}
-      aria-label={`Select ${label}`}
+      aria-label={`${label} auswählen`}
       className={`flex h-6 w-6 items-center justify-center border text-[10px] transition-colors ${
         active ? 'border-cherry bg-cherry text-ivory' : 'border-ink/20 text-ink/50 hover:border-ink'
       }`}

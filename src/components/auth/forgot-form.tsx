@@ -26,7 +26,7 @@ export function ForgotForm() {
       }
       setSent(true);
     } catch {
-      setError('We could not reach the server. Please try again.');
+      setError('Wir konnten den Server nicht erreichen. Bitte versuche es noch einmal.');
     } finally {
       setLoading(false);
     }
@@ -36,9 +36,10 @@ export function ForgotForm() {
     return (
       <div className="border border-ink/15 p-6">
         <CheckCircle2 className="h-5 w-5 text-olive" strokeWidth={1.5} />
-        <p className="mt-4 font-serif text-[22px] leading-tight text-ink">Check your inbox.</p>
+        <p className="mt-4 font-serif text-[22px] leading-tight text-ink">Schau in dein Postfach.</p>
         <p className="mt-3 text-[13.5px] leading-relaxed text-ink/60">
-          If an account exists for {email}, a reset link is on its way. The link expires in one hour.
+          Falls es ein Konto für {email} gibt, ist ein Link zum Zurücksetzen unterwegs. Der Link
+          verfällt nach einer Stunde.
         </p>
       </div>
     );
@@ -48,7 +49,7 @@ export function ForgotForm() {
     <form onSubmit={onSubmit} className="space-y-7" noValidate>
       <div>
         <label htmlFor="email" className="label text-ink/40">
-          Email
+          E-Mail
         </label>
         <input
           id="email"
@@ -72,7 +73,7 @@ export function ForgotForm() {
         className="btn w-full bg-ink py-[17px] text-ivory transition-colors duration-500 hover:bg-cherry disabled:opacity-60"
       >
         {loading ? <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} /> : null}
-        Send reset link
+        Link zum Zurücksetzen senden
       </button>
     </form>
   );

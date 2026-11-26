@@ -4,12 +4,36 @@ import { Reveal, RevealWords } from '@/components/ui/motion';
 import { Smartphone, UtensilsCrossed, Users, Compass, Heart, Ban } from 'lucide-react';
 
 const REASONS = [
-  { icon: UtensilsCrossed, title: 'Real conversations', copy: 'A table, a time, and nowhere else to be. That is the whole technology.' },
-  { icon: Users, title: 'Real people', copy: 'Verified members, adult-only, in the same city. Every profile is reviewed before the first table.' },
-  { icon: Compass, title: 'Small groups', copy: 'Four to six seats per table. Big enough for range, small enough for everyone to speak.' },
-  { icon: Heart, title: 'Shared interests', copy: 'You are seated with people who chose the same table you did — that is already something in common.' },
-  { icon: Ban, title: 'No dating pressure', copy: 'DEJAVU is not a dating app. Nobody is being scored, and there is nothing to swipe.' },
-  { icon: Smartphone, title: 'No endless swiping', copy: 'You join once. The introductions arrive. The rest of your week is your own.' },
+  {
+    icon: UtensilsCrossed,
+    title: 'Echte Gespräche',
+    copy: 'Ein Tisch, eine Uhrzeit und sonst nirgends sein müssen. Mehr Technik braucht es nicht.',
+  },
+  {
+    icon: Users,
+    title: 'Echte Menschen',
+    copy: 'Geprüfte Mitglieder, nur Erwachsene, aus derselben Stadt. Jedes Profil wird vor dem ersten Tisch angesehen.',
+  },
+  {
+    icon: Compass,
+    title: 'Kleine Runden',
+    copy: 'Vier bis sechs Plätze pro Tisch. Groß genug für Bandbreite, klein genug, dass alle zu Wort kommen.',
+  },
+  {
+    icon: Heart,
+    title: 'Gemeinsame Interessen',
+    copy: 'Du sitzt mit Menschen am Tisch, die denselben Tisch gewählt haben wie du – das ist schon eine Gemeinsamkeit.',
+  },
+  {
+    icon: Ban,
+    title: 'Kein Dating-Druck',
+    copy: 'DEJAVU ist keine Dating-App. Niemand wird bewertet, und es gibt nichts zu wischen.',
+  },
+  {
+    icon: Smartphone,
+    title: 'Kein endloses Swipen',
+    copy: 'Du trittst einmal bei. Die Vorstellungen kommen. Der Rest deiner Woche gehört dir.',
+  },
 ];
 
 export function Why() {
@@ -19,20 +43,20 @@ export function Why() {
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <Reveal>
-              <span className="label text-ink/40">05 — Why DEJAVU</span>
+              <span className="label text-ink/45">05 — Warum DEJAVU</span>
             </Reveal>
             <h2 className="mt-7 font-serif text-display-sm text-ink md:text-[clamp(3rem,6vw,5.2rem)] md:leading-[0.9]">
-              <RevealWords text="Less scrolling." />
+              <RevealWords text="Weniger scrollen." />
               <br />
               <span className="text-cherry">
-                <RevealWords text="More stories." delay={0.15} />
+                <RevealWords text="Mehr erleben." delay={0.15} />
               </span>
             </h2>
           </div>
           <Reveal delay={0.2}>
             <p className="max-w-[40ch] text-[15px] leading-relaxed text-ink/60">
-              We built DEJAVU because the alternative — another app, another feed, another
-              half-conversation that dies by Tuesday — was not working for us either.
+              Wir haben DEJAVU gebaut, weil die Alternative – noch eine App, noch ein Feed, noch ein
+              halbes Gespräch, das am Dienstag versandet – für uns auch nicht funktioniert hat.
             </p>
           </Reveal>
         </div>

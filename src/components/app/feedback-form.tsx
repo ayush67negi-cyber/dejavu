@@ -13,12 +13,12 @@ export function FeedbackForm({ experienceId }: { experienceId: string }) {
   const [error, setError] = useState('');
 
   if (done) {
-    return <p className="text-[11px] uppercase tracking-[0.14em] text-olive">Thank you — recorded.</p>;
+    return <p className="text-[11px] uppercase tracking-[0.14em] text-olive">Danke – notiert.</p>;
   }
 
   async function submit() {
     if (rating === 0) {
-      setError('Choose a rating first.');
+      setError('Wähle zuerst eine Bewertung.');
       return;
     }
     setLoading(true);
@@ -28,7 +28,7 @@ export function FeedbackForm({ experienceId }: { experienceId: string }) {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error('Please sign in again.');
+      if (!user) throw new Error('Bitte melde dich erneut an.');
       const { error: err } = await supabase.from('feedback').insert({
         experience_id: experienceId,
         user_id: user.id,
@@ -39,7 +39,7 @@ export function FeedbackForm({ experienceId }: { experienceId: string }) {
       if (err) throw new Error(err.message);
       setDone(true);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not save your feedback.');
+      setError(e instanceof Error ? e.message : 'Dein Feedback konnte nicht gespeichert werden.');
     } finally {
       setLoading(false);
     }
@@ -47,13 +47,13 @@ export function FeedbackForm({ experienceId }: { experienceId: string }) {
 
   return (
     <div>
-      <p className="label text-ink/40">How was the table?</p>
+      <p className="label text-ink/45">Wie war der Tisch?</p>
       <div className="mt-3 flex items-center gap-1.5">
         {[1, 2, 3, 4, 5].map((n) => (
           <button
             key={n}
             type="button"
-            aria-label={`${n} of 5`}
+            aria-label={`${n} von 5`}
             onClick={() => setRating(n)}
             className="p-0.5"
           >
@@ -66,7 +66,7 @@ export function FeedbackForm({ experienceId }: { experienceId: string }) {
       </div>
       <textarea
         className="field mt-4 min-h-[74px] resize-none text-[13px]"
-        placeholder="Anything worth telling us? (optional)"
+        placeholder="Gibt es etwas, das wir wissen sollten? (optional)"
         value={comment}
         maxLength={1200}
         onChange={(e) => setComment(e.target.value)}
@@ -79,7 +79,7 @@ export function FeedbackForm({ experienceId }: { experienceId: string }) {
             onChange={(e) => setRepeat(e.target.checked)}
             className="h-3.5 w-3.5 accent-[#120D0B]"
           />
-          I’d sit at another DEJAVU table
+          Ich würde wieder an einem DEJAVU-Tisch sitzen
         </label>
         <button
           type="button"
@@ -87,7 +87,7 @@ export function FeedbackForm({ experienceId }: { experienceId: string }) {
           disabled={loading}
           className="btn border border-ink/25 px-5 py-2.5 text-[10px] text-ink hover:border-ink disabled:opacity-50"
         >
-          {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Send
+          {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Senden
         </button>
       </div>
       {error && <p className="mt-2 text-[12px] text-cherry">{error}</p>}

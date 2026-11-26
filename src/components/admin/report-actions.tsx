@@ -19,7 +19,7 @@ export function ReportActions({
 
   async function resolve(status: 'reviewing' | 'resolved' | 'dismissed', suspend = false) {
     if (status === 'resolved' && note.trim().length < 5) {
-      setError('Add a short decision note before resolving.');
+      setError('Füge vor dem Abschließen eine kurze Begründung hinzu.');
       return;
     }
     setBusy(status);
@@ -45,13 +45,13 @@ export function ReportActions({
         await supabase.from('notifications').insert({
           user_id: reportedUserId,
           type: 'account',
-          title: 'Account suspended',
-          body: 'Following a safety review your account has been suspended. Contact us to discuss.',
+          title: 'Konto gesperrt',
+          body: 'Nach einer Sicherheitsprüfung wurde dein Konto gesperrt. Melde dich bei uns, um darüber zu sprechen.',
         });
       }
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not record the decision.');
+      setError(e instanceof Error ? e.message : 'Entscheidung konnte nicht gespeichert werden.');
     } finally {
       setBusy(null);
     }
@@ -61,7 +61,7 @@ export function ReportActions({
     <div className="space-y-2.5">
       <input
         className="field text-[12px]"
-        placeholder="Decision note (visible to the team only)"
+        placeholder="Begründung (nur für das Team sichtbar)"
         value={note}
         onChange={(e) => setNote(e.target.value)}
       />
@@ -71,21 +71,21 @@ export function ReportActions({
           disabled={busy !== null}
           className="border border-ink/15 px-3 py-1.5 text-[9px] uppercase tracking-[0.12em] text-ink/55 hover:border-ink disabled:opacity-40"
         >
-          {busy === 'reviewing' ? '…' : 'Mark reviewing'}
+          {busy === 'reviewing' ? '…' : 'In Prüfung setzen'}
         </button>
         <button
           onClick={() => resolve('resolved')}
           disabled={busy !== null}
           className="border border-olive/40 px-3 py-1.5 text-[9px] uppercase tracking-[0.12em] text-olive hover:bg-olive hover:text-ivory disabled:opacity-40"
         >
-          {busy === 'resolved' ? '…' : 'Resolve'}
+          {busy === 'resolved' ? '…' : 'Abschließen'}
         </button>
         <button
           onClick={() => resolve('dismissed')}
           disabled={busy !== null}
           className="border border-ink/15 px-3 py-1.5 text-[9px] uppercase tracking-[0.12em] text-ink/55 hover:border-ink disabled:opacity-40"
         >
-          {busy === 'dismissed' ? '…' : 'Dismiss'}
+          {busy === 'dismissed' ? '…' : 'Verwerfen'}
         </button>
         {reportedUserId && (
           <button
@@ -94,7 +94,7 @@ export function ReportActions({
             className="flex items-center gap-1.5 border border-cherry/40 px-3 py-1.5 text-[9px] uppercase tracking-[0.12em] text-cherry hover:bg-cherry hover:text-ivory disabled:opacity-40"
           >
             {busy === 'resolved' ? <Loader2 className="h-3 w-3 animate-spin" /> : null}
-            Resolve & suspend
+            Abschließen & sperren
           </button>
         )}
       </div>

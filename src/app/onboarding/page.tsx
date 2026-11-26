@@ -5,7 +5,7 @@ import { Wordmark } from '@/components/ui/logo';
 import { OnboardingFlow } from '@/components/onboarding/onboarding-flow';
 import { LogoutButton } from '@/components/ui/logout-button';
 
-export const metadata: Metadata = { title: 'Tell us about yourself' };
+export const metadata: Metadata = { title: 'Erzähl uns von dir' };
 
 export default async function OnboardingPage() {
   const session = await getSession();

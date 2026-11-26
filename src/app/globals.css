@@ -27,6 +27,27 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  /* German compounds are long: allow breaking rather than overflowing. */
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* Long German words must never cause horizontal overflow on small screens. */
+h1,
+h2,
+h3,
+h4 {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* Editorial serif headlines keep their tight optical spacing, but not so tight
+   that umlauts collide on the line above. */
+.serif-de {
+  letter-spacing: -0.028em;
 }
 
 ::selection {

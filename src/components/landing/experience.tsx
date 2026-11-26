@@ -4,19 +4,19 @@ import Image from 'next/image';
 import { Reveal, RevealWords, Parallax } from '@/components/ui/motion';
 
 const INCLUDED = [
-  'Curated groups of 4–6 people',
-  'Interest-based matching',
-  'Restaurant-based experiences',
-  'A table composed, not randomised',
-  'A facilitator who sets the tone',
-  'A new restaurant to discover',
+  'Sorgfältig zusammengestellte Gruppen von 4–6 Personen',
+  'Matching nach gemeinsamen Interessen',
+  'Erlebnisse in echten Restaurants',
+  'Ein Tisch, komponiert statt zufällig besetzt',
+  'Eine Begleitung, die den Ton setzt',
+  'Ein neues Restaurant zum Entdecken',
 ];
 
 const NOT_INCLUDED = [
-  'Not a dating app',
-  'Not a networking mixer',
-  'Not an endless group chat',
-  'Not your food and drinks bill',
+  'Keine Dating-App',
+  'Kein Networking-Event',
+  'Kein endloser Gruppenchat',
+  'Nicht deine Essens- und Getränkerechnung',
 ];
 
 export function Experience() {
@@ -29,16 +29,16 @@ export function Experience() {
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
                   src="/images/experience-overhead.jpg"
-                  alt="A shared restaurant table of small plates seen from above"
+                  alt="Ein von oben fotografierter Restauranttisch mit vielen kleinen Tellern zum Teilen."
                   fill
                   sizes="(max-width: 1024px) 100vw, 45vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="label text-ivory/50">A typical table</p>
+                  <p className="label text-ivory/55">Ein typischer Tisch</p>
                   <p className="mt-2 font-serif text-[22px] leading-tight text-ivory">
-                    Shared plates. Unshared opinions.
+                    Geteilte Platten. Geteilte Meinungen nicht.
                   </p>
                 </div>
               </div>
@@ -47,22 +47,23 @@ export function Experience() {
 
           <div className="order-1 lg:order-2">
             <Reveal>
-              <span className="label text-ivory/40">04 — The experience</span>
+              <span className="label text-ivory/45">04 — Das Erlebnis</span>
             </Reveal>
             <h2 className="mt-7 max-w-[18ch] font-serif text-display-sm text-ivory md:text-[clamp(2.6rem,4.8vw,4.2rem)] md:leading-[0.95]">
-              <RevealWords text="An evening that doesn’t need an agenda." />
+              <RevealWords text="Ein Abend ohne festen Plan." />
             </h2>
 
             <Reveal delay={0.15}>
               <p className="mt-8 max-w-[48ch] text-[15px] leading-[1.75] text-ivory/60">
-                You arrive knowing a restaurant, a time and a rough idea of who else is coming. What
-                happens after that is the part we can’t script — and wouldn’t want to.
+                Du kommst an und kennst das Restaurant, die Uhrzeit und eine vage Idee, wer sonst
+                noch kommt. Was danach passiert, können wir nicht vorschreiben – und wollen es auch
+                nicht.
               </p>
             </Reveal>
 
             <div className="mt-12 grid gap-px bg-ivory/12 sm:grid-cols-2">
               <div className="bg-ink p-6">
-                <p className="label text-blush">What it is</p>
+                <p className="label text-blush">Was es ist</p>
                 <ul className="mt-5 space-y-3">
                   {INCLUDED.map((t) => (
                     <li key={t} className="flex gap-3 text-[14px] leading-snug text-ivory/80">
@@ -73,7 +74,7 @@ export function Experience() {
                 </ul>
               </div>
               <div className="bg-ink p-6">
-                <p className="label text-ivory/35">What it isn’t</p>
+                <p className="label text-ivory/40">Was es nicht ist</p>
                 <ul className="mt-5 space-y-3">
                   {NOT_INCLUDED.map((t) => (
                     <li key={t} className="flex gap-3 text-[14px] leading-snug text-ivory/40">
@@ -87,8 +88,8 @@ export function Experience() {
 
             <Reveal delay={0.1}>
               <p className="mt-8 border-l-2 border-cherry pl-5 text-[13px] leading-relaxed text-ivory/45">
-                DEJAVU facilitates the gathering. Members pay for their own food and drinks at the
-                restaurant unless an experience explicitly states otherwise.
+                DEJAVU organisiert das Zusammensein. Essen und Getränke zahlen Mitglieder selbst im
+                Restaurant, sofern ein Erlebnis nicht ausdrücklich etwas anderes angibt.
               </p>
             </Reveal>
           </div>

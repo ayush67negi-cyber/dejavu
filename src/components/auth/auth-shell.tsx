@@ -8,7 +8,7 @@ export function AuthShell({
   title,
   aside,
   image = '/images/idea-conversation.jpg',
-  imageAlt = 'A quiet conversation across a restaurant table',
+  imageAlt = 'Ein leises Gespräch an einem Restauranttisch',
 }: {
   children: React.ReactNode;
   eyebrow: string;
@@ -27,7 +27,7 @@ export function AuthShell({
             href="/"
             className="text-[10px] uppercase tracking-[0.16em] text-ink/45 transition-colors hover:text-ink"
           >
-            Back to site
+            Zurück zur Website
           </Link>
         </header>
 
@@ -44,7 +44,7 @@ export function AuthShell({
 
         <footer className="px-5 pb-8 md:px-12">
           <p className="text-[10px] uppercase tracking-[0.14em] text-ink/30">
-            18+ only · DEJAVU facilitates introductions
+            Nur ab 18 · DEJAVU vermittelt Begegnungen
           </p>
         </footer>
       </div>
@@ -55,13 +55,15 @@ export function AuthShell({
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-12">
           <p className="max-w-[16ch] font-serif text-[clamp(1.8rem,2.6vw,2.6rem)] leading-[1.05] text-ivory">
-            Strangers at lunch.
+            Beim Mittagessen
             <br />
-            <em className="not-italic text-blush">Friends by dessert.</em>
+            noch Fremde.
+            <br />
+            <em className="not-italic text-blush">Beim Dessert schon Freunde.</em>
           </p>
-          <div className="mt-8 flex gap-8 border-t border-ivory/15 pt-5">
-            {['4–6 per table', 'Sunday seatings', 'Not a dating app'].map((t) => (
-              <span key={t} className="text-[9px] uppercase tracking-label text-ivory/45">
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-ivory/15 pt-5">
+            {['4–6 pro Tisch', 'Sonntagstermine', 'Keine Dating-App'].map((t) => (
+              <span key={t} className="whitespace-nowrap text-[9px] uppercase tracking-[0.14em] text-ivory/55">
                 {t}
               </span>
             ))}

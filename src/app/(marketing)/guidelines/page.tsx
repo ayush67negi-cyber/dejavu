@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { PageHead, Prose } from '@/components/marketing/page-head';
 
 export const metadata: Metadata = {
-  title: 'Community guidelines',
-  description: 'How we behave at a DEJAVU table.',
+  title: 'Community-Richtlinien',
+  description: 'Wie wir uns an einem DEJAVU-Tisch verhalten.',
 };
 
 export default function GuidelinesPage() {
@@ -12,55 +12,55 @@ export default function GuidelinesPage() {
     <>
       <PageHead
         eyebrow="Community"
-        title="How we behave at a table."
-        lead="Six short rules. They exist because a table only works when everyone can relax."
+        title="Wie wir uns an einem Tisch verhalten."
+        lead="Sechs kurze Regeln. Sie existieren, weil ein Tisch nur funktioniert, wenn alle sich entspannen können."
         tone="sand"
       />
       <Prose>
-        <h2>1. Everyone is a guest</h2>
+        <h2>1. Alle sind Gäste</h2>
         <p>
-          You are not the host and neither is anyone else. Treat the table as a shared room: make space,
-          pass things, notice who has not spoken yet.
+          Du bist nicht der Gastgeber – und niemand sonst auch. Behandle den Tisch als gemeinsamen
+          Raum: Platz machen, weitergeben, bemerken, wer noch nichts gesagt hat.
         </p>
 
-        <h2>2. Ask before you assume</h2>
+        <h2>2. Frag, bevor du annimmst</h2>
         <p>
-          DEJAVU is not a dating app. Do not treat a table as an opportunity to pursue someone. If
-          someone is not interested in continuing a conversation, that is the end of it.
+          DEJAVU ist keine Dating-App. Behandle einen Tisch nicht als Gelegenheit, jemanden zu
+          verfolgen. Wenn jemand kein Interesse an einem weiteren Gespräch hat, ist es damit beendet.
         </p>
 
-        <h2>3. No photographs without consent</h2>
+        <h2>3. Keine Fotos ohne Zustimmung</h2>
         <p>
-          Some people are private about being photographed, and some are at the table with people who
-          do not know they are there. Ask first, every time, including for stories.
+          Manche Menschen sind zurückhaltend, wenn es um Fotos geht, und manche sitzen mit Menschen am
+          Tisch, die nicht wissen, dass sie dort sind. Frag jedes Mal vorher – auch für Storys.
         </p>
 
-        <h2>4. Keep it offline</h2>
+        <h2>4. Bleib offline damit</h2>
         <p>
-          What people tell you at a table is not yours to publish. Do not screenshot conversations,
-          share contact details, or post about other members without their permission.
+          Was dir an einem Tisch erzählt wird, gehört nicht in die Öffentlichkeit. Keine Screenshots,
+          keine weitergegebenen Kontaktdaten und keine Posts über andere Mitglieder ohne Erlaubnis.
         </p>
 
-        <h2>5. Arrive, and arrive on time</h2>
+        <h2>5. Komm – und komm pünktlich</h2>
         <p>
-          A seat at a DEJAVU table is a small commitment. If you cannot make it, tell us as early as
-          you can so we can offer the seat to someone else.
+          Ein Platz an einem DEJAVU-Tisch ist eine kleine Verpflichtung. Wenn du es nicht schaffst,
+          sag uns so früh wie möglich Bescheid, damit wir den Platz weitergeben können.
         </p>
 
-        <h2>6. Say something</h2>
+        <h2>6. Sag etwas</h2>
         <p>
-          If something at a table makes you or someone else uncomfortable, use the report option in
-          your dashboard. You do not need to be certain — we would rather hear it and look into it.
+          Wenn etwas an einem Tisch dich oder andere unwohl fühlen lässt, nutze die Meldefunktion in
+          deinem Dashboard. Du musst dir nicht sicher sein – wir hören lieber zu und schauen nach.
         </p>
 
         <p>
-          Read more on{' '}
+          Mehr dazu unter{' '}
           <Link href="/safety" className="underline decoration-ink/30 underline-offset-2 hover:text-ink">
-            safety
+            Sicherheit
           </Link>{' '}
-          and the{' '}
+          und in den{' '}
           <Link href="/terms" className="underline decoration-ink/30 underline-offset-2 hover:text-ink">
-            terms of service
+            AGB
           </Link>
           .
         </p>

@@ -21,9 +21,9 @@ export async function generateMetadata({
   const { slug } = await params;
   const categories = await getCategories();
   const category = categories.find((c) => c.slug === slug);
-  if (!category) return { title: 'Table not found' };
+  if (!category) return { title: 'Tisch nicht gefunden' };
   return {
-    title: `${category.name} table`,
+    title: `Tisch ${category.name}`,
     description: category.description ?? category.tagline ?? undefined,
   };
 }
@@ -41,7 +41,7 @@ export default async function TablePage({ params }: { params: Promise<{ slug: st
       <section className="relative min-h-[72svh] overflow-hidden bg-ink grain">
         <Image
           src={categoryImage(category.slug, category.image_url)}
-          alt={`${category.name} table`}
+          alt={`Tischkategorie ${category.name} bei DEJAVU`}
           fill
           priority
           sizes="100vw"
@@ -54,7 +54,7 @@ export default async function TablePage({ params }: { params: Promise<{ slug: st
               href="/tables"
               className="text-[10px] uppercase tracking-[0.16em] text-ivory/50 hover:text-ivory"
             >
-              ← All tables
+              ← Alle Tische
             </Link>
           </Reveal>
           <h1 className="mt-6 max-w-[16ch] font-serif text-[clamp(3rem,9vw,7rem)] leading-[0.86] tracking-[-0.04em] text-ivory">
@@ -74,16 +74,16 @@ export default async function TablePage({ params }: { params: Promise<{ slug: st
         <div className="mx-auto grid max-w-[1300px] gap-12 px-5 py-16 md:grid-cols-[1.4fr_1fr] md:px-10 md:py-24">
           <div>
             <Reveal>
-              <span className="label text-ink/35">The room</span>
+              <span className="label text-ink/40">Der Raum</span>
             </Reveal>
             <p className="mt-6 font-serif text-[clamp(1.5rem,2.8vw,2.2rem)] leading-[1.35] text-ink">
               {category.description}
             </p>
             <div className="mt-10 grid gap-px bg-ink/12 sm:grid-cols-3">
               {[
-                ['4–6', 'people'],
-                ['Sunday', 'usual seating'],
-                ['Same city', 'always'],
+                ['4–6', 'Menschen'],
+                ['Sonntag', 'üblicher Termin'],
+                ['Deine Stadt', 'immer'],
               ].map(([big, small]) => (
                 <div key={small} className="bg-ivory p-5">
                   <p className="font-serif text-[24px] leading-none text-ink">{big}</p>
@@ -94,13 +94,13 @@ export default async function TablePage({ params }: { params: Promise<{ slug: st
           </div>
 
           <div className="border border-ink/15 p-6">
-            <p className="label text-ink/40">How to get a seat</p>
+            <p className="label text-ink/45">So bekommst du einen Platz</p>
             <ol className="mt-5 space-y-4">
               {[
-                'Join DEJAVU and complete the short profile.',
-                'Choose this table in your preferred tables.',
-                'We compose the group and confirm the venue.',
-                'Arrive, order what you like, and let the evening happen.',
+                'Werde Teil von DEJAVU und fülle das kurze Profil aus.',
+                'Wähle diesen Tisch bei deinen bevorzugten Tischen.',
+                'Wir stellen die Gruppe zusammen und bestätigen den Ort.',
+                'Komm an, bestell, was du magst, und lass den Abend laufen.',
               ].map((step, i) => (
                 <li key={step} className="flex gap-3">
                   <span className="mt-0.5 font-serif text-[15px] text-cherry">0{i + 1}</span>
@@ -112,10 +112,10 @@ export default async function TablePage({ params }: { params: Promise<{ slug: st
               href="/signup"
               className="mt-7 flex w-full items-center justify-center bg-ink py-4 text-[10px] uppercase tracking-[0.2em] text-ivory transition-colors duration-500 hover:bg-cherry"
             >
-              Find your table
+              Finde deinen Tisch
             </Link>
-            <p className="mt-4 text-[11px] leading-relaxed text-ink/40">
-              Membership required. Food and drinks are paid by you at the restaurant.
+            <p className="mt-4 text-[11px] leading-relaxed text-ink/45">
+              Mitgliedschaft erforderlich. Essen und Getränke zahlst du im Restaurant selbst.
             </p>
           </div>
         </div>
@@ -124,9 +124,9 @@ export default async function TablePage({ params }: { params: Promise<{ slug: st
       <section className="border-t border-ink/12 bg-cream">
         <div className="mx-auto max-w-[1300px] px-5 py-14 md:px-10 md:py-20">
           <div className="flex items-baseline justify-between border-b border-ink/15 pb-4">
-            <h2 className="label text-ink/45">Other tables</h2>
+            <h2 className="label text-ink/45">Weitere Tische</h2>
             <Link href="/tables" className="text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-cherry">
-              View all
+              Alle ansehen
             </Link>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

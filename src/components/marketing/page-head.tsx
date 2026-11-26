@@ -26,12 +26,12 @@ export function PageHead({
         <Reveal>
           <span className="label opacity-45">{eyebrow}</span>
         </Reveal>
-        <h1 className="mt-6 max-w-[20ch] font-serif text-[clamp(2.6rem,6.4vw,5.2rem)] leading-[0.9] tracking-[-0.03em]">
+        <h1 className="mt-6 max-w-[22ch] font-serif text-[clamp(2.3rem,5.4vw,4.6rem)] leading-[0.94] tracking-[-0.028em]">
           <RevealWords text={title} />
         </h1>
         {lead && (
           <Reveal delay={0.2}>
-            <p className="mt-8 max-w-[52ch] text-[15px] leading-[1.75] opacity-60">{lead}</p>
+            <p className="mt-8 max-w-[54ch] text-[15px] leading-[1.75] opacity-65">{lead}</p>
           </Reveal>
         )}
       </div>

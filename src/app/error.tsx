@@ -21,25 +21,25 @@ export default function GlobalError({
       <header className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-6 py-8 md:px-10">
         <Wordmark />
         <Link href="/contact" className="label text-[11px] text-ink/60 hover:text-cherry">
-          Contact
+          Kontakt
         </Link>
       </header>
 
       <div className="mx-auto flex w-full max-w-[1400px] flex-1 items-center px-6 pb-24 md:px-10">
         <div className="max-w-xl">
-          <p className="label text-[11px] text-cherry">Something went wrong</p>
+          <p className="label text-[11px] text-cherry">Etwas ist schiefgelaufen</p>
           <h1 className="mt-6 font-serif text-[clamp(2.4rem,6vw,4.5rem)] leading-[0.9] tracking-[-0.03em] text-ink">
-            The evening
+            Der Abend
             <br />
-            <em className="text-burgundy">paused for a moment.</em>
+            <em className="text-burgundy">macht kurz Pause.</em>
           </h1>
           <p className="mt-6 text-[15px] leading-relaxed text-ink/65">
-            An unexpected error interrupted this page. Nothing you entered has been lost from your
-            account. Try again, and if it keeps happening please tell us.
+            Ein unerwarteter Fehler hat diese Seite unterbrochen. Nichts, was du eingegeben hast, ist
+            aus deinem Konto verschwunden. Versuch es erneut – und wenn es bleibt, sag uns Bescheid.
           </p>
           {error.digest && (
             <p className="mt-4 font-sans text-[11px] uppercase tracking-[0.16em] text-ink/35">
-              Reference {error.digest}
+              Referenz {error.digest}
             </p>
           )}
           <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -48,13 +48,13 @@ export default function GlobalError({
               onClick={reset}
               className="btn bg-ink px-7 py-4 text-ivory transition-colors duration-500 hover:bg-cherry"
             >
-              Try again
+              Erneut versuchen
             </button>
             <Link
               href="/app"
               className="btn border border-ink/25 px-7 py-4 text-ink transition-colors duration-500 hover:bg-ink hover:text-ivory"
             >
-              Back to your dashboard
+              Zurück zu deinem Dashboard
             </Link>
           </div>
         </div>

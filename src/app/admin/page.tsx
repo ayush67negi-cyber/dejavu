@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Flag, Users, CalendarRange, IndianRupee, Star } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { formatDateTime } from '@/lib/format';
+import { EXPERIENCE_STATUS_LABEL } from '@/lib/constants';
 
 export default async function AdminOverview() {
   const supabase = await createClient();
@@ -48,33 +49,33 @@ export default async function AdminOverview() {
   return (
     <div className="space-y-10">
       <div className="border-b border-ink/12 pb-7">
-        <p className="label text-ink/35">Overview</p>
+        <p className="label text-ink/40">Übersicht</p>
         <h1 className="mt-3 font-serif text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[0.98] text-ink">
-          The room, at a glance.
+          Der Raum auf einen Blick.
         </h1>
         <p className="mt-2 text-[13px] text-ink/50">
-          Live numbers from the database. Nothing here is illustrative.
+          Live-Zahlen direkt aus der Datenbank. Nichts hier ist illustrativ.
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-px bg-ink/12 md:grid-cols-4">
-        <Stat label="Members" value={memberCount ?? 0} sub={`${onboardedCount ?? 0} onboarded`} icon={<Users className="h-4 w-4" strokeWidth={1.5} />} />
+        <Stat label="Mitglieder" value={memberCount ?? 0} sub={`${onboardedCount ?? 0} onboarded`} icon={<Users className="h-4 w-4" strokeWidth={1.5} />} />
         <Stat
-          label="Active memberships"
+          label="Aktive Mitgliedschaften"
           value={activeMemberships ?? 0}
-          sub={pendingMemberships ? `${pendingMemberships} pending payment` : 'No pending payments'}
+          sub={pendingMemberships ? `${pendingMemberships} Zahlung offen` : 'Keine offenen Zahlungen'}
           icon={<IndianRupee className="h-4 w-4" strokeWidth={1.5} />}
         />
         <Stat
-          label="Experiences"
+          label="Erlebnisse"
           value={totalExperiences ?? 0}
-          sub={`${confirmedExperiences ?? 0} confirmed`}
+          sub={`${confirmedExperiences ?? 0} bestätigt`}
           icon={<CalendarRange className="h-4 w-4" strokeWidth={1.5} />}
         />
         <Stat
-          label="Open reports"
+          label="Offene Meldungen"
           value={openReports ?? 0}
-          sub={pendingRequests ? `${pendingRequests} seat requests` : 'No seat requests'}
+          sub={pendingRequests ? `${pendingRequests} Platzanfragen` : 'Keine Platzanfragen'}
           icon={<Flag className="h-4 w-4" strokeWidth={1.5} />}
           tone={openReports ? 'cherry' : undefined}
         />
@@ -83,16 +84,16 @@ export default async function AdminOverview() {
       <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
         <section>
           <div className="flex items-baseline justify-between border-b border-ink/12 pb-3">
-            <h2 className="label text-ink/50">Experiences</h2>
+            <h2 className="label text-ink/50">Erlebnisse</h2>
             <Link href="/admin/experiences" className="text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-cherry">
-              Manage
+              Verwalten
             </Link>
           </div>
           {(upcoming ?? []).length === 0 ? (
             <p className="py-6 text-[13px] text-ink/40">
-              No experiences yet.{' '}
+              Noch keine Erlebnisse.{' '}
               <Link href="/admin/experiences" className="text-cherry hover:underline">
-                Create the first one
+                Leg jetzt das erste an
               </Link>
               .
             </p>
@@ -103,7 +104,7 @@ export default async function AdminOverview() {
                   <div>
                     <p className="text-[13.5px] text-ink">{e.name}</p>
                     <p className="mt-0.5 text-[11px] text-ink/40">
-                      {e.city} · {e.starts_at ? formatDateTime(e.starts_at) : 'Date TBA'} · {e.group_size} seats
+                      {e.city} · {e.starts_at ? formatDateTime(e.starts_at) : 'Termin folgt'} · {e.group_size} Plätze
                     </p>
                   </div>
                   <span
@@ -115,7 +116,7 @@ export default async function AdminOverview() {
                           : 'text-ember'
                     }`}
                   >
-                    {e.status}
+                    {EXPERIENCE_STATUS_LABEL[e.status] ?? e.status}
                   </span>
                 </li>
               ))}
@@ -136,20 +137,21 @@ export default async function AdminOverview() {
                   <span className="ml-1 text-[12px] uppercase tracking-[0.14em] text-ink/35">/ 5</span>
                 </p>
                 <p className="mt-2 text-[11.5px] text-ink/45">
-                  From {ratings.length} submitted {ratings.length === 1 ? 'review' : 'reviews'}
+                  Aus {ratings.length} abgegebenen Bewertungen
                 </p>
               </>
             ) : (
               <p className="mt-3 text-[12.5px] leading-relaxed text-ink/45">
-                No feedback submitted yet. Ratings appear once completed experiences are reviewed.
+                Noch kein Feedback abgegeben. Bewertungen erscheinen, sobald abgeschlossene Erlebnisse
+                bewertet wurden.
               </p>
             )}
           </section>
 
           <section className="border border-ink/12 p-5">
-            <p className="label text-ink/40">Newest members</p>
+            <p className="label text-ink/40">Neueste Mitglieder</p>
             {(recentMembers ?? []).length === 0 ? (
-              <p className="mt-3 text-[12.5px] text-ink/45">No members yet.</p>
+              <p className="mt-3 text-[12.5px] text-ink/45">Noch keine Mitglieder.</p>
             ) : (
               <ul className="mt-3 space-y-3">
                 {(recentMembers ?? []).map((m) => (
@@ -159,10 +161,10 @@ export default async function AdminOverview() {
                         href={`/admin/members/${m.id}`}
                         className="text-[13px] text-ink hover:text-cherry"
                       >
-                        {m.full_name || 'Unnamed member'}
+                        {m.full_name || 'Ohne Namen'}
                       </Link>
                       <p className="text-[10.5px] text-ink/40">
-                        {m.city ?? 'No city'} · {m.onboarding_completed ? 'Onboarded' : 'Incomplete'}
+                        {m.city ?? 'Keine Stadt'} · {m.onboarding_completed ? 'Onboarding fertig' : 'Unvollständig'}
                       </p>
                     </div>
                     <ArrowUpRight className="h-3.5 w-3.5 text-ink/25" strokeWidth={1.5} />

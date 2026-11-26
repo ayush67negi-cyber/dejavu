@@ -21,7 +21,7 @@ export function LoginForm() {
     setError('');
     const parsed = loginSchema.safeParse(form);
     if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? 'Check your details.');
+      setError(parsed.error.issues[0]?.message ?? 'Bitte prüfe deine Angaben.');
       return;
     }
     setLoading(true);
@@ -34,7 +34,7 @@ export function LoginForm() {
       if (err) {
         setError(
           err.message.toLowerCase().includes('invalid')
-            ? 'That email and password combination does not match an account.'
+            ? 'Diese Kombination aus E-Mail und Passwort passt zu keinem Konto.'
             : err.message,
         );
         setLoading(false);
@@ -43,7 +43,7 @@ export function LoginForm() {
       router.push(next.startsWith('/') ? next : '/app');
       router.refresh();
     } catch {
-      setError('We could not reach the server. Please try again.');
+      setError('Wir konnten den Server nicht erreichen. Bitte versuche es noch einmal.');
       setLoading(false);
     }
   }
@@ -58,11 +58,11 @@ export function LoginForm() {
       });
       if (err) {
         setError(
-          'Google sign-in is not enabled on this project yet. Add Google credentials in Supabase → Authentication → Providers.',
+          'Die Anmeldung mit Google ist für dieses Projekt noch nicht aktiviert. Hinterlege die Google-Zugangsdaten in Supabase → Authentication → Providers.',
         );
       }
     } catch {
-      setError('Google sign-in is unavailable right now.');
+      setError('Die Anmeldung mit Google ist gerade nicht verfügbar.');
     }
   }
 
@@ -77,7 +77,7 @@ export function LoginForm() {
       <form onSubmit={onSubmit} className="space-y-7" noValidate>
         <div>
           <label htmlFor="email" className="label text-ink/40">
-            Email
+            E-Mail
           </label>
           <input
             id="email"
@@ -94,13 +94,13 @@ export function LoginForm() {
         <div>
           <div className="flex items-baseline justify-between">
             <label htmlFor="password" className="label text-ink/40">
-              Password
+              Passwort
             </label>
             <Link
               href="/forgot-password"
               className="text-[10px] uppercase tracking-[0.14em] text-ink/40 hover:text-cherry"
             >
-              Forgot?
+              Vergessen?
             </Link>
           </div>
           <input
@@ -108,7 +108,7 @@ export function LoginForm() {
             type="password"
             autoComplete="current-password"
             className="field mt-2"
-            placeholder="Your password"
+            placeholder="Dein Passwort"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             required
@@ -129,17 +129,17 @@ export function LoginForm() {
         >
           {loading ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} /> Signing in
+              <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} /> Anmeldung läuft
             </>
           ) : (
-            'Sign in'
+            'Anmelden'
           )}
         </button>
       </form>
 
       <div className="my-7 flex items-center gap-4">
         <span className="h-px flex-1 bg-ink/15" />
-        <span className="text-[10px] uppercase tracking-label text-ink/30">or</span>
+        <span className="text-[10px] uppercase tracking-label text-ink/35">oder</span>
         <span className="h-px flex-1 bg-ink/15" />
       </div>
 
@@ -148,7 +148,7 @@ export function LoginForm() {
         type="button"
         className="btn w-full border border-ink/20 py-[16px] text-ink transition-colors duration-500 hover:border-ink"
       >
-        Continue with Google
+        Mit Google fortfahren
       </button>
     </div>
   );

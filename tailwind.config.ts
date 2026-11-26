@@ -30,9 +30,9 @@ const config: Config = {
         label: '0.22em',
       },
       fontSize: {
-        'display-sm': ['clamp(2.4rem, 6vw, 4rem)', { lineHeight: '0.95', letterSpacing: '-0.03em' }],
-        'display-md': ['clamp(3rem, 8vw, 6.5rem)', { lineHeight: '0.9', letterSpacing: '-0.035em' }],
-        'display-lg': ['clamp(3.4rem, 11vw, 10rem)', { lineHeight: '0.84', letterSpacing: '-0.045em' }],
+        'display-sm': ['clamp(2.1rem, 5vw, 3.6rem)', { lineHeight: '0.98', letterSpacing: '-0.026em' }],
+        'display-md': ['clamp(2.5rem, 6.4vw, 5.4rem)', { lineHeight: '0.94', letterSpacing: '-0.03em' }],
+        'display-lg': ['clamp(2.9rem, 7.6vw, 7.2rem)', { lineHeight: '0.9', letterSpacing: '-0.038em' }],
       },
       transitionTimingFunction: {
         edit: 'cubic-bezier(0.22, 1, 0.36, 1)',

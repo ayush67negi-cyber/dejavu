@@ -11,13 +11,14 @@ export default async function AdminCategories() {
   return (
     <div className="space-y-8">
       <div className="border-b border-ink/12 pb-6">
-        <p className="label text-ink/35">Categories</p>
+        <p className="label text-ink/40">Kategorien</p>
         <h1 className="mt-2 font-serif text-[clamp(1.8rem,3.4vw,2.6rem)] leading-none text-ink">
-          The rooms of DEJAVU.
+          Die Räume von DEJAVU.
         </h1>
         <p className="mt-2 max-w-[60ch] text-[12.5px] leading-relaxed text-ink/45">
-          Categories power the public tables section, onboarding choices and matching preferences.
-          Deactivating one hides it from members without deleting history.
+          Kategorien steuern den öffentlichen Tische-Bereich, die Auswahl beim Onboarding und die
+          Matching-Vorlieben. Deaktivierst du eine, wird sie für Mitglieder ausgeblendet, ohne dass
+          die Historie verloren geht.
         </p>
       </div>
 

@@ -7,10 +7,10 @@ import { Menu, X } from 'lucide-react';
 import { Wordmark } from '@/components/ui/logo';
 
 const LINKS = [
-  { href: '/how-it-works', label: 'How it works' },
-  { href: '/tables', label: 'Tables' },
-  { href: '/membership', label: 'Membership' },
-  { href: '/about', label: 'About' },
+  { href: '/how-it-works', label: "So funktioniert’s" },
+  { href: '/tables', label: 'Unsere Tische' },
+  { href: '/membership', label: 'Mitgliedschaft' },
+  { href: '/about', label: 'Über uns' },
 ];
 
 export function SiteNav({ signedIn = false }: { signedIn?: boolean }) {
@@ -41,27 +41,27 @@ export function SiteNav({ signedIn = false }: { signedIn?: boolean }) {
         <div className="mx-auto flex h-[74px] max-w-[1600px] items-center justify-between px-5 md:px-10">
           <div className="flex items-center gap-3">
             <Wordmark />
-            <span className="hidden text-[9px] uppercase tracking-label text-ink/40 lg:block">
-              Social dining
+            <span className="hidden text-[9px] uppercase tracking-label text-ink/40 xl:block">
+              Social Dining
             </span>
           </div>
 
-          <nav className="hidden items-center gap-9 lg:flex">
+          <nav className="hidden items-center gap-6 xl:gap-9 lg:flex">
             {LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="link-underline text-[11px] uppercase tracking-[0.16em] text-ink/70 transition-colors hover:text-ink"
+                className="link-underline whitespace-nowrap text-[10.5px] uppercase tracking-[0.12em] text-ink/70 transition-colors hover:text-ink xl:text-[11px] xl:tracking-[0.15em]"
               >
                 {l.label}
               </Link>
             ))}
           </nav>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-3 sm:gap-5">
             {signedIn ? (
-              <Link href="/app" className="btn bg-ink px-6 py-3 text-ivory hover:bg-cherry">
-                Your table
+              <Link href="/app" className="btn whitespace-nowrap bg-ink px-5 py-3 text-ivory hover:bg-cherry xl:px-6">
+                Dein Tisch
               </Link>
             ) : (
               <>
@@ -69,19 +69,19 @@ export function SiteNav({ signedIn = false }: { signedIn?: boolean }) {
                   href="/login"
                   className="link-underline hidden text-[11px] uppercase tracking-[0.16em] text-ink/70 hover:text-ink sm:block"
                 >
-                  Login
+                  Anmelden
                 </Link>
                 <Link
                   href="/signup"
-                  className="hidden bg-ink px-6 py-3 text-[10px] uppercase tracking-[0.18em] text-ivory transition-colors duration-500 ease-edit hover:bg-cherry sm:inline-flex"
+                  className="hidden whitespace-nowrap bg-ink px-5 py-3 text-[10px] uppercase tracking-[0.14em] text-ivory transition-colors duration-500 ease-edit hover:bg-cherry sm:inline-flex xl:px-6 xl:tracking-[0.18em]"
                 >
-                  Join DEJAVU
+                  Werde Teil von DEJAVU
                 </Link>
               </>
             )}
             <button
               onClick={() => setOpen(true)}
-              aria-label="Open menu"
+              aria-label="Menü öffnen"
               className="flex h-9 w-9 items-center justify-center lg:hidden"
             >
               <Menu className="h-5 w-5" strokeWidth={1.5} />
@@ -101,7 +101,7 @@ export function SiteNav({ signedIn = false }: { signedIn?: boolean }) {
           >
             <div className="flex h-[74px] items-center justify-between px-5">
               <Wordmark tone="ivory" href={null} />
-              <button onClick={() => setOpen(false)} aria-label="Close menu" className="p-2">
+              <button onClick={() => setOpen(false)} aria-label="Menü schließen" className="p-2">
                 <X className="h-5 w-5" strokeWidth={1.5} />
               </button>
             </div>
@@ -133,7 +133,7 @@ export function SiteNav({ signedIn = false }: { signedIn?: boolean }) {
                 onClick={() => setOpen(false)}
                 className="flex items-center justify-center bg-cherry py-4 text-[11px] uppercase tracking-[0.2em] text-ivory"
               >
-                {signedIn ? 'Your table' : 'Join DEJAVU'}
+                {signedIn ? 'Dein Tisch' : 'Werde Teil von DEJAVU'}
               </Link>
               {!signedIn && (
                 <Link
@@ -141,12 +141,12 @@ export function SiteNav({ signedIn = false }: { signedIn?: boolean }) {
                   onClick={() => setOpen(false)}
                   className="flex items-center justify-center border border-ivory/25 py-4 text-[11px] uppercase tracking-[0.2em] text-ivory"
                 >
-                  Login
+                  Anmelden
                 </Link>
               )}
             </div>
             <p className="absolute bottom-8 left-5 right-5 text-[10px] uppercase tracking-label text-ivory/30">
-              Strangers at lunch. Friends by dessert.
+              Beim Mittagessen noch Fremde. Beim Dessert schon Freunde.
             </p>
           </motion.div>
         )}

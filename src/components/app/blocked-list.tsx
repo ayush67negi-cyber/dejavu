@@ -22,17 +22,18 @@ export function BlockedList({ blocked }: { blocked: { id: string; full_name: str
 
   return (
     <div className="border-t border-ink/12 pt-6">
-      <p className="label text-ink/40">Blocked members</p>
+      <p className="label text-ink/45">Blockierte Mitglieder</p>
       <p className="mt-3 max-w-[56ch] text-[12.5px] leading-relaxed text-ink/45">
-        Blocked members are never placed at a table with you, and cannot find you in Discover.
+        Blockierte Mitglieder werden nie mit dir an einen Tisch gesetzt und finden dich nicht unter
+        „Entdecken“.
       </p>
       {blocked.length === 0 ? (
-        <p className="mt-4 text-[12.5px] text-ink/35">You have not blocked anyone.</p>
+        <p className="mt-4 text-[12.5px] text-ink/40">Du hast niemanden blockiert.</p>
       ) : (
         <ul className="mt-4 divide-y divide-ink/10 border-y border-ink/10">
           {blocked.map((b) => (
             <li key={b.id} className="flex items-center justify-between py-3">
-              <span className="text-[13px] text-ink/70">{b.full_name ?? 'Member'}</span>
+              <span className="text-[13px] text-ink/70">{b.full_name ?? 'Mitglied'}</span>
               <button
                 onClick={() => unblock(b.id)}
                 disabled={pending === b.id}
@@ -43,7 +44,7 @@ export function BlockedList({ blocked }: { blocked: { id: string; full_name: str
                 ) : (
                   <ShieldOff className="h-3 w-3" strokeWidth={1.5} />
                 )}
-                Unblock
+                Blockierung aufheben
               </button>
             </li>
           ))}

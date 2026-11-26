@@ -5,18 +5,18 @@ import { PageHead } from '@/components/marketing/page-head';
 import { Reveal, RevealWords } from '@/components/ui/motion';
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'Über uns',
   description:
-    'DEJAVU is a social dining platform for people who would rather meet than swipe. Small tables, real restaurants, genuine friendships.',
+    'DEJAVU ist eine Plattform für gemeinsames Essen für Menschen, die lieber Menschen treffen als wischen. Kleine Tische, echte Restaurants, echte Freundschaften.',
 };
 
 export default function AboutPage() {
   return (
     <>
       <PageHead
-        eyebrow="About DEJAVU"
-        title="We built the table we wanted to sit at."
-        lead="DEJAVU began with a small, uncomfortable observation: it had become easier to meet a hundred people online than to have one good conversation over dinner."
+        eyebrow="Über DEJAVU"
+        title="Wir haben den Tisch gebaut, an dem wir selbst sitzen wollten."
+        lead="DEJAVU begann mit einer kleinen, unbequemen Beobachtung: Es ist leichter geworden, online hundert Menschen zu treffen, als beim Essen ein gutes Gespräch zu führen."
         tone="sand"
       />
 
@@ -24,42 +24,42 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-[1300px] gap-12 px-5 py-16 md:grid-cols-[1.2fr_1fr] md:px-10 md:py-24">
           <div className="space-y-6 text-[15px] leading-[1.85] text-ink/70">
             <p className="font-serif text-[clamp(1.4rem,2.6vw,1.9rem)] leading-[1.4] text-ink">
-              Most social products are built to keep you scrolling. DEJAVU is built to get you to
-              leave the house.
+              Die meisten sozialen Produkte sind dafür gebaut, dich scrollen zu lassen. DEJAVU ist
+              dafür gebaut, dass du das Haus verlässt.
             </p>
             <p>
-              We think the best conversations rarely happen in your inbox. They happen across a
-              table, over food, between people who didn’t know they needed to meet.
+              Die besten Gespräche passieren selten im Postfach. Sie passieren an einem Tisch, über
+              Essen hinweg, zwischen Menschen, die nicht wussten, dass sie sich begegnen wollten.
             </p>
             <p>
-              So we do the part that is genuinely difficult: finding four to six people in your city
-              who are likely to enjoy each other, choosing a restaurant that suits the evening, and
-              holding the whole thing together so that nobody has to organise anything.
+              Also übernehmen wir den wirklich schwierigen Teil: vier bis sechs Menschen in deiner
+              Stadt finden, die sich wahrscheinlich mögen, ein Restaurant wählen, das zum Abend
+              passt, und alles zusammenhalten, damit niemand organisieren muss.
             </p>
             <p>
-              DEJAVU is not a dating app. There is no swiping, no scoring of faces, no pressure to
-              be impressive. It is closer to being invited to a very well-organised dinner by
-              someone who knows everyone’s taste.
+              DEJAVU ist keine Dating-App. Kein Wischen, keine Bewertung von Gesichtern, kein Druck,
+              beeindrucken zu müssen. Eher eine Einladung zu einem sehr gut organisierten Dinner –
+              von jemandem, der den Geschmack aller kennt.
             </p>
             <p>
-              We are a small team, we are deliberate about growth, and we would rather run fewer,
-              better tables than fill a calendar.
+              Wir sind ein kleines Team, wir wachsen bewusst, und wir führen lieber wenige, bessere
+              Tische als einen vollen Kalender.
             </p>
           </div>
 
           <div className="space-y-6">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <Image src="/images/idea-conversation.jpg" alt="A conversation across a table" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
+              <Image src="/images/idea-conversation.jpg" alt="Ein Gespräch an einem Tisch im warmen Restaurantlicht." fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
             </div>
             <div className="border border-ink/15 p-6">
-              <p className="label text-ink/40">What we believe</p>
+              <p className="label text-ink/45">Woran wir glauben</p>
               <ul className="mt-4 space-y-3">
                 {[
-                  'Small groups beat large events.',
-                  'Overlap is a starting point, not the whole point.',
-                  'A good restaurant does half the hosting.',
-                  'Nobody should have to perform at dinner.',
-                  'Friendship deserves infrastructure.',
+                  'Kleine Gruppen schlagen große Events.',
+                  'Überschneidung ist ein Anfang, nicht das Ganze.',
+                  'Ein gutes Restaurant übernimmt die Hälfte des Gastgebens.',
+                  'Niemand sollte beim Essen etwas vorspielen müssen.',
+                  'Freundschaft verdient Infrastruktur.',
                 ].map((t) => (
                   <li key={t} className="flex gap-3 text-[13px] leading-relaxed text-ink/65">
                     <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cherry" />
@@ -76,9 +76,9 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1300px] px-5 md:px-10">
           <div className="grid gap-10 md:grid-cols-3">
             {[
-              ['Not a dating app', 'No attraction-based matching. Friendship is the brief.'],
-              ['Adults only', 'DEJAVU is strictly 18+. Age is verified during onboarding.'],
-              ['Small by design', 'Four to six seats per table, so everyone can actually speak.'],
+              ['Keine Dating-App', 'Kein Matching nach Anziehung. Freundschaft ist der Auftrag.'],
+              ['Nur für Erwachsene', 'DEJAVU ist strikt ab 18. Das Alter wird beim Onboarding geprüft.'],
+              ['Klein, mit Absicht', 'Vier bis sechs Plätze pro Tisch, damit wirklich alle sprechen können.'],
             ].map(([title, copy], i) => (
               <Reveal key={title} delay={i * 0.08}>
                 <div className="border-t border-ivory/20 pt-6">
@@ -92,13 +92,13 @@ export default function AboutPage() {
 
           <div className="mt-16 border-t border-ivory/15 pt-10">
             <h2 className="max-w-[20ch] font-serif text-[clamp(2rem,4.4vw,3.2rem)] leading-[0.95]">
-              <RevealWords text="Maybe you haven’t met your people yet." />
+              <RevealWords text="Vielleicht hast du deine Menschen noch gar nicht kennengelernt." />
             </h2>
             <Link
               href="/signup"
               className="mt-8 inline-flex bg-ivory px-7 py-4 text-[10px] uppercase tracking-[0.2em] text-ink transition-colors duration-500 hover:bg-cherry hover:text-ivory"
             >
-              Find your table
+              Finde deinen Tisch
             </Link>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { getCategories } from '@/lib/queries';
 import { formatDateTime } from '@/lib/format';
 import { ExperienceCreator } from '@/components/admin/experience-creator';
 import { venueFor, type ExperienceVenue } from '@/lib/types';
+import { EXPERIENCE_STATUS_LABEL } from '@/lib/constants';
 
 export default async function AdminExperiences() {
   const supabase = await createClient();
@@ -29,9 +30,9 @@ export default async function AdminExperiences() {
   return (
     <div className="space-y-8">
       <div className="border-b border-ink/12 pb-6">
-        <p className="label text-ink/35">Experiences</p>
+        <p className="label text-ink/40">Erlebnisse</p>
         <h1 className="mt-2 font-serif text-[clamp(1.8rem,3.4vw,2.6rem)] leading-none text-ink">
-          Compose a table.
+          Stelle einen Tisch zusammen.
         </h1>
       </div>
 
@@ -41,7 +42,7 @@ export default async function AdminExperiences() {
         <table className="w-full min-w-[820px] text-left">
           <thead className="border-b border-ink/12 bg-cream/60">
             <tr>
-              {['Experience', 'City', 'When', 'Seats', 'Status', ''].map((h) => (
+              {['Erlebnis', 'Stadt', 'Wann', 'Plätze', 'Status', ''].map((h) => (
                 <th key={h} className="px-4 py-3 text-[9px] uppercase tracking-label text-ink/40">
                   {h}
                 </th>
@@ -52,7 +53,7 @@ export default async function AdminExperiences() {
             {(experiences ?? []).length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-4 py-10 text-center text-[13px] text-ink/40">
-                  No experiences created yet. Use the form above to compose the first table.
+                  Noch keine Erlebnisse angelegt. Nutze das Formular oben für den ersten Tisch.
                 </td>
               </tr>
             ) : (
@@ -69,13 +70,13 @@ export default async function AdminExperiences() {
                         {e.name}
                       </Link>
                       <p className="text-[10.5px] text-ink/40">
-                        {cat?.name ?? 'No category'}
+                        {cat?.name ?? 'Keine Kategorie'}
                         {venueFor(venueList, e.id).name ? ` · ${venueFor(venueList, e.id).name}` : ''}
                       </p>
                     </td>
                     <td className="px-4 py-3 text-[12.5px] text-ink/60">{e.city}</td>
                     <td className="px-4 py-3 text-[12px] text-ink/55">
-                      {e.starts_at ? formatDateTime(e.starts_at) : 'TBA'}
+                      {e.starts_at ? formatDateTime(e.starts_at) : 'Termin folgt'}
                     </td>
                     <td className="px-4 py-3 text-[12.5px] text-ink/60">
                       {filled} / {e.group_size}
@@ -88,7 +89,7 @@ export default async function AdminExperiences() {
                         href={`/admin/experiences/${e.id}`}
                         className="text-[10px] uppercase tracking-[0.12em] text-ink/40 hover:text-cherry"
                       >
-                        Manage
+                        Verwalten
                       </Link>
                     </td>
                   </tr>
@@ -111,5 +112,9 @@ function StatusPill({ status }: { status: string }) {
         : status === 'completed'
           ? 'text-ink/45'
           : 'text-ember';
-  return <span className={`text-[9px] uppercase tracking-label ${tone}`}>{status}</span>;
+  return (
+    <span className={`text-[9px] uppercase tracking-label ${tone}`}>
+      {EXPERIENCE_STATUS_LABEL[status] ?? status}
+    </span>
+  );
 }

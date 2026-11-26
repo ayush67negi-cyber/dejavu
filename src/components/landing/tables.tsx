@@ -17,16 +17,16 @@ export function TablesStrip({ categories }: { categories: Category[] }) {
         <div className="flex flex-col justify-between gap-6 border-b border-ink/15 pb-10 md:flex-row md:items-end">
           <div>
             <Reveal>
-              <span className="label text-ink/40">03 — The tables</span>
+              <span className="label text-ink/45">03 — Unsere Tische</span>
             </Reveal>
             <h2 className="mt-7 max-w-[16ch] font-serif text-display-sm text-ink md:text-[clamp(2.6rem,4.8vw,4.2rem)] md:leading-[0.95]">
-              <RevealWords text="Eight rooms. One table each." />
+              <RevealWords text="Acht Räume. Je ein Tisch." />
             </h2>
           </div>
           <Reveal delay={0.15}>
             <p className="max-w-[36ch] text-[15px] leading-relaxed text-ink/55">
-              Each table has its own temperament. Choose the ones that sound like an evening you’d
-              actually look forward to — we’ll do the introductions.
+              Jeder Tisch hat sein eigenes Temperament. Wähle die, die nach einem Abend klingen, auf
+              den du dich wirklich freust – die Vorstellungen übernehmen wir.
             </p>
           </Reveal>
         </div>
@@ -43,7 +43,7 @@ export function TablesStrip({ categories }: { categories: Category[] }) {
               <div className="relative mb-6 aspect-[4/5] w-full overflow-hidden bg-sand">
                 <Image
                   src={categoryImage(c.slug, c.image_url)}
-                  alt={`${c.name} table`}
+                  alt={`${c.name} – Tischrunde bei DEJAVU`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover transition-all duration-[1100ms] ease-edit group-hover:scale-[1.05]"
@@ -88,7 +88,7 @@ export function TablesStrip({ categories }: { categories: Category[] }) {
               href="/tables"
               className="group inline-flex items-center gap-2 border-b border-ink/30 pb-1 text-[10px] uppercase tracking-[0.2em] text-ink transition-colors hover:border-cherry hover:text-cherry"
             >
-              All tables
+              Alle Tische
               <ArrowUpRight
                 className="h-3 w-3 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                 strokeWidth={1.5}

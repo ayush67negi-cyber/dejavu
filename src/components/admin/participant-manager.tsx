@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, UserPlus, X, Check } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import { PARTICIPANT_STATUS_LABEL, REQUEST_STATUS_LABEL } from '@/lib/constants';
 
 type Participant = {
   user_id: string;
@@ -49,7 +50,7 @@ export function ParticipantManager({
 
   async function add(userId: string) {
     if (seatsLeft <= 0) {
-      setError('This table is full. Increase the seat count first.');
+      setError('Dieser Tisch ist voll. Erhöhe zuerst die Platzzahl.');
       return;
     }
     setBusy(`add-${userId}`);
@@ -63,13 +64,13 @@ export function ParticipantManager({
       await supabase.from('notifications').insert({
         user_id: userId,
         type: 'experience',
-        title: 'You have been placed at a DEJAVU table',
-        body: 'A seat has been offered to you. Details appear in My experiences once the table is confirmed.',
+        title: 'Du hast einen Platz an einem DEJAVU-Tisch',
+        body: 'Ein Platz wurde dir angeboten. Details erscheinen unter „Meine Erlebnisse“, sobald der Tisch bestätigt ist.',
         link: '/app/experiences',
       });
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not add the participant.');
+      setError(e instanceof Error ? e.message : 'Teilnehmer konnte nicht hinzugefügt werden.');
     } finally {
       setBusy(null);
     }
@@ -88,7 +89,7 @@ export function ParticipantManager({
       if (err) throw new Error(err.message);
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not remove the participant.');
+      setError(e instanceof Error ? e.message : 'Teilnehmer konnte nicht entfernt werden.');
     } finally {
       setBusy(null);
     }
@@ -128,15 +129,15 @@ export function ParticipantManager({
       await supabase.from('notifications').insert({
         user_id: request.user_id,
         type: 'experience',
-        title: approve ? 'Your seat is confirmed' : 'About your table request',
+        title: approve ? 'Dein Platz ist bestätigt' : 'Zu deiner Platzanfrage',
         body: approve
-          ? 'You have been seated at this table. Venue and time are in My experiences.'
-          : 'We could not place you at this particular table, but we are composing more every week.',
+          ? 'Du sitzt an diesem Tisch. Ort und Uhrzeit findest du unter „Meine Erlebnisse“.'
+          : 'Für diesen Tisch hat es diesmal nicht gereicht – wir stellen jede Woche neue zusammen.',
         link: '/app/experiences',
       });
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not resolve the request.');
+      setError(e instanceof Error ? e.message : 'Anfrage konnte nicht bearbeitet werden.');
     } finally {
       setBusy(null);
     }
@@ -148,22 +149,22 @@ export function ParticipantManager({
     <div className="space-y-5">
       <div className="border border-ink/12 p-5">
         <div className="flex items-baseline justify-between">
-          <p className="label text-ink/40">Seated members</p>
+          <p className="label text-ink/45">Sitzende Mitglieder</p>
           <span className="text-[10px] uppercase tracking-label text-ink/35">
             {participants.length} / {groupSize}
           </span>
         </div>
 
         {participants.length === 0 ? (
-          <p className="mt-4 text-[12.5px] text-ink/40">Nobody assigned yet.</p>
+          <p className="mt-4 text-[12.5px] text-ink/40">Noch niemand zugeteilt.</p>
         ) : (
           <ul className="mt-4 space-y-2.5">
             {participants.map((p) => (
               <li key={p.user_id} className="flex items-center justify-between gap-3 border-b border-ink/8 pb-2.5 last:border-0">
                 <div>
-                  <p className="text-[13px] text-ink">{p.profiles?.full_name ?? 'Member'}</p>
+                  <p className="text-[13px] text-ink">{p.profiles?.full_name ?? 'Mitglied'}</p>
                   <p className="text-[10.5px] text-ink/40">
-                    {p.profiles?.occupation ?? '—'} · {p.profiles?.city ?? '—'} · {p.status}
+                    {p.profiles?.occupation ?? '—'} · {p.profiles?.city ?? '—'} · {PARTICIPANT_STATUS_LABEL[p.status] ?? p.status}
                   </p>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -171,7 +172,7 @@ export function ParticipantManager({
                     <button
                       onClick={() => confirmParticipant(p.user_id)}
                       disabled={busy !== null}
-                      title="Mark confirmed"
+                      title="Als bestätigt markieren"
                       className="p-1.5 text-olive/70 hover:text-olive disabled:opacity-40"
                     >
                       {busy === `cf-${p.user_id}` ? (
@@ -184,7 +185,7 @@ export function ParticipantManager({
                   <button
                     onClick={() => remove(p.user_id)}
                     disabled={busy !== null}
-                    title="Remove"
+                    title="Entfernen"
                     className="p-1.5 text-cherry/60 hover:text-cherry disabled:opacity-40"
                   >
                     {busy === `rm-${p.user_id}` ? (
@@ -204,19 +205,19 @@ export function ParticipantManager({
 
       <div className="border border-ink/12 p-5">
         <div className="flex items-center justify-between">
-          <p className="label text-ink/40">Requests</p>
-          <span className="text-[10px] uppercase tracking-label text-ink/35">{pendingRequests.length} pending</span>
+          <p className="label text-ink/45">Anfragen</p>
+          <span className="text-[10px] uppercase tracking-label text-ink/35">{pendingRequests.length} offen</span>
         </div>
         {requests.length === 0 ? (
-          <p className="mt-4 text-[12.5px] text-ink/40">No seat requests for this table.</p>
+          <p className="mt-4 text-[12.5px] text-ink/40">Keine Platzanfragen für diesen Tisch.</p>
         ) : (
           <ul className="mt-4 space-y-3">
             {requests.map((r) => (
               <li key={r.id} className="border-b border-ink/8 pb-3 last:border-0 last:pb-0">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-[12.5px] text-ink">{r.profiles?.full_name ?? 'Member'}</p>
+                  <p className="text-[12.5px] text-ink">{r.profiles?.full_name ?? 'Mitglied'}</p>
                   <span className={`text-[9px] uppercase tracking-label ${r.status === 'pending' ? 'text-ember' : 'text-ink/35'}`}>
-                    {r.status}
+                    {REQUEST_STATUS_LABEL[r.status] ?? r.status}
                   </span>
                 </div>
                 {r.message && <p className="mt-1 text-[11.5px] text-ink/50">{r.message}</p>}
@@ -227,14 +228,14 @@ export function ParticipantManager({
                       disabled={busy !== null || seatsLeft <= 0}
                       className="border border-olive/40 px-3 py-1.5 text-[9px] uppercase tracking-[0.12em] text-olive hover:bg-olive hover:text-ivory disabled:opacity-40"
                     >
-                      {busy === `req-${r.id}` ? '…' : 'Approve'}
+                      {busy === `req-${r.id}` ? '…' : 'Annehmen'}
                     </button>
                     <button
                       onClick={() => resolveRequest(r, false)}
                       disabled={busy !== null}
                       className="border border-ink/15 px-3 py-1.5 text-[9px] uppercase tracking-[0.12em] text-ink/50 hover:border-ink disabled:opacity-40"
                     >
-                      Decline
+                      Ablehnen
                     </button>
                   </div>
                 )}
@@ -245,27 +246,27 @@ export function ParticipantManager({
       </div>
 
       <div className="border border-ink/12 p-5">
-        <p className="label text-ink/40">Add a member</p>
+        <p className="label text-ink/45">Mitglied hinzufügen</p>
         <input
           className="field mt-3"
-          placeholder="Search members in this city"
+          placeholder="Mitglieder in dieser Stadt suchen"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <ul className="mt-3 space-y-1">
           {filtered.length === 0 ? (
-            <li className="text-[12px] text-ink/35">No unassigned members found.</li>
+            <li className="text-[12px] text-ink/35">Keine nicht zugeteilten Mitglieder gefunden.</li>
           ) : (
             filtered.map((m) => (
               <li key={m.id} className="flex items-center justify-between gap-2 py-1.5">
-                <span className="text-[12.5px] text-ink/70">{m.full_name ?? 'Unnamed'}</span>
+                <span className="text-[12.5px] text-ink/70">{m.full_name ?? 'Ohne Namen'}</span>
                 <button
                   onClick={() => add(m.id)}
                   disabled={busy !== null || seatsLeft <= 0}
                   className="flex items-center gap-1.5 border border-ink/15 px-2.5 py-1 text-[9px] uppercase tracking-[0.12em] text-ink/60 hover:border-ink hover:text-ink disabled:opacity-40"
                 >
                   {busy === `add-${m.id}` ? <Loader2 className="h-3 w-3 animate-spin" /> : <UserPlus className="h-3 w-3" strokeWidth={1.5} />}
-                  Seat
+                  Platz geben
                 </button>
               </li>
             ))

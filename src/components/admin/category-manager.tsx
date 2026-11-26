@@ -25,7 +25,7 @@ export function CategoryManager({ categories }: { categories: Category[] }) {
       if (err) throw new Error(err.message);
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not update.');
+      setError(e instanceof Error ? e.message : 'Aktualisierung fehlgeschlagen.');
     } finally {
       setBusy(null);
     }
@@ -50,7 +50,7 @@ export function CategoryManager({ categories }: { categories: Category[] }) {
         }}
         className="flex items-center gap-2 border border-ink/15 px-4 py-2.5 text-[10px] uppercase tracking-[0.14em] text-ink/60 hover:border-ink hover:text-ink"
       >
-        <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> New category
+        <Plus className="h-3.5 w-3.5" strokeWidth={1.5} /> Neue Kategorie
       </button>
 
       {error && <p className="text-[12px] text-cherry">{error}</p>}
@@ -70,7 +70,7 @@ export function CategoryManager({ categories }: { categories: Category[] }) {
         <table className="w-full min-w-[680px] text-left">
           <thead className="border-b border-ink/12 bg-cream/60">
             <tr>
-              {['Category', 'Slug', 'Accent', 'Order', 'State', ''].map((h) => (
+              {['Kategorie', 'Slug', 'Akzent', 'Reihenfolge', 'Status', ''].map((h) => (
                 <th key={h} className="px-4 py-3 text-[9px] uppercase tracking-label text-ink/40">
                   {h}
                 </th>
@@ -91,7 +91,7 @@ export function CategoryManager({ categories }: { categories: Category[] }) {
                 <td className="px-4 py-3 text-[12px] text-ink/50">{c.sort_order}</td>
                 <td className="px-4 py-3">
                   <span className={`text-[9px] uppercase tracking-label ${c.is_active ? 'text-olive' : 'text-ink/35'}`}>
-                    {c.is_active ? 'Active' : 'Hidden'}
+                    {c.is_active ? 'Aktiv' : 'Verborgen'}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right">
@@ -103,14 +103,14 @@ export function CategoryManager({ categories }: { categories: Category[] }) {
                       }}
                       className="text-[10px] uppercase tracking-[0.12em] text-ink/45 hover:text-cherry"
                     >
-                      Edit
+                      Bearbeiten
                     </button>
                     <button
                       onClick={() => toggleActive(c)}
                       disabled={busy === c.id}
                       className="text-[10px] uppercase tracking-[0.12em] text-ink/45 hover:text-ink disabled:opacity-40"
                     >
-                      {busy === c.id ? '…' : c.is_active ? 'Disable' : 'Enable'}
+                      {busy === c.id ? '…' : c.is_active ? 'Deaktivieren' : 'Aktivieren'}
                     </button>
                   </div>
                 </td>
@@ -141,7 +141,7 @@ function CategoryForm({
 
   async function save() {
     if (!form.name.trim() || !form.slug.trim()) {
-      setError('Name and slug are required.');
+      setError('Name und Slug sind erforderlich.');
       return;
     }
     setSaving(true);
@@ -165,7 +165,7 @@ function CategoryForm({
       onClose();
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not save the category.');
+      setError(e instanceof Error ? e.message : 'Kategorie konnte nicht gespeichert werden.');
     } finally {
       setSaving(false);
     }
@@ -173,22 +173,22 @@ function CategoryForm({
 
   return (
     <div className="border border-ink/20 bg-cream/40 p-5">
-      <p className="label text-ink/45">{isNew ? 'New category' : `Editing ${category.name}`}</p>
+      <p className="label text-ink/45">{isNew ? 'Neue Kategorie' : `Bearbeite ${category.name}`}</p>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="label block text-ink/40">Name</span>
+          <span className="label block text-ink/45">Name</span>
           <input className="field mt-1.5" value={form.name} onChange={(e) => set('name', e.target.value)} />
         </label>
         <label className="block">
-          <span className="label block text-ink/40">Slug</span>
+          <span className="label block text-ink/45">Slug</span>
           <input className="field mt-1.5" value={form.slug} onChange={(e) => set('slug', e.target.value)} />
         </label>
         <label className="block sm:col-span-2">
-          <span className="label block text-ink/40">Tagline</span>
+          <span className="label block text-ink/45">Kurzzeile</span>
           <input className="field mt-1.5" value={form.tagline ?? ''} onChange={(e) => set('tagline', e.target.value)} />
         </label>
         <label className="block sm:col-span-2">
-          <span className="label block text-ink/40">Description</span>
+          <span className="label block text-ink/45">Beschreibung</span>
           <textarea
             className="field mt-1.5 min-h-[70px] resize-none"
             value={form.description ?? ''}
@@ -196,12 +196,12 @@ function CategoryForm({
           />
         </label>
         <label className="block">
-          <span className="label block text-ink/40">Image URL (optional)</span>
+          <span className="label block text-ink/45">Bild-URL (optional)</span>
           <input className="field mt-1.5" value={form.image_url ?? ''} onChange={(e) => set('image_url', e.target.value)} placeholder="/images/cat-mixed.jpg" />
         </label>
         <div className="grid grid-cols-2 gap-4">
           <label className="block">
-            <span className="label block text-ink/40">Accent</span>
+            <span className="label block text-ink/45">Akzentfarbe</span>
             <input
               type="color"
               className="mt-1.5 h-[42px] w-full border border-ink/20 bg-transparent"
@@ -210,7 +210,7 @@ function CategoryForm({
             />
           </label>
           <label className="block">
-            <span className="label block text-ink/40">Order</span>
+            <span className="label block text-ink/45">Reihenfolge</span>
             <input
               type="number"
               className="field mt-1.5"
@@ -228,17 +228,17 @@ function CategoryForm({
           onChange={(e) => set('is_active', e.target.checked)}
           className="h-3.5 w-3.5 accent-[#120D0B]"
         />
-        Active and visible to members
+        Aktiv und für Mitglieder sichtbar
       </label>
 
       {error && <p className="mt-3 text-[12px] text-cherry">{error}</p>}
 
       <div className="mt-5 flex items-center gap-3">
         <button onClick={save} disabled={saving} className="btn bg-ink px-6 py-3 text-ivory hover:bg-cherry disabled:opacity-60">
-          {saving && <Loader2 className="h-4 w-4 animate-spin" />} Save
+          {saving && <Loader2 className="h-4 w-4 animate-spin" />} Speichern
         </button>
         <button onClick={onClose} className="text-[10px] uppercase tracking-[0.14em] text-ink/45 hover:text-ink">
-          Cancel
+          Abbrechen
         </button>
       </div>
     </div>

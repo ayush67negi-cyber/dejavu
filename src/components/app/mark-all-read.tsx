@@ -32,7 +32,7 @@ export function MarkAllRead() {
       disabled={busy}
       className="btn border border-ink/25 px-6 py-3 text-[10px] text-ink hover:border-ink disabled:opacity-50"
     >
-      {busy ? 'Marking…' : 'Mark all as read'}
+      {busy ? 'Wird markiert …' : 'Alle als gelesen markieren'}
     </button>
   );
 }

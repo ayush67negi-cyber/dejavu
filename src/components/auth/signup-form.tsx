@@ -42,7 +42,7 @@ export function SignupForm({ plan }: { plan?: string }) {
         setState('error');
         setMessage(
           error.message.includes('already registered')
-            ? 'An account already exists for this email. Try signing in instead.'
+            ? 'Für diese E-Mail-Adresse gibt es bereits ein Konto. Melde dich stattdessen an.'
             : error.message,
         );
         return;
@@ -56,11 +56,11 @@ export function SignupForm({ plan }: { plan?: string }) {
 
       setState('verify');
       setMessage(
-        `We’ve sent a confirmation link to ${parsed.data.email}. Open it to activate your account, then finish your profile.`,
+        `Wir haben einen Bestätigungslink an ${parsed.data.email} geschickt. Öffne ihn, um dein Konto zu aktivieren, und vervollständige danach dein Profil.`,
       );
     } catch {
       setState('error');
-      setMessage('We could not reach the server. Please try again.');
+      setMessage('Wir konnten den Server nicht erreichen. Bitte versuche es noch einmal.');
     }
   }
 
@@ -68,13 +68,13 @@ export function SignupForm({ plan }: { plan?: string }) {
     return (
       <div className="border border-ink/15 p-6">
         <CheckCircle2 className="h-5 w-5 text-olive" strokeWidth={1.5} />
-        <p className="mt-4 font-serif text-[22px] leading-tight text-ink">Check your inbox.</p>
+        <p className="mt-4 font-serif text-[22px] leading-tight text-ink">Schau in dein Postfach.</p>
         <p className="mt-3 text-[13.5px] leading-relaxed text-ink/60">{message}</p>
         <Link
           href="/login"
           className="mt-6 inline-block border-b border-ink/40 pb-0.5 text-[11px] uppercase tracking-[0.16em] text-ink hover:border-cherry hover:text-cherry"
         >
-          Go to sign in
+          Zur Anmeldung
         </Link>
       </div>
     );
@@ -84,14 +84,14 @@ export function SignupForm({ plan }: { plan?: string }) {
     <form onSubmit={onSubmit} className="space-y-7" noValidate>
       <div>
         <label htmlFor="fullName" className="label text-ink/40">
-          Full name
+          Vollständiger Name
         </label>
         <input
           id="fullName"
           name="fullName"
           autoComplete="name"
           className="field mt-2"
-          placeholder="As you’d like to be introduced"
+          placeholder="So möchtest du vorgestellt werden"
           value={form.fullName}
           onChange={(e) => setForm({ ...form, fullName: e.target.value })}
           required
@@ -100,7 +100,7 @@ export function SignupForm({ plan }: { plan?: string }) {
 
       <div>
         <label htmlFor="email" className="label text-ink/40">
-          Email
+          E-Mail
         </label>
         <input
           id="email"
@@ -117,7 +117,7 @@ export function SignupForm({ plan }: { plan?: string }) {
 
       <div>
         <label htmlFor="password" className="label text-ink/40">
-          Password
+          Passwort
         </label>
         <input
           id="password"
@@ -125,7 +125,7 @@ export function SignupForm({ plan }: { plan?: string }) {
           type="password"
           autoComplete="new-password"
           className="field mt-2"
-          placeholder="At least 8 characters"
+          placeholder="Mindestens 8 Zeichen"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
@@ -146,23 +146,24 @@ export function SignupForm({ plan }: { plan?: string }) {
       >
         {state === 'loading' ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} /> Creating your account
+            <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} /> Konto wird erstellt
           </>
         ) : (
-          'Create account'
+          'Konto erstellen'
         )}
       </button>
 
       <p className="text-[11px] leading-relaxed text-ink/40">
-        By joining you confirm you are 18 or older and accept our{' '}
+        Mit deinem Beitritt bestätigst du, dass du mindestens 18 Jahre alt bist, und akzeptierst
+        unsere{' '}
         <Link href="/terms" className="underline decoration-ink/25 underline-offset-2 hover:text-ink">
-          terms
+          AGB
         </Link>{' '}
-        and{' '}
+        und die{' '}
         <Link href="/privacy" className="underline decoration-ink/25 underline-offset-2 hover:text-ink">
-          privacy policy
+          Datenschutzerklärung
         </Link>
-        . DEJAVU is a friendship platform, not a dating app.
+        . DEJAVU ist eine Plattform für Freundschaften, keine Dating-App.
       </p>
     </form>
   );

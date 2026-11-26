@@ -11,7 +11,7 @@ export async function POST() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Not authenticated.' }, { status: 401 });
+  if (!user) return NextResponse.json({ error: 'Nicht angemeldet.' }, { status: 401 });
 
   const admin = createAdminClient();
   const { data: membership } = await admin
@@ -24,7 +24,7 @@ export async function POST() {
     .maybeSingle();
 
   if (!membership) {
-    return NextResponse.json({ error: 'No active membership.' }, { status: 404 });
+    return NextResponse.json({ error: 'Keine aktive Mitgliedschaft.' }, { status: 404 });
   }
 
   const { error } = await admin
@@ -37,8 +37,8 @@ export async function POST() {
   await admin.from('notifications').insert({
     user_id: user.id,
     type: 'membership',
-    title: 'Renewal cancelled',
-    body: 'No further charges will be made. Your access continues to the end of the current paid period.',
+    title: 'Verlängerung gekündigt',
+    body: 'Es erfolgen keine weiteren Abbuchungen. Dein Zugang läuft bis zum Ende des aktuellen bezahlten Zeitraums weiter.',
     link: '/app/membership',
   });
 

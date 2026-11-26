@@ -4,9 +4,9 @@ import { AuthShell } from '@/components/auth/auth-shell';
 import { SignupForm } from '@/components/auth/signup-form';
 
 export const metadata: Metadata = {
-  title: 'Join DEJAVU',
+  title: 'Werde Teil von DEJAVU',
   description:
-    'Become a DEJAVU member: four curated Sunday dining experiences a month at restaurants you would choose anyway. Not a dating app.',
+    'Werde DEJAVU-Mitglied: vier kuratierte Sonntags-Dinner pro Monat in Restaurants, die du auch selbst wählen würdest. Keine Dating-App.',
   alternates: { canonical: '/signup' },
 };
 
@@ -19,21 +19,21 @@ export default async function SignupPage({
 
   return (
     <AuthShell
-      eyebrow="Membership · Step one"
+      eyebrow="Mitgliedschaft · Schritt eins"
       title={
         <>
-          Begin with
+          Fang mit deinem
           <br />
-          <em className="not-italic text-cherry">your name.</em>
+          <em className="not-italic text-cherry">Namen an.</em>
         </>
       }
       aside={
-        <p className="text-[13px] leading-relaxed text-ink/50">
-          Already a member?{' '}
+        <p className="text-[13px] leading-relaxed text-ink/60">
+          Schon Mitglied?{' '}
           <Link href="/login" className="border-b border-ink/40 pb-0.5 text-ink hover:border-cherry hover:text-cherry">
-            Sign in
+            Anmelden
           </Link>
-          . We will ask about you after this — about ten minutes, once.
+          . Danach fragen wir ein paar Dinge über dich — etwa zehn Minuten, einmalig.
         </p>
       }
     >

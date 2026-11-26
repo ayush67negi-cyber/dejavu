@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 
   const body = (await request.json().catch(() => ({}))) as { userId?: string; planId?: string };
   if (!body.userId || !body.planId) {
-    return NextResponse.json({ error: 'Missing member or plan.' }, { status: 400 });
+    return NextResponse.json({ error: 'Mitglied oder Tarif fehlt.' }, { status: 400 });
   }
 
   const admin = createAdminClient();
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     .select('duration_months, name')
     .eq('id', body.planId)
     .maybeSingle();
-  if (!plan) return NextResponse.json({ error: 'Unknown plan.' }, { status: 400 });
+  if (!plan) return NextResponse.json({ error: 'Unbekannter Tarif.' }, { status: 400 });
 
   const startsAt = new Date();
   const endsAt = new Date(startsAt);
@@ -37,8 +37,8 @@ export async function POST(request: Request) {
   await admin.from('notifications').insert({
     user_id: body.userId,
     type: 'membership',
-    title: 'Membership activated',
-    body: `Your ${plan.name} membership is active until ${endsAt.toDateString()}.`,
+    title: 'Mitgliedschaft aktiviert',
+    body: `Deine Mitgliedschaft „${plan.name}“ ist aktiv bis ${endsAt.toLocaleDateString('de-DE')}.`,
     link: '/app/membership',
   });
 

@@ -6,11 +6,11 @@ import { Loader2, ShieldAlert, X } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
 const CATEGORIES = [
-  { value: 'safety', label: 'A safety concern' },
-  { value: 'harassment', label: 'Harassment or unwanted behaviour' },
-  { value: 'no_show', label: 'Someone did not attend' },
-  { value: 'misrepresentation', label: 'Someone misrepresented themselves' },
-  { value: 'other', label: 'Something else' },
+  { value: 'safety', label: 'Ein Sicherheitsproblem' },
+  { value: 'harassment', label: 'Belästigung oder unerwünschtes Verhalten' },
+  { value: 'no_show', label: 'Jemand ist nicht erschienen' },
+  { value: 'misrepresentation', label: 'Jemand hat sich falsch dargestellt' },
+  { value: 'other', label: 'Etwas anderes' },
 ] as const;
 
 export function ReportDialog({ experienceId }: { experienceId: string }) {
@@ -23,7 +23,7 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
 
   async function submit() {
     if (details.trim().length < 20) {
-      setError('Please describe what happened — at least a sentence or two.');
+      setError('Bitte beschreibe, was passiert ist – mindestens ein oder zwei Sätze.');
       return;
     }
     setLoading(true);
@@ -33,7 +33,7 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error('Please sign in again.');
+      if (!user) throw new Error('Bitte melde dich erneut an.');
       const { error: err } = await supabase.from('reports').insert({
         reporter_id: user.id,
         experience_id: experienceId,
@@ -43,7 +43,7 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
       if (err) throw new Error(err.message);
       setDone(true);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not submit the report.');
+      setError(e instanceof Error ? e.message : 'Die Meldung konnte nicht gesendet werden.');
     } finally {
       setLoading(false);
     }
@@ -57,7 +57,7 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
         className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-ink/40 transition-colors hover:text-cherry"
       >
         <ShieldAlert className="h-3.5 w-3.5" strokeWidth={1.5} />
-        Report a concern
+        Etwas melden
       </button>
 
       <AnimatePresence>
@@ -79,12 +79,12 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="label text-cherry">Safety</p>
+                  <p className="label text-cherry">Sicherheit</p>
                   <h2 className="mt-2 font-serif text-[26px] leading-tight text-ink">
-                    Tell us what happened.
+                    Erzähl uns, was passiert ist.
                   </h2>
                 </div>
-                <button onClick={() => setOpen(false)} aria-label="Close">
+                <button onClick={() => setOpen(false)} aria-label="Schließen">
                   <X className="h-5 w-5 text-ink/40" strokeWidth={1.5} />
                 </button>
               </div>
@@ -92,14 +92,15 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
               {done ? (
                 <div className="mt-6">
                   <p className="text-[14px] leading-relaxed text-ink/70">
-                    Received. A member of the DEJAVU team reviews every report. If anyone is at risk,
-                    we act immediately and may suspend an account while we investigate.
+                    Erhalten. Jede Meldung wird von einem Menschen im DEJAVU-Team geprüft. Wenn jemand
+                    gefährdet ist, handeln wir sofort und sperren das Konto gegebenenfalls während der
+                    Prüfung.
                   </p>
                   <button
                     onClick={() => setOpen(false)}
                     className="btn mt-6 bg-ink px-6 py-3 text-ivory hover:bg-cherry"
                   >
-                    Close
+                    Schließen
                   </button>
                 </div>
               ) : (
@@ -120,7 +121,7 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
                   </div>
                   <textarea
                     className="field mt-5 min-h-[110px] resize-none text-[13.5px]"
-                    placeholder="What happened, when, and who was involved. Please be specific."
+                    placeholder="Was ist passiert, wann, und wer war beteiligt? Bitte so genau wie möglich."
                     value={details}
                     maxLength={2000}
                     onChange={(e) => setDetails(e.target.value)}
@@ -128,14 +129,14 @@ export function ReportDialog({ experienceId }: { experienceId: string }) {
                   {error && <p className="mt-2 text-[12px] text-cherry">{error}</p>}
                   <div className="mt-5 flex items-center justify-between">
                     <p className="max-w-[30ch] text-[10px] leading-relaxed text-ink/35">
-                      Reports are private. The person you report will not see your name.
+                      Meldungen sind vertraulich. Die gemeldete Person sieht deinen Namen nicht.
                     </p>
                     <button
                       onClick={submit}
                       disabled={loading}
                       className="btn bg-ink px-6 py-3 text-ivory hover:bg-cherry disabled:opacity-50"
                     >
-                      {loading && <Loader2 className="h-4 w-4 animate-spin" />} Submit report
+                      {loading && <Loader2 className="h-4 w-4 animate-spin" />} Meldung senden
                     </button>
                   </div>
                 </>

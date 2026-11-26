@@ -5,7 +5,7 @@ import { getProfile, getCategories } from '@/lib/queries';
 import { ProfileEditor } from '@/components/app/profile-editor';
 import { BlockedList } from '@/components/app/blocked-list';
 
-export const metadata: Metadata = { title: 'Profile' };
+export const metadata: Metadata = { title: 'Profil' };
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -27,20 +27,20 @@ export default async function ProfilePage() {
     <div className="space-y-10">
       <div className="flex flex-col justify-between gap-4 border-b border-ink/12 pb-8 md:flex-row md:items-end">
         <div>
-          <p className="label text-ink/35">Profile</p>
+          <p className="label text-ink/40">Profil</p>
           <h1 className="mt-3 font-serif text-[clamp(2rem,4vw,3rem)] leading-[0.98] text-ink">
-            How you appear at a table.
+            Wie du an einem Tisch wirkst.
           </h1>
           <p className="mt-3 max-w-[52ch] text-[14px] leading-relaxed text-ink/55">
-            Only what you choose is shared, and only with people seated at your table. Dietary
-            information is shared with the venue.
+            Geteilt wird nur, was du freigibst – und nur mit den Menschen an deinem Tisch. Hinweise zu
+            deiner Ernährung gehen zusätzlich an das Restaurant.
           </p>
         </div>
         <Link
           href="/onboarding"
           className="btn border border-ink/25 px-6 py-3.5 text-ink hover:border-ink"
         >
-          Guided onboarding
+          Geführtes Onboarding
         </Link>
       </div>
 

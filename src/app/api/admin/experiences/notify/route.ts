@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     event?: 'confirmed' | 'cancelled';
   };
   if (!body.experienceId || !body.event) {
-    return NextResponse.json({ error: 'Missing experience or event.' }, { status: 400 });
+    return NextResponse.json({ error: 'Erlebnis oder Ereignis fehlt.' }, { status: 400 });
   }
 
   const admin = createAdminClient();
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     .select('id, name, city, starts_at, reveal_venue')
     .eq('id', body.experienceId)
     .maybeSingle();
-  if (!experience) return NextResponse.json({ error: 'Experience not found.' }, { status: 404 });
+  if (!experience) return NextResponse.json({ error: 'Erlebnis nicht gefunden.' }, { status: 404 });
 
   const { data: venue } = await admin
     .from('experience_venues')
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   if (!participants?.length) return NextResponse.json({ ok: true, notified: 0 });
 
   const when = experience.starts_at
-    ? new Date(experience.starts_at).toLocaleString('en-IN', {
+    ? new Date(experience.starts_at).toLocaleString('de-DE', {
         weekday: 'long',
         day: 'numeric',
         month: 'long',
@@ -44,19 +44,19 @@ export async function POST(request: Request) {
         minute: '2-digit',
         timeZone: 'Asia/Kolkata',
       })
-    : 'To be announced';
+    : 'Termin folgt';
 
   const rows = participants.map((p) => ({
     user_id: p.user_id,
     type: 'experience',
     title:
       body.event === 'confirmed'
-        ? `Your table is confirmed — ${experience.name}`
-        : `Table cancelled — ${experience.name}`,
+        ? `Dein Tisch ist bestätigt – ${experience.name}`
+        : `Tisch abgesagt – ${experience.name}`,
     body:
       body.event === 'confirmed'
-        ? `${when}${experience.reveal_venue && venue?.venue_name ? ` at ${venue.venue_name}` : ''}. Full details are in My experiences.`
-        : 'This table has been cancelled. We will place you at another table shortly — no action needed.',
+        ? `${when}${experience.reveal_venue && venue?.venue_name ? ` im ${venue.venue_name}` : ''}. Alle Details findest du unter „Meine Erlebnisse“.`
+        : 'Dieser Tisch wurde abgesagt. Wir setzen dich in Kürze an einen anderen Tisch – du musst nichts tun.',
     link: '/app/experiences',
   }));
 

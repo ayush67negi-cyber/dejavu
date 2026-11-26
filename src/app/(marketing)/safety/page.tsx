@@ -3,105 +3,106 @@ import Link from 'next/link';
 import { PageHead, Prose } from '@/components/marketing/page-head';
 
 export const metadata: Metadata = {
-  title: 'Safety',
+  title: 'Sicherheit',
   description:
-    'How DEJAVU keeps tables safe: verified members, adult-only access, private profile controls, reporting and blocking, and clear moderation.',
+    'Wie DEJAVU Tische sicher hält: geprüfte Mitglieder, Zugang nur für Erwachsene, private Profilsteuerung, Melden und Blockieren und klare Moderation.',
 };
 
 export default function SafetyPage() {
   return (
     <>
       <PageHead
-        eyebrow="Safety & privacy"
-        title="Strangers are the point. Unsafe is not."
-        lead="DEJAVU asks people to meet in person, so safety is a product requirement rather than a policy page. Here is exactly how it works."
+        eyebrow="Sicherheit & Privatsphäre"
+        title="Fremde sind der Sinn. Unsicher ist es nicht."
+        lead="DEJAVU bringt Menschen dazu, sich persönlich zu treffen. Sicherheit ist deshalb eine Produktanforderung und keine reine Richtlinienseite. So funktioniert sie konkret."
         tone="ink"
       />
       <Prose>
-        <h2>Who gets a seat</h2>
+        <h2>Wer einen Platz bekommt</h2>
         <p>
-          DEJAVU is restricted to adults. Every member confirms their date of birth during
-          onboarding, and the platform enforces an 18+ constraint at the database level. Members who
-          have not completed onboarding cannot be placed at a table or browse experiences.
+          DEJAVU ist Erwachsenen vorbehalten. Jedes Mitglied bestätigt beim Onboarding sein
+          Geburtsdatum, und die Plattform setzt die Altersgrenze von 18 Jahren auf Datenbankebene
+          durch. Mitglieder ohne abgeschlossenes Onboarding können weder an einem Tisch sitzen noch
+          Erlebnisse durchsuchen.
         </p>
 
-        <h3>What other people can see</h3>
+        <h3>Was andere sehen können</h3>
         <ul>
           <li>
-            <strong>Before a table is confirmed:</strong> nobody sees your profile details through
-            your table. Venue details stay hidden until an experience is confirmed.
+            <strong>Bevor ein Tisch bestätigt ist:</strong> Über deine Tischrunde sieht niemand deine
+            Profildetails. Ortsangaben bleiben verborgen, bis ein Erlebnis bestätigt ist.
           </li>
           <li>
-            <strong>Once you are seated:</strong> people at your table see your first name, photo,
-            occupation, city and — if you have allowed it — your short introduction.
+            <strong>Sobald du sitzt:</strong> Menschen an deinem Tisch sehen deinen Vornamen, dein
+            Foto, deinen Beruf, deine Stadt und – wenn du es erlaubst – deine kurze Vorstellung.
           </li>
           <li>
-            <strong>Never:</strong> your email address, your password, your questionnaire answers,
-            your reports, or any other member’s private information.
+            <strong>Niemals:</strong> deine E-Mail-Adresse, dein Passwort, deine Fragebogenantworten,
+            deine Meldungen oder private Informationen anderer Mitglieder.
           </li>
           <li>
-            <strong>Your control:</strong> you can set your visibility to table-only, members, or
-            private in your profile at any time.
+            <strong>Dein Einfluss:</strong> Du kannst deine Sichtbarkeit jederzeit im Profil auf „Nur
+            am Tisch“, „Alle Mitglieder“ oder „Privat“ stellen.
           </li>
         </ul>
 
-        <h2>Reporting and blocking</h2>
+        <h2>Melden und Blockieren</h2>
         <p>
-          Every confirmed experience has a report option in your dashboard. Reports are private: the
-          person you report does not see your name. A member of the DEJAVU team reviews every report
-          and records a written decision.
+          Bei jedem bestätigten Erlebnis gibt es in deinem Dashboard eine Meldefunktion. Meldungen
+          sind privat: Wer gemeldet wird, sieht deinen Namen nicht. Ein Mensch aus dem DEJAVU-Team
+          prüft jede Meldung und hält eine schriftliche Entscheidung fest.
         </p>
         <p>
-          Blocking a member ensures the two of you are never placed at the same table. Blocked
-          members are excluded from your experience recommendations. You can remove a block at any
-          time from your profile.
-        </p>
-
-        <h2>If something goes wrong</h2>
-        <p>
-          If you ever feel unsafe at a table, leave. You do not owe anyone an explanation, and you do
-          not need to finish the meal. Contact us the same day and we will act — including suspending
-          an account while we investigate.
-        </p>
-        <p>
-          For anything involving immediate danger, contact local emergency services first, then tell
-          us.
+          Wenn du jemanden blockierst, sitzt ihr nie am selben Tisch. Blockierte Mitglieder werden
+          aus deinen Empfehlungen ausgeschlossen. Eine Blockierung kannst du jederzeit im Profil
+          aufheben.
         </p>
 
-        <h2>Moderation decisions</h2>
+        <h2>Wenn etwas schiefgeht</h2>
+        <p>
+          Wenn du dich an einem Tisch unsicher fühlst, geh. Du schuldest niemandem eine Erklärung und
+          musst das Essen nicht beenden. Melde dich am selben Tag bei uns – wir handeln, auch mit
+          sofortiger Sperrung eines Kontos während der Prüfung.
+        </p>
+        <p>
+          Bei unmittelbarer Gefahr kontaktiere zuerst den örtlichen Notruf und informiere uns danach.
+        </p>
+
+        <h2>Moderationsentscheidungen</h2>
         <ul>
-          <li>Accounts can be suspended pending review, immediately and without prior notice.</li>
-          <li>Repeated no-shows are reviewed as a pattern, not a single incident.</li>
-          <li>Suspended members cannot browse experiences or be matched to tables.</li>
-          <li>Every moderation decision is recorded internally with a written rationale.</li>
+          <li>Konten können während einer Prüfung sofort und ohne Vorankündigung gesperrt werden.</li>
+          <li>Wiederholte No-Shows prüfen wir als Muster, nicht als Einzelfall.</li>
+          <li>Gesperrte Mitglieder können keine Erlebnisse durchsuchen und keinem Tisch zugeteilt werden.</li>
+          <li>Jede Moderationsentscheidung wird intern mit schriftlicher Begründung dokumentiert.</li>
         </ul>
 
-        <h2>Our data practices</h2>
+        <h2>Unsere Datenpraxis</h2>
         <p>
-          Member data is stored in a PostgreSQL database with row-level security. Members can read
-          and update only their own records; administrative access is a separate, server-verified
-          role that cannot be granted from the client. Dietary information is shared with the venue
-          in advance of an experience and is otherwise treated as private.
+          Mitgliederdaten liegen in einer PostgreSQL-Datenbank mit Row-Level-Security. Mitglieder
+          können ausschließlich eigene Daten lesen und ändern; administrativer Zugriff ist eine
+          separate, serverseitig geprüfte Rolle, die nicht vom Client vergeben werden kann.
+          Ernährungsangaben gehen vor einem Erlebnis an das Restaurant und werden sonst als privat
+          behandelt.
         </p>
         <p>
-          We do not sell member data. Read the full{' '}
+          Wir verkaufen keine Mitgliederdaten. Lies die vollständige{' '}
           <Link href="/privacy" className="underline decoration-ink/30 underline-offset-2 hover:text-ink">
-            privacy policy
+            Datenschutzerklärung
           </Link>{' '}
-          and the{' '}
+          und die{' '}
           <Link href="/guidelines" className="underline decoration-ink/30 underline-offset-2 hover:text-ink">
-            community guidelines
+            Community-Richtlinien
           </Link>
           .
         </p>
 
-        <h2>Contact</h2>
+        <h2>Kontakt</h2>
         <p>
-          Safety concerns are prioritised. Use the{' '}
+          Sicherheitsanliegen haben bei uns Vorrang. Nutze die{' '}
           <Link href="/contact" className="underline decoration-ink/30 underline-offset-2 hover:text-ink">
-            contact page
+            Kontaktseite
           </Link>{' '}
-          and mark your message as a safety matter.
+          und markiere deine Nachricht als Sicherheitsangelegenheit.
         </p>
       </Prose>
     </>

@@ -16,11 +16,11 @@ export function ResetForm() {
     e.preventDefault();
     setError('');
     if (password.length < 8) {
-      setError('Use at least 8 characters.');
+      setError('Nutze mindestens 8 Zeichen.');
       return;
     }
     if (password !== confirm) {
-      setError('The two passwords do not match.');
+      setError('Die beiden Passwörter stimmen nicht überein.');
       return;
     }
     setLoading(true);
@@ -32,10 +32,10 @@ export function ResetForm() {
         setLoading(false);
         return;
       }
-      router.push('/app?notice=Your%20password%20has%20been%20updated.');
+      router.push('/app?notice=Dein%20Passwort%20wurde%20aktualisiert.');
       router.refresh();
     } catch {
-      setError('We could not reach the server. Please try again.');
+      setError('Wir konnten den Server nicht erreichen. Bitte versuche es noch einmal.');
       setLoading(false);
     }
   }
@@ -44,14 +44,14 @@ export function ResetForm() {
     <form onSubmit={onSubmit} className="space-y-7" noValidate>
       <div>
         <label htmlFor="password" className="label text-ink/40">
-          New password
+          Neues Passwort
         </label>
         <input
           id="password"
           type="password"
           autoComplete="new-password"
           className="field mt-2"
-          placeholder="At least 8 characters"
+          placeholder="Mindestens 8 Zeichen"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -59,14 +59,14 @@ export function ResetForm() {
       </div>
       <div>
         <label htmlFor="confirm" className="label text-ink/40">
-          Confirm password
+          Passwort bestätigen
         </label>
         <input
           id="confirm"
           type="password"
           autoComplete="new-password"
           className="field mt-2"
-          placeholder="Repeat it"
+          placeholder="Noch einmal eingeben"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
           required
@@ -83,7 +83,7 @@ export function ResetForm() {
         className="btn w-full bg-ink py-[17px] text-ivory transition-colors duration-500 hover:bg-cherry disabled:opacity-60"
       >
         {loading ? <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} /> : null}
-        Update password
+        Passwort aktualisieren
       </button>
     </form>
   );

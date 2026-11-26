@@ -90,19 +90,26 @@ export const CATEGORY_FALLBACK: Category[] = [
  * produces a broken card. The DB `image_url` always wins when set.
  */
 const IMAGE_BY_SLUG: Record<string, string> = {
-  mixed: '/images/hero-table.jpg',
+  mixed: '/images/cat-mixed.jpg',
   creators: '/images/cat-creators.jpg',
   founders: '/images/cat-founders.jpg',
   'book-club': '/images/cat-book-club.jpg',
   foodies: '/images/cat-foodies.jpg',
   'new-here': '/images/cat-new-here.jpg',
   'after-hours': '/images/cat-after-hours.jpg',
-  'her-table': '/images/idea-conversation.jpg',
+  'her-table': '/images/cat-her-table.jpg',
 };
 
+const DEFAULT_CATEGORY_IMAGE = '/images/cat-mixed.jpg';
+
+/**
+ * Every category must resolve to an asset that exists in /public/images —
+ * a 404 here renders as a silent blank box, which is what previously happened
+ * for `mixed` and `her-table`.
+ */
 export function categoryImage(slug: string, imageUrl?: string | null) {
   if (imageUrl) return imageUrl;
-  return IMAGE_BY_SLUG[slug] ?? '/images/hero-table.jpg';
+  return IMAGE_BY_SLUG[slug] ?? DEFAULT_CATEGORY_IMAGE;
 }
 
 export type ExperienceVenue = {

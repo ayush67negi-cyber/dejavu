@@ -32,7 +32,7 @@ export default function Loading() {
           ))}
         </div>
       </div>
-      <span className="sr-only">Loading DEJAVU…</span>
+      <span className="sr-only">DEJAVU wird geladen …</span>
     </div>
   );
 }

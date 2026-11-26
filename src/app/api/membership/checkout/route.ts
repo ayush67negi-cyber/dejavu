@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         reason: 'not_configured',
-        error: 'Razorpay is not configured for this deployment.',
+        error: 'Razorpay ist für diese Installation nicht konfiguriert.',
       },
       { status: 503 },
     );
@@ -24,11 +24,11 @@ export async function POST(request: Request) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Not authenticated.' }, { status: 401 });
+  if (!user) return NextResponse.json({ error: 'Nicht angemeldet.' }, { status: 401 });
 
   const body = (await request.json().catch(() => ({}))) as { planId?: string };
   const planId = body.planId;
-  if (!planId) return NextResponse.json({ error: 'Missing plan.' }, { status: 400 });
+  if (!planId) return NextResponse.json({ error: 'Tarif fehlt.' }, { status: 400 });
 
   const admin = createAdminClient();
   const { data: plan } = await admin
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     .maybeSingle();
 
   if (!plan || !plan.is_active) {
-    return NextResponse.json({ error: 'That plan is not available.' }, { status: 400 });
+    return NextResponse.json({ error: 'Dieser Tarif ist nicht verfügbar.' }, { status: 400 });
   }
 
   const amountPaise = plan.price_inr * 100;
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
   if (!rzpRes.ok) {
     const detail = await rzpRes.text();
     console.error('[razorpay order]', rzpRes.status, detail.slice(0, 300));
-    return NextResponse.json({ error: 'Could not create the payment order.' }, { status: 502 });
+    return NextResponse.json({ error: 'Zahlungsauftrag konnte nicht erstellt werden.' }, { status: 502 });
   }
 
   const order = (await rzpRes.json()) as { id: string; amount: number; currency: string };
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
 
   if (insertError) {
     console.error('[payment record]', insertError.message);
-    return NextResponse.json({ error: 'Could not record the payment attempt.' }, { status: 500 });
+    return NextResponse.json({ error: 'Zahlungsversuch konnte nicht gespeichert werden.' }, { status: 500 });
   }
 
   return NextResponse.json({
