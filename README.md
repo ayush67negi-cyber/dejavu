@@ -107,6 +107,26 @@ Migrations in `supabase/migrations/`, applied to the live project in order:
 | `0003_seed.sql` | membership plans + eight table categories |
 | `0004_matching.sql` | `match_score()`, `candidate_matches()` (admin-only) |
 | `0005_venue_privacy.sql` | venue table isolation, internal-notes guard, RPC rewrite |
+| `0006_admin_bootstrap.sql` | `admin_allowlist` + signup trigger that grants the first admin |
+
+### Creating the first administrator
+
+`admin_roles` is writable only by the service role, and members cannot escalate
+themselves. That means the first admin is provisioned out-of-band:
+
+```sql
+-- run in the Supabase SQL editor (database owner), then sign up with that email
+insert into public.admin_allowlist (email, note)
+values ('you@example.com', 'founder')
+on conflict (email) do nothing;
+```
+
+`admin_allowlist` has RLS enabled with **no policies** and its grants are revoked
+from `anon`/`authenticated`, so no client can read or write it. The signup
+trigger checks it server-side and inserts the `admin_roles` row. To promote an
+existing account, add the email and re-run the backfill block at the end of
+`0006_admin_bootstrap.sql`. Removing an entry does **not** revoke an existing
+admin — delete the `admin_roles` row for that.
 
 Core tables: `profiles`, `admin_roles`, `user_interests`,
 `questionnaire_responses`, `table_categories`, `membership_plans`,

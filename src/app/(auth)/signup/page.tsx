@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { AuthShell } from '@/components/auth/auth-shell';
 import { SignupForm } from '@/components/auth/signup-form';
 
-export const metadata: Metadata = { title: 'Join DEJAVU' };
+export const metadata: Metadata = {
+  title: 'Join DEJAVU',
+  description:
+    'Become a DEJAVU member: four curated Sunday dining experiences a month at restaurants you would choose anyway. Not a dating app.',
+  alternates: { canonical: '/signup' },
+};
 
 export default async function SignupPage({
   searchParams,
