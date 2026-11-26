@@ -179,9 +179,29 @@ See `.env.example`. `SUPABASE_SERVICE_ROLE_KEY`, `RAZORPAY_*` are server-only.
 Public keys (`NEXT_PUBLIC_*`) are safe for the browser; the anon key is subject
 to RLS on every request.
 
-## 9. Verification performed
+## 9. Live deployment
 
-- `tsc --noEmit` clean, `next build` clean (35 routes).
+- URL: https://dejavu-dining.vercel.app
+- Vercel project: `dejavu-dining` (team `ayush67negi-2189`), production branch
+  `arena/5d6d7a91-dejavu`, Next.js 15.5.29.
+- Supabase project: DEJAVU, ref `xkaorafxdzgdaedvpirx`, ap-south-1.
+- Env vars set in Vercel: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
+  `NEXT_PUBLIC_SITE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (encrypted, server-only).
+- Supabase auth: site URL and redirect allow-list point at the deployment;
+  email confirmations enabled.
+
+**Admin access:** the founder email is already in `admin_allowlist`. Sign up at
+`/signup` with that email, and the signup trigger grants `admin_roles`, which
+unlocks `/admin`. No service key is needed in the browser.
+
+**Payments:** Razorpay keys are not set, so checkout returns a clear
+"not configured" response. No membership is ever marked paid without a verified
+payment or an explicit admin action.
+
+## 10. Verification performed
+
+- `tsc --noEmit` clean, `eslint .` clean (no errors or warnings), `next build`
+  clean (37 routes), `npm audit` clean (0 vulnerabilities).
 - Auth: five real accounts created through Supabase auth; session established
   and persisted through `@supabase/ssr` cookies; signup, login, logout,
   password-reset and email-verification flows implemented against the live API.
@@ -193,9 +213,19 @@ to RLS on every request.
   participant and to non-participants; a confirmed + revealed table returned the
   venue to its seated member only.
 - Matching verified: 10 scored candidate pairs produced for the QA city.
+- Production smoke tests against https://dejavu-dining.vercel.app: homepage,
+  tables, table detail, how-it-works, membership, about, legal pages, login,
+  signup and the auth callback all render; `/app`, `/admin` and `/onboarding`
+  redirect to `/login?next=…`; `robots.txt` and `sitemap.xml` serve correctly;
+  per-page `<title>` and meta descriptions verified in the rendered HTML.
+- Member actions verified at the API/RLS layer: table feedback, abuse report,
+  block, and seat request succeed for the member they belong to; feedback
+  submitted on another member's behalf is rejected; self-service membership
+  activation and self-notification are rejected.
 - Known limitation: this sandbox has no outbound network to the Supabase host,
-  so browser-level interactive testing was done against the SQL/auth layer and
-  the production build rather than via an automated browser.
+  so a fully scripted browser click-through (typing into the forms) was not
+  performed here; form flows are verified against the same Supabase client
+  calls in the build plus the RLS/auth checks above.
 
 ---
 
