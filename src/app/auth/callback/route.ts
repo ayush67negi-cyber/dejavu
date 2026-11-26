@@ -31,7 +31,7 @@ export async function GET(request: Request) {
 
   return NextResponse.redirect(
     `${origin}/login?notice=${encodeURIComponent(
-      'That link has expired or was already used. Please sign in or request a new one.',
+      'Dieser Link ist abgelaufen oder wurde bereits verwendet. Melde dich an oder fordere einen neuen an.',
     )}`,
   );
 }
