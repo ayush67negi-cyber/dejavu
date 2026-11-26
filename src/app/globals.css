@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --ivory: #f7f1e8;
+  --ink: #120d0b;
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  /* German compounds are long: allow breaking rather than overflowing. */
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* Long German words must never cause horizontal overflow on small screens. */
+h1,
+h2,
+h3,
+h4 {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* Editorial serif headlines keep their tight optical spacing, but not so tight
+   that umlauts collide on the line above. */
+.serif-de {
+  letter-spacing: -0.028em;
+}
+
+::selection {
+  background: #c4172f;
+  color: #fdf9f3;
+}
+
+/* Grain overlay used on premium surfaces */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--grain);
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+@layer components {
+  .label {
+    @apply font-sans text-[10px] uppercase tracking-label font-medium;
+  }
+
+  .rule {
+    @apply h-px w-full bg-current opacity-15;
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2.5 whitespace-nowrap font-sans text-[11px] uppercase tracking-[0.18em] font-medium transition-all duration-500 ease-edit;
+  }
+
+  .btn-solid {
+    @apply btn bg-ink text-ivory px-7 py-4 hover:bg-cherry;
+  }
+
+  .btn-outline {
+    @apply btn border border-ink/25 text-ink px-7 py-4 hover:border-ink hover:bg-ink hover:text-ivory;
+  }
+
+  .btn-light {
+    @apply btn bg-ivory text-ink px-7 py-4 hover:bg-cherry hover:text-ivory;
+  }
+
+  .field {
+    @apply w-full border-0 border-b border-ink/20 bg-transparent px-0 py-3.5 font-sans text-[15px] text-ink placeholder:text-ink/35 focus:border-ink focus:outline-none focus:ring-0 transition-colors duration-300;
+  }
+
+  .field-dark {
+    @apply w-full border-0 border-b border-ivory/25 bg-transparent px-0 py-3.5 font-sans text-[15px] text-ivory placeholder:text-ivory/35 focus:border-ivory focus:outline-none transition-colors duration-300;
+  }
+
+  .chip {
+    @apply cursor-pointer select-none border border-ink/20 px-4 py-2.5 text-[13px] transition-all duration-300 hover:border-ink/60;
+  }
+
+  .chip-on {
+    @apply border-ink bg-ink text-ivory;
+  }
+
+  .card {
+    @apply border border-ink/10 bg-cream/60;
+  }
+
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 h-px w-0 bg-current transition-all duration-500 ease-edit;
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+/* Editorial marquee */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 46s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* hairline dividers that read as printed rules */
+.hairline-v {
+  background-image: linear-gradient(to bottom, currentColor 40%, transparent 0%);
+  background-size: 1px 7px;
+  background-repeat: repeat-y;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
