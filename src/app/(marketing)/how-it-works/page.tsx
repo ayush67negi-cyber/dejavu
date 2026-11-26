@@ -49,7 +49,7 @@ export default function HowItWorksPage() {
 
       <section className="bg-ivory">
         <div className="mx-auto max-w-[1300px] px-5 md:px-10">
-          {STEPS.map((s, i) => (
+          {STEPS.map((s) => (
             <div
               key={s.n}
               className="grid gap-6 border-b border-ink/12 py-12 md:grid-cols-[140px_1fr_1.2fr] md:gap-12 md:py-16"
