@@ -6,9 +6,18 @@ DEJAVU is a premium social dining membership. We compose tables of four to six
 adults around real restaurants and let conversations do the rest. It is not a
 dating app — it is infrastructure for friendship.
 
-- **Live app:** https://dejavu-dining-ayush67negi-2189.vercel.app
+- **Live app:** https://dejavu-dining.vercel.app
 - **Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS · Supabase · Vercel
 - **Database region:** Mumbai (`ap-south-1`)
+
+### Sprache
+
+Die gesamte Website — Marketing, Registrierung, Login, Passwort-Reset,
+Onboarding, Mitgliederbereich, Admin-Studio, Zahlungsoberfläche, Rechtstexte,
+Fehler- und Leerzustände — ist auf Deutsch verfasst, durchgehend in der
+Du-Form. „DEJAVU“ bleibt als Markenname unverändert. Preise, Datenbankfelder und
+Code-Bezeichner bleiben technisch (`1 Monat ₹1.999 · 3 Monate ₹4.999 ·
+6 Monate ₹8.999`), Formate werden mit `de-DE` dargestellt.
 
 ---
 
